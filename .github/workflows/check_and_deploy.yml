@@ -64,3 +64,10 @@ jobs:
           path: |
             *debug.apk
           retention-days: 3
+
+      - name: Install AppCenter CLI
+        run: |
+          npm install -g appcenter-cli
+          echo "List downloads folder contents:"
+          ls -R
+        shell: bash
