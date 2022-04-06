@@ -62,7 +62,7 @@ jobs:
         with:
           name: dev-build
           path: |
-            *debug.apk
+            *app-debug.apk
           retention-days: 3
 
       - name: Install AppCenter CLI
@@ -70,4 +70,12 @@ jobs:
           npm install -g appcenter-cli
           echo "List downloads folder contents:"
           ls -R
+        shell: bash
+
+      - name: Download All Artifacts
+        uses: actions/download-artifact@v2
+
+      - name: Upload to Appcenter
+        run: |
+          appcenter distribute groups publish -f ./dev-build/*debug.apk --token ${{ secrets.APP_CENTER_TOKEN }} --app GithubActionsApp -g "Dev Debug Build"
         shell: bash
