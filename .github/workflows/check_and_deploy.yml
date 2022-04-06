@@ -49,5 +49,8 @@ jobs:
         if: always()
         run: |
           echo "Build outputs"
-          cd /home/runner/work/firefly-android/firefly-android/build/
+          cd /home/runner/work/
           tree -a
+
+      - name: Export build artifact
+        uses: actions/upload-artifact@v2
