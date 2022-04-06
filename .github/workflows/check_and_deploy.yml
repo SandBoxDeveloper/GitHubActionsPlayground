@@ -1,0 +1,53 @@
+## 1
+name: Test and deploy
+
+## Actions that will be executed when you push code currently none
+on:
+  pull_request:
+    branches:
+      - master
+
+  workflow_dispatch:
+
+## 2
+jobs:
+  ## 3
+  unit_tests:
+    runs-on: [ubuntu-latest]
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Run Unit tests
+        run: ./gradlew test
+  ## 4
+  android_tests:
+    runs-on: [ macos-latest ]
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Instrumentation Tests
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 29
+          script: ./gradlew connectedAndroidTest
+
+  build:
+    needs: [ unit_tests, android_tests ]
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Generate Dev APK
+        run: ./gradlew assembleDebug
+
+      - name: List build output
+        if: always()
+        run: |
+          echo "Build outputs"
+          cd /home/runner/work/firefly-android/firefly-android/build/
+          tree -a
