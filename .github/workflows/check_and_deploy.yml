@@ -31,3 +31,21 @@ jobs:
         with:
           api-level: 29
           script: ./gradlew connectedAndroidTest
+
+  build:
+    needs: [ unit_tests, android_tests ]
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Generate Dev APK
+        run: ./gradlew assembleDebug
+
+      - name: List build output
+        if: always()
+        run: |
+          echo "Build outputs"
+          cd /home/runner/work/firefly-android/firefly-android/build/
+          tree -a
