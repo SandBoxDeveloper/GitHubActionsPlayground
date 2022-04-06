@@ -33,11 +33,11 @@ jobs:
           java-version: '11'
           distribution: 'adopt'
 
-      - name: Instrumentation Tests
-        uses: reactivecircus/android-emulator-runner@v2
-        with:
-          api-level: 29
-          script: ./gradlew connectedAndroidTest
+#      - name: Instrumentation Tests
+#        uses: reactivecircus/android-emulator-runner@v2
+#        with:
+#          api-level: 29
+#          script: ./gradlew connectedAndroidTest
 
   build:
     needs: [ unit_tests, android_tests ]
@@ -54,7 +54,7 @@ jobs:
         if: always()
         run: |
           echo "Build outputs"
-          cd /home/runner/work/GithubActionsPlayground/GithubActionsPlayground/app/build/
+          cd /home/runner/work/GithubActionsPlayground/
           tree -a
 
       - name: Export build artifact
