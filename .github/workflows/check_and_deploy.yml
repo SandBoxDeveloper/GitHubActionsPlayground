@@ -30,6 +30,3 @@ jobs:
         with:
           api-level: 29
           script: ./gradlew connectedAndroidTest
-
-  integration_tests:
-    runs-on: [ macos-latest ]
