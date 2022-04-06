@@ -62,7 +62,7 @@ jobs:
         with:
           name: dev-build
           path: |
-            ${{ github.workspace }}/artifact/**/*
+            ${{ github.workspace }}/app/build/outputs/apk/debug/
           retention-days: 3
 
       - name: Install AppCenter CLI
