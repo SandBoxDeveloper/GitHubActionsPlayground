@@ -62,5 +62,5 @@ jobs:
         with:
           name: dev-build
           path: |
-            *Dev*.apk
+            *debug.apk
           retention-days: 3
