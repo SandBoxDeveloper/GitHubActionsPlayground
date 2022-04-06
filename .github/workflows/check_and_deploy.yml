@@ -54,7 +54,7 @@ jobs:
         if: always()
         run: |
           echo "Build outputs"
-          cd /home/runner/work/GitHubActionsPlayground/GitHubActionsPlayground/
+          cd /home/runner/work/GitHubActionsPlayground/GitHubActionsPlayground/app/build/outputs/apk/debug/
           tree -a
 
       - name: Export build artifact
