@@ -95,7 +95,7 @@ jobs:
       - name: Get Release Notes
         shell: bash
         run: |
-          sh rnotes=$(${{ github.workspace }}/.github/scripts/app_center_release_notes.sh)
+          rnotes=$(sh ${{ github.workspace }}/.github/scripts/app_center_release_notes.sh)
           echo rnotes
           echo $rnotes
 
