@@ -23,6 +23,7 @@ jobs:
 
   android_tests:
     runs-on: [ macos-latest ]
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -32,12 +33,6 @@ jobs:
         with:
           java-version: '11'
           distribution: 'adopt'
-
-#      - name: Instrumentation Tests
-#        uses: reactivecircus/android-emulator-runner@v2
-#        with:
-#          api-level: 29
-#          script: ./gradlew connectedAndroidTest
 
   build:
     needs: [ unit_tests ]
@@ -65,17 +60,22 @@ jobs:
             ${{ github.workspace }}/app/build/outputs/apk/debug/*.apk
           retention-days: 3
 
-      - name: Install AppCenter CLI
-        run: |
-          npm install -g appcenter-cli
-          echo "List downloads folder contents:"
-          ls -R
-        shell: bash
+  deploy:
+    needs: [ build ]
+    runs-on: ubuntu-latest
 
+    steps:
       - name: Download All Artifacts
         uses: actions/download-artifact@v2
 
+      - name: Install AppCenter CLI
+          run: |
+            npm install -g appcenter-cli
+            echo "List downloads folder contents:"
+            ls -R
+          shell: bash
+
       - name: Upload to Appcenter
         run: |
-          appcenter distribute groups publish -f ./dev-build/app-debug.apk --token ${{ secrets.APP_CENTER_TOKEN }} --app GithubTest/GithubActionsApp -g "Beta Testers" --debug
+          appcenter distribute groups publish -f ./dev-build/app-debug.apk --token ${{ secrets.APP_CENTER_TOKEN }} --app GithubTest/GithubActionsApp -g "Beta Testers" --edit-notes "release notes" --debug
         shell: bash
