@@ -77,7 +77,7 @@ jobs:
 
       - name: Upload to Appcenter
         run: |
-          sh feature_name=$(santander-group-uk/firefly-android/.github/scripts/get_branch_name.sh -b "${{ github.ref }}")
+          sh feature_name=$(/home/runner/work/GitHubActionsPlayground/GitHubActionsPlayground/.github/scripts/get_branch_name.sh -b "${{ github.ref }}")
           echo "github ref: " ${{ github.ref }}
           echo "branch reference is: " $feature_name
           echo $(pwd)
