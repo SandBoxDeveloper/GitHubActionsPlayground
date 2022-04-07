@@ -81,8 +81,8 @@ jobs:
 #          feature_name=$(${{ github.workspace }}.github/scripts/get_feature_name.sh -b "${{ github.ref }}")
 #          echo "branch reference is: " $feature_name
 
-#      - name: Checkout code
-#        uses: actions/checkout@v2
+      - name: Checkout code
+        uses: actions/checkout@v2
 
       - name: List files
         run: |
