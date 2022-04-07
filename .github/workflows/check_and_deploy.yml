@@ -69,11 +69,11 @@ jobs:
         uses: actions/download-artifact@v2
 
       - name: Install AppCenter CLI
-          run: |
-            npm install -g appcenter-cli
-            echo "List downloads folder contents:"
-            ls -R
-          shell: bash
+        run: |
+          npm install -g appcenter-cli
+          echo "List downloads folder contents:"
+          ls -R
+        shell: bash
 
       - name: Upload to Appcenter
         run: |
