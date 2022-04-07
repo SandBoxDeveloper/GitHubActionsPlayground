@@ -66,18 +66,20 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-#      - name: Download All Artifacts
-#        uses: actions/download-artifact@v2
-#
-#      - name: Install AppCenter CLI
-#        run: |
-#          npm install -g appcenter-cli
-#          echo "List downloads folder contents:"
-#          ls -R
-#        shell: bash
-#      -  feature_name=$(${{ github.workspace }}.github/scripts/get_feature_name.sh -b "${{ github.ref }}")
-#      -  echo "branch reference is: " $feature_name
+      - name: Download All Artifacts
+        uses: actions/download-artifact@v2
 
+      - name: Install AppCenter CLI
+        run: |
+          npm install -g appcenter-cli
+          echo "List downloads folder contents:"
+          ls -R
+        shell: bash
+      -
+      - name: Download All Artifacts
+        run: |
+          feature_name=$(${{ github.workspace }}.github/scripts/get_feature_name.sh -b "${{ github.ref }}")
+          echo "branch reference is: " $feature_name
 
       - name: Checkout code
         uses: actions/checkout@v2
@@ -95,28 +97,6 @@ jobs:
       - name: Get Release Notes
         shell: bash
         run: sh ${{ github.workspace }}/.github/scripts/app_center_release_notes.sh >> $GITHUB_ENV
-
-      - name: Get Release Notes with id branch
-        id: branch
-        run: |
-          echo "::set-output name=go_version::$(sh ${{ github.workspace }}/.github/scripts/app_center_release_notes.sh)"
-        shell: bash
-
-      - name: Get Release Notes 2
-        id: branch2
-        run: |
-          echo "::set-output name=go_version::$("checking ...")"
-        shell: bash
-
-      - name: Get Release Notes 3
-        id: branch3
-        run: |
-          echo "::set-output name=go_version::$('checking ...')"
-
-      - name: Get Release Notes 4
-        id: branch4
-        run: |
-          sh ${{ github.workspace }}/.github/scripts/app_center_release_notes.sh >> $GITHUB_ENV
 
       - name: Get Release Notes 5
         id: branch5
