@@ -76,13 +76,13 @@ jobs:
           ls -R
         shell: bash
 
-      - name: Download All Artifacts
-        run: |
-          feature_name=$(${{ github.workspace }}.github/scripts/get_feature_name.sh -b "${{ github.ref }}")
-          echo "branch reference is: " $feature_name
+#      - name: Download All Artifacts
+#        run: |
+#          feature_name=$(${{ github.workspace }}.github/scripts/get_feature_name.sh -b "${{ github.ref }}")
+#          echo "branch reference is: " $feature_name
 
-      - name: Checkout code
-        uses: actions/checkout@v2
+#      - name: Checkout code
+#        uses: actions/checkout@v2
 
       - name: List files
         run: |
@@ -101,6 +101,7 @@ jobs:
       - name: Get Release Notes 5
         id: branch5
         run: |
+          echo "GITHUB_SHA_SHORT=$(echo $GITHUB_SHA | cut -c 1-6)" >> $GITHUB_ENV
           echo "action_state=yellow" >> $GITHUB_ENV
 
 
@@ -114,7 +115,9 @@ jobs:
 #        id: extract_branch
 
       - name: Print release notes message
-        run: echo ${{ env.action_state }}
+        run: |
+          echo ${{ env.action_state }}
+          echo $GITHUB_SHA_SHORT
 
 
 
