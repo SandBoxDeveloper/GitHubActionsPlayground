@@ -101,7 +101,7 @@ jobs:
       - name: Get Release Notes 5
         id: branch5
         run: |
-          echo "GITHUB_SHA_SHORT=$(echo ${{ github.workspace })" >> $GITHUB_ENV
+          echo "GITHUB_SHA_SHORT=$(echo ${{ github.workspace }})" >> $GITHUB_ENV
           echo "action_state=yellow" >> $GITHUB_ENV
 
 
