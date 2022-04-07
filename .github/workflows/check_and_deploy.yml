@@ -95,7 +95,10 @@ jobs:
       - name: Get Release Notes
         shell: bash
         run: sh ${{ github.workspace }}/.github/scripts/app_center_release_notes.sh >> $GITHUB_ENV
-        id: branch
+
+      - name: Get Release Notes 2
+        shell: bash
+        run: echo sh ${{ github.workspace }}/.github/scripts/app_center_release_notes.sh
 #          rnotes=$(sh ${{ github.workspace }}/.github/scripts/app_center_release_notes.sh)
 #          echo rnotes
 #          echo $rnotes
