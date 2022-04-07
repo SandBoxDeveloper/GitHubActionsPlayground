@@ -74,13 +74,13 @@ jobs:
 #          echo "List downloads folder contents:"
 #          ls -R
 #        shell: bash
+#      -  feature_name=$(${{ github.workspace }}.github/scripts/get_feature_name.sh -b "${{ github.ref }}")
+#      -  echo "branch reference is: " $feature_name
 
       - name: Upload to Appcenter
         run: |
+          ls -r
           ${{ github.workspace }}.github/scripts/get_feature_name.sh -b "${{ github.ref }}"
-          feature_name=$(${{ github.workspace }}.github/scripts/get_feature_name.sh -b "${{ github.ref }}")
           echo "github ref: " ${{ github.ref }}
-          echo "branch reference is: " $feature_name
           echo $(pwd)
-          appcenter distribute groups publish -f ./dev-build/app-debug.apk --token ${{ secrets.APP_CENTER_TOKEN }} --app GithubTest/GithubActionsApp -g "Beta Testers" -r "TODO some release notes" --debug
         shell: bash
