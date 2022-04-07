@@ -94,18 +94,19 @@ jobs:
 
       - name: Get Release Notes
         shell: bash
-        run: |
-          rnotes=$(sh ${{ github.workspace }}/.github/scripts/app_center_release_notes.sh)
-          echo rnotes
-          echo $rnotes
+        run: ::set-output name=notes::$(sh ${{ github.workspace }}/.github/scripts/app_center_release_notes.sh)
+        id: branch
+#          rnotes=$(sh ${{ github.workspace }}/.github/scripts/app_center_release_notes.sh)
+#          echo rnotes
+#          echo $rnotes
 
 #      - name: Extract branch name
 #        shell: bash
 #        run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
 #        id: extract_branch
 
-#      - name: Print release notes message
-#        run: echo ${{ steps.extract_branch.outputs.notes }}
+      - name: Print release notes message
+        run: echo ${{ steps.branch.outputs.notes }}
 
       - name: Upload to Appcenter
         run: |
