@@ -99,8 +99,20 @@ jobs:
       - name: Get Release Notes 2
         id: branch
         run: |
-          OUTDATED=$(sh ${{ github.workspace }}/.github/scripts/app_center_release_notes.sh)
+          echo "::set-output name=go_version::$(sh ${{ github.workspace }}/.github/scripts/app_center_release_notes.sh)"
         shell: bash
+
+      - name: Get Release Notes 3
+          id: branch
+          run: |
+            echo "::set-output name=go_version::$("checking ...")"
+          shell: bash
+
+      - name: Get Release Notes 4
+          id: branch
+          run: |
+            echo "::set-output name=go_version::$("checking ...")"
+
 
 #          rnotes=$(sh ${{ github.workspace }}/.github/scripts/app_center_release_notes.sh)
 #          echo rnotes
@@ -112,7 +124,11 @@ jobs:
 #        id: extract_branch
 
       - name: Print release notes message
-        run: echo ${{  steps.branch.outputs.outdated }}
+        run: echo ${{ steps.branch.outputs.go_version }}
+
+
+      - name: Print release notes message from 4
+        run: echo ${{ steps.branch.outputs.go_version }}
 #        run: echo ${{ steps.branch.outputs.notes }}
 
       - name: Upload to Appcenter
