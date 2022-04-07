@@ -103,15 +103,15 @@ jobs:
         shell: bash
 
       - name: Get Release Notes 3
-          id: branch
-          run: |
-            echo "::set-output name=go_version::$("checking ...")"
-          shell: bash
+        id: branch
+        run: |
+          echo "::set-output name=go_version::$("checking ...")"
+        shell: bash
 
       - name: Get Release Notes 4
-          id: branch
-          run: |
-            echo "::set-output name=go_version::$("checking ...")"
+        id: branch
+        run: |
+          echo "::set-output name=go_version::$("checking ...")"
 
 
 #          rnotes=$(sh ${{ github.workspace }}/.github/scripts/app_center_release_notes.sh)
