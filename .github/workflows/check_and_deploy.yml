@@ -121,7 +121,7 @@ jobs:
       - name: Get Release Notes 5
         id: branch5
         run: |
-          run: echo "action_state=yellow" >> $GITHUB_ENV
+          echo "action_state=yellow" >> $GITHUB_ENV
 
 
 #          rnotes=$(sh ${{ github.workspace }}/.github/scripts/app_center_release_notes.sh)
