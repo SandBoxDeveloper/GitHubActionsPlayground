@@ -77,5 +77,9 @@ jobs:
 
       - name: Upload to Appcenter
         run: |
+          sh feature_name=$(santander-group-uk/firefly-android/.github/scripts/get_branch_name.sh -b "${{ github.ref }}")
+          echo "github ref: " ${{ github.ref }}
+          echo "branch reference is: " $feature_name
+          echo $(pwd)
           appcenter distribute groups publish -f ./dev-build/app-debug.apk --token ${{ secrets.APP_CENTER_TOKEN }} --app GithubTest/GithubActionsApp -g "Beta Testers" -r "TODO some release notes" --debug
         shell: bash
