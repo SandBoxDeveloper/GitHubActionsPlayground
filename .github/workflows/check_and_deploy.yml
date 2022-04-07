@@ -35,7 +35,7 @@ jobs:
           distribution: 'adopt'
 
   build:
-    needs: [ unit_tests ]
+#    needs: [ unit_tests ]
     runs-on: ubuntu-latest
 
     steps:
