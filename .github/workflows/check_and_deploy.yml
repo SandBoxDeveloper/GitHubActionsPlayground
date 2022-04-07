@@ -97,8 +97,11 @@ jobs:
         run: sh ${{ github.workspace }}/.github/scripts/app_center_release_notes.sh >> $GITHUB_ENV
 
       - name: Get Release Notes 2
+        id: branch
+        run: |
+          OUTDATED=$(sh ${{ github.workspace }}/.github/scripts/app_center_release_notes.sh)
         shell: bash
-        run: echo sh ${{ github.workspace }}/.github/scripts/app_center_release_notes.sh
+
 #          rnotes=$(sh ${{ github.workspace }}/.github/scripts/app_center_release_notes.sh)
 #          echo rnotes
 #          echo $rnotes
@@ -109,7 +112,7 @@ jobs:
 #        id: extract_branch
 
       - name: Print release notes message
-        run: echo ${{  env.action_state }}
+        run: echo ${{  steps.branch.outputs.outdated }}
 #        run: echo ${{ steps.branch.outputs.notes }}
 
       - name: Upload to Appcenter
