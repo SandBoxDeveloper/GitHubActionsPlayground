@@ -103,13 +103,13 @@ jobs:
         shell: bash
 
       - name: Get Release Notes 3
-        id: branch
+        id: branch2
         run: |
           echo "::set-output name=go_version::$("checking ...")"
         shell: bash
 
       - name: Get Release Notes 4
-        id: branch
+        id: branch3
         run: |
           echo "::set-output name=go_version::$("checking ...")"
 
@@ -128,7 +128,7 @@ jobs:
 
 
       - name: Print release notes message from 4
-        run: echo ${{ steps.branch.outputs.go_version }}
+        run: echo ${{ steps.branch3.outputs.go_version }}
 #        run: echo ${{ steps.branch.outputs.notes }}
 
       - name: Upload to Appcenter
