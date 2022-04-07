@@ -77,5 +77,5 @@ jobs:
 
       - name: Upload to Appcenter
         run: |
-          appcenter distribute groups publish -f ./dev-build/app-debug.apk --token ${{ secrets.APP_CENTER_TOKEN }} --app GithubTests/GithubActionsApp -g "Beta Testers" --debug
+          appcenter distribute groups publish -f ./dev-build/app-debug.apk --token ${{ secrets.APP_CENTER_TOKEN }} --app GithubTest/GithubActionsApp -g "Beta Testers" --debug
         shell: bash
