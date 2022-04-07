@@ -77,7 +77,8 @@ jobs:
 
       - name: Upload to Appcenter
         run: |
-          sh feature_name=$(${{ github.workspace }}.github/scripts/get_feature_name.sh -b "${{ github.ref }}")
+          ${{ github.workspace }}.github/scripts/get_feature_name.sh -b "${{ github.ref }}"
+          feature_name=$(${{ github.workspace }}.github/scripts/get_feature_name.sh -b "${{ github.ref }}")
           echo "github ref: " ${{ github.ref }}
           echo "branch reference is: " $feature_name
           echo $(pwd)
