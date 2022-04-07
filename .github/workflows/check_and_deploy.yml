@@ -87,7 +87,7 @@ jobs:
 
       - name: Upload to Appcenter
         run: |
-          ${{ github.workspace }}/.github/scripts/get_feature_name.sh -b "${{ github.ref }}"
+          chmod +x ${{ github.workspace }}/.github/scripts/get_feature_name.sh -b "${{ github.ref }}"
           echo "github ref: " ${{ github.ref }}
           echo $(pwd)
         shell: bash
