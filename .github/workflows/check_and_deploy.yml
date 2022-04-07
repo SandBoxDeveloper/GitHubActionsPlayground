@@ -89,17 +89,25 @@ jobs:
       - name: Run a one-line script
         run: sh ${{ github.workspace }}/.github/scripts/get_feature_name.sh -b "${{ github.ref }}"
 
-      - name: Extract branch name
+      - name: Run git message script
+        run: sh ${{ github.workspace }}/.github/scripts/app_center_release_notes.sh
+
+      - name: Get Release Notes
         shell: bash
-        run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
+        run: |
+          echo "##[set-output name=notes;]$(echo ${{ github.workspace }}/.github/scripts/app_center_release_notes.sh)"
         id: extract_branch
 
-      - name: Push to ECR
+#      - name: Extract branch name
+#        shell: bash
+#        run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
+#        id: extract_branch
+
+      - name: Print release notes message
         run: echo ${{ steps.extract_branch.outputs.branch }}
 
       - name: Upload to Appcenter
         run: |
           sh ${{ github.workspace }}/.github/scripts/get_feature_name.sh -b "${{ github.ref }}"
           echo "github ref: " ${{ github.ref }}
-          echo $(pwd)
         shell: bash
