@@ -85,10 +85,16 @@ jobs:
         run: |
           tree -a
 
-
       - name: Run a one-line script
         run: sh ${{ github.workspace }}/.github/scripts/get_feature_name.sh -b "${{ github.ref }}"
 
+      - name: Extract branch name
+        shell: bash
+        run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
+        id: extract_branch
+
+      - name: Push to ECR
+        run: echo ${{ steps.extract_branch.outputs.branch }}
 
       - name: Upload to Appcenter
         run: |
