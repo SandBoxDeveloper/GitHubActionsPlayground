@@ -11,7 +11,7 @@ do
     esac
 done
 
-if [ "$FEATURE_BRANCH_NAME" == "ref/head/main" ]; then
+if [ "$FEATURE_BRANCH_NAME" == "refs/heads/main" ]; then
   echo "${FEATURE_BRANCH_NAME##*/}"
 else
   branch_ref="${FEATURE_BRANCH_NAME%/*}"
