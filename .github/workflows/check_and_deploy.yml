@@ -75,7 +75,7 @@ jobs:
           echo "List downloads folder contents:"
           ls -R
         shell: bash
-      -
+
       - name: Download All Artifacts
         run: |
           feature_name=$(${{ github.workspace }}.github/scripts/get_feature_name.sh -b "${{ github.ref }}")
