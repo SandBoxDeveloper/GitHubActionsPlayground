@@ -104,7 +104,7 @@ jobs:
 #        id: extract_branch
 
       - name: Print release notes message
-        run: echo ${{ steps.extract_branch.outputs.branch }}
+        run: echo ${{ steps.extract_branch.outputs.notes }}
 
       - name: Upload to Appcenter
         run: |
