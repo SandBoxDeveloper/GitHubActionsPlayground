@@ -85,9 +85,14 @@ jobs:
         run: |
           tree -a
 
+
+      - name: Run a one-line script
+        run: sh ${{ github.workspace }}/.github/scripts/get_feature_name.sh -b "${{ github.ref }}"
+
+
       - name: Upload to Appcenter
         run: |
-          chmod +x ${{ github.workspace }}/.github/scripts/get_feature_name.sh -b "${{ github.ref }}"
+          sh ${{ github.workspace }}/.github/scripts/get_feature_name.sh -b "${{ github.ref }}"
           echo "github ref: " ${{ github.ref }}
           echo $(pwd)
         shell: bash
