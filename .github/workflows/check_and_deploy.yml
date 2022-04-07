@@ -35,7 +35,7 @@ jobs:
           distribution: 'adopt'
 
   build:
-#    needs: [ unit_tests ]
+    needs: [ unit_tests ]
     runs-on: ubuntu-latest
 
     steps:
@@ -77,6 +77,5 @@ jobs:
 
       - name: Upload to Appcenter
         run: |
-          appcenter help distribute
-          appcenter distribute groups publish -f ./dev-build/app-debug.apk --token ${{ secrets.APP_CENTER_TOKEN }} --app GithubTest/GithubActionsApp -g "Beta Testers" -r "release notes" --debug
+          appcenter distribute groups publish -f ./dev-build/app-debug.apk --token ${{ secrets.APP_CENTER_TOKEN }} --app GithubTest/GithubActionsApp -g "Beta Testers" -r "TODO some release notes" --debug
         shell: bash
