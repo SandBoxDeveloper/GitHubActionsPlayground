@@ -77,6 +77,23 @@ jobs:
           echo "contains match: ${{ github.event.*.labels.*.name }}"
         shell: bash
 
+  deploy-windows:
+    matrix:
+      runs-on: ${{ matrix.os }}
+      strategy:
+        matrix:
+          os: [ macOS-latest, ubuntu-latest, windows-latest ]
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Print workspace
+        run: |
+          echo "workspace path: ${{ github.workspace }}"
+        shell: bash
+
+
 #      - name: Download All Artifacts
 #        uses: actions/download-artifact@v2
 #
