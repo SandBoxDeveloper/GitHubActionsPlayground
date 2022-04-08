@@ -91,6 +91,6 @@ jobs:
           echo "This PR is tagged"
 
       - name: Print when not tagged
-          if: !startsWith(github.ref.tags, 'refs/tags/pre-release')
-          run: |
-            echo "This PR is not tagged with pre-release"
+        if: !startsWith(github.ref.tags, 'refs/tags/pre-release')
+        run: |
+          echo "This PR is not tagged with pre-release"
