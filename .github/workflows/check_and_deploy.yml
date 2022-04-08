@@ -84,7 +84,7 @@ jobs:
       - name: Upload to Appcenter
         run: |
           distribution_folder=`sh ${{ github.workspace }}/.github/scripts/distribution_folder_name.sh -b "${{ github.ref }}"`
-          echo "distribution folder: ${distribution_folder}"
+          echo "nhcdjcnjndistribution folder: ${distribution_folder}"
 #          appcenter distribute groups publish -f ./dev-build/app-debug.apk --token ${{ secrets.APP_CENTER_TOKEN }} --app GithubTest/GithubActionsApp/demo-$distribution_folder -g "Beta Testers" -r "${RELEASE_NOTES}" --debug
         shell: bash
 
