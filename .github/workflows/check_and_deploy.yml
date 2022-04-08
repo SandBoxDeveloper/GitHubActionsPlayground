@@ -112,7 +112,6 @@ jobs:
           GITHUB_SHA_SHORT_4=`sh ${{ github.workspace }}/.github/scripts/app_center_release_notes.sh`
           GITHUB_SHA_SHORT_5=$(${{ github.workspace }}/.github/scripts/app_center_release_notes.sh)
           GITHUB_SHA_SHORT_6=`${{ github.workspace }}/.github/scripts/app_center_release_notes.sh`
-#          GITHUB_SHA_SHORT_7=sh ${{ github.workspace }}/.github/scripts/app_center_release_notes.sh >> $GITHUB_ENV
           GITHUB_SHA_SHORT_8=`sh ${{ github.workspace }}/.github/scripts/app_center_release_notes.sh` >> $GITHUB_ENV
           echo $GITHUB_SHA_SHORT_2
           echo ${GITHUB_SHA_SHORT_2}
@@ -122,9 +121,10 @@ jobs:
           echo "4...  ${GITHUB_SHA_SHORT_4}"
           echo "5...  ${GITHUB_SHA_SHORT_5}"
           echo "6...  ${GITHUB_SHA_SHORT_6}"
-#          echo "7...  ${GITHUB_SHA_SHORT_7}"
           echo "8...  ${GITHUB_SHA_SHORT_8}"
 
+#          echo "7...  ${GITHUB_SHA_SHORT_7}"
+#          GITHUB_SHA_SHORT_7=sh ${{ github.workspace }}/.github/scripts/app_center_release_notes.sh >> $GITHUB_ENV
 #  - name: Get Release Notes 5
 #      id: branch5
 #      run: |
