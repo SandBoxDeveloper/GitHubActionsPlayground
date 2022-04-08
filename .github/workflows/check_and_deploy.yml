@@ -94,7 +94,6 @@ jobs:
 #          RELEASE_NOTES=`sh ${{ github.workspace }}/.github/scripts/app_center_release_notes.sh releaseNotes`
 #          echo ${RELEASE_NOTES}
 #        shell: bash
-
 #      - name: Extract branch name
 #        shell: bash
 #        run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
