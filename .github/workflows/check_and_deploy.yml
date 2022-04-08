@@ -75,7 +75,7 @@ jobs:
         run: |
           echo "Tags: ${{ github.ref.tags }}"
           echo "Tags: ${{ github.ref.tags }}=='pre-release'"
-          echo "Tags: ${{ github.ref }}"
+          echo "Tags : ${{ github.ref }}"
         shell: bash
 
       - name: Print match
