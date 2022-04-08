@@ -74,7 +74,7 @@ jobs:
       - name: Print match
         if: ${{ contains(github.event.*.labels.*.name, 'pre-release') }}
         run: |
-          echo "contains match: ${{ github.event.label.name }}"
+          echo "contains match: ${{ github.event.*.labels.*.name }}"
         shell: bash
 
 #      - name: Download All Artifacts
