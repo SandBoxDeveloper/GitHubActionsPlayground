@@ -107,15 +107,15 @@ jobs:
       - name: Get Release Notes 6
         id: branch6
         run: |
-          ::set-output name=foo::"jnjn"
+          GITHUB_SHA_SHORT_5=`sh ${{ github.workspace }}/.github/scripts/app_center_release_notes.sh releaseNotes` >> $GITHUB_ENV
 
 
       - name: Print release notes message
         run: |
-          echo ${{ env.action_state }}
-          echo $GITHUB_SHA_SHORT
+          echo ${{ env.GITHUB_SHA_SHORT_5 }}
+          echo $GITHUB_SHA_SHORT_5
           echo ${GITHUB_SHA_SHORT_5}
-          echo ${{ steps.branch6.outputs.foo }}
+          echo ${{ steps.branch.outputs.GITHUB_SHA_SHORT_5 }}
 
 
 
