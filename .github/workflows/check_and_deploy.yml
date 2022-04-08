@@ -73,13 +73,13 @@ jobs:
 
       - name: Print taggs
         run: |
-          echo "Tags: ${{ refs.tags }}"
-          echo "Tags: ${{ github.ref.tags }}=='pre-release'"
+          echo "Tags: ${{ github.event.label.name }}"
+          echo "Tags: ${{ github.event.label.name }}=='pre-release'"
           echo "Tags : ${{ github.refs }}"
         shell: bash
 
       - name: Print match
-        if: startsWith(github.ref.tags, 'refs/tags/pre-release')
+        if: ${{ github.event.label.name == 'pre-release' }}
 #        if: contains(github.ref.tags, 'refs/tags/pre-release')
         run: |
           echo "contains"
