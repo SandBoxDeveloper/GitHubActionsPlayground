@@ -61,28 +61,28 @@ jobs:
 #            ${{ github.workspace }}/app/build/outputs/apk/debug/*.apk
 #          retention-days: 3
 #
-  deploy:
-    needs: [ build ]
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Download All Artifacts
-        uses: actions/download-artifact@v2
-
-      - name: Install AppCenter CLI
-        run: |
-          npm install -g appcenter-cli
-          echo "List downloads folder contents:"
-          ls -R
-        shell: bash
-
-      - name: Upload to Appcenter
-        run: |
-          appcenter distribute groups publish -f ./dev-build/app-debug.apk --token ${{ secrets.APP_CENTER_TOKEN }} --app GithubTest/GithubActionsApp -g "Beta Testers" -r "TODO some release notes" --debug
-        shell: bash
+#  deploy:
+#    needs: [ build ]
+#    runs-on: ubuntu-latest
+#
+#    steps:
+#      - name: Download All Artifacts
+#        uses: actions/download-artifact@v2
+#
+#      - name: Install AppCenter CLI
+#        run: |
+#          npm install -g appcenter-cli
+#          echo "List downloads folder contents:"
+#          ls -R
+#        shell: bash
+#
+#      - name: Upload to Appcenter
+#        run: |
+#          appcenter distribute groups publish -f ./dev-build/app-debug.apk --token ${{ secrets.APP_CENTER_TOKEN }} --app GithubTest/GithubActionsApp -g "Beta Testers" -r "TODO some release notes" --debug
+#        shell: bash
 
   tagging:
-    runs-on: ubuntu-latest
+    runs-on: [ubuntu-latest]
 
     steps:
       - name: Checkout code
