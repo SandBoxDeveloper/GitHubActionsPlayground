@@ -94,14 +94,3 @@ jobs:
 #          RELEASE_NOTES=`sh ${{ github.workspace }}/.github/scripts/app_center_release_notes.sh releaseNotes`
 #          echo ${RELEASE_NOTES}
 #        shell: bash
-
-#      - name: Extract branch name
-#        shell: bash
-#        run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
-#        id: extract_branch
-
-#          - name: Upload to Appcenter
-#              run: |
-#                sh ${{ github.workspace }}/.github/scripts/distribution_folder_name.sh -b "${{ github.ref }}"
-#                echo "github ref: " ${{ github.ref }}
-#              shell: bash
