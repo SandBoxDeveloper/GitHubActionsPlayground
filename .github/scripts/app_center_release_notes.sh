@@ -13,7 +13,8 @@ getLastCommitDateTime() {
 }
 
 releaseNotes() {
-  echo -e "Git hash: %s \n\nLast changes: \n%s \n\nLast change date:\n%s " "$(getGitSha)" "$(getLastCommitMessages)" "$(getLastCommitDateTime)"
+  VAR1="$(getLastCommitMessages)"
+  echo "Git hash: %s \n\nLast changes: \n%s \n\nLast change date:\n%s " "$(getGitSha)" "$VAR1" "$(getLastCommitDateTime)"
 }
 
 case "$1" in
