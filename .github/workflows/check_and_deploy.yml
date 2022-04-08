@@ -105,7 +105,7 @@ jobs:
           echo "action_state=yellow" >> $GITHUB_ENV
 
       - name: Get Release Notes 6
-        id: branch5
+        id: branch6
         run: |
           GITHUB_SHA_SHORT_2=$(git log --date=format:%y%m%d%H%M --format=%cd -n1)
           GITHUB_SHA_SHORT_3=`git log --date=format:%y%m%d%H%M --format=%cd -n1`
