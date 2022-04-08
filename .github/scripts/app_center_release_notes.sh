@@ -13,7 +13,7 @@ getLastCommitDateTime() {
 }
 
 releaseNotes() {
-  printf " \n\nLast changes: \n%s " "$(getLastCommitMessages)"
+  printf "$(getLastCommitMessages)"
 
 }
 
