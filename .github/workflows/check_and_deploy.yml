@@ -72,7 +72,7 @@ jobs:
           fetch-depth: 0
 
       - name: Print match
-        if: ${{ github.event.action }} == 'labeled'
+        if: ${{ contains(github.event.*.labels.*.name, 'do not merge') }}
         run: |
           echo "contains match: ${{ github.event.label.name }}"
         shell: bash
