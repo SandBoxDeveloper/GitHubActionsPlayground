@@ -16,7 +16,8 @@ then
   echo "feature branch matches main"
   echo "${FEATURE_BRANCH_NAME##*/}"
 else
-  branch_ref="${FEATURE_BRANCH_NAME%/***}"
+  branch_ref="${FEATURE_BRANCH_NAME%/*}"
   echo "branch does not match main"
+  echo "1st... ${branch_ref}"
   echo "${branch_ref##*/}"
 fi
