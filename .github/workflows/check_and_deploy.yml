@@ -12,57 +12,57 @@ on:
 
 jobs:
 
-#  unit_tests:
-#    runs-on: [ubuntu-latest]
-#
-#    steps:
-#      - name: Checkout code
-#        uses: actions/checkout@v2
-#
-#      - name: Run Unit tests
-#        run: ./gradlew test
-#
-#  android_tests:
-#    runs-on: [ macos-latest ]
-#
-#    steps:
-#      - name: Checkout code
-#        uses: actions/checkout@v2
-#
-#      - name: Set up Java
-#        uses: actions/setup-java@v2
-#        with:
-#          java-version: '11'
-#          distribution: 'adopt'
-#
-#  build:
-#    needs: [ unit_tests ]
-#    runs-on: ubuntu-latest
-#
-#    steps:
-#      - name: Checkout code
-#        uses: actions/checkout@v2
-#
-#      - name: Generate Dev APK
-#        run: ./gradlew assembleDebug
-#
-#      - name: List build output
-#        if: always()
-#        run: |
-#          echo "Build outputs"
-#          cd /home/runner/work/GitHubActionsPlayground/GitHubActionsPlayground/app/build/outputs/apk/debug/
-#          tree -a
-#
-#      - name: Export build artifact
-#        uses: actions/upload-artifact@v2
-#        with:
-#          name: dev-build
-#          path: |
-#            ${{ github.workspace }}/app/build/outputs/apk/debug/*.apk
-#          retention-days: 3
+  unit_tests:
+    runs-on: [ubuntu-latest]
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Run Unit tests
+        run: ./gradlew test
+
+  android_tests:
+    runs-on: [ macos-latest ]
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Java
+        uses: actions/setup-java@v2
+        with:
+          java-version: '11'
+          distribution: 'adopt'
+
+  build:
+    needs: [ unit_tests ]
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Generate Dev APK
+        run: ./gradlew assembleDebug
+
+      - name: List build output
+        if: always()
+        run: |
+          echo "Build outputs"
+          cd /home/runner/work/GitHubActionsPlayground/GitHubActionsPlayground/app/build/outputs/apk/debug/
+          tree -a
+
+      - name: Export build artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: dev-build
+          path: |
+            ${{ github.workspace }}/app/build/outputs/apk/debug/*.apk
+          retention-days: 3
 
   deploy:
-#    needs: [ build ]
+    needs: [ build ]
     runs-on: ubuntu-latest
 
     steps:
@@ -76,75 +76,19 @@ jobs:
           ls -R
         shell: bash
 
-#      - name: Download All Artifacts
-#        run: |
-#          feature_name=$(${{ github.workspace }}.github/scripts/get_feature_name.sh -b "${{ github.ref }}")
-#          echo "branch reference is: " $feature_name
-
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: List files
+      - name: Upload to Appcenter
         run: |
-          tree -a
-
-      - name: Run a one-line script
-        run: sh ${{ github.workspace }}/.github/scripts/get_feature_name.sh -b "${{ github.ref }}"
-
-      - name: Run git message script
-        run: sh ${{ github.workspace }}/.github/scripts/app_center_release_notes.sh
-
-      - name: Get Release Notes
+          RELEASE_NOTES=`sh ${{ github.workspace }}/.github/scripts/app_center_release_notes.sh releaseNotes`
+          appcenter distribute groups publish -f ./dev-build/app-debug.apk --token ${{ secrets.APP_CENTER_TOKEN }} --app GithubTest/GithubActionsApp -g "Beta Testers" -r RELEASE_NOTES --debug
         shell: bash
-        run: sh ${{ github.workspace }}/.github/scripts/app_center_release_notes.sh >> $GITHUB_ENV
-
-      - name: Get Release Notes 5
-        id: branch5
-        run: |
-          GITHUB_SHA_SHORT=$(git log --date=format:%y%m%d%H%M --format=%cd -n1) >> $GITHUB_ENV
-          echo "action_state=yellow" >> $GITHUB_ENV
-
-      - name: Get Release Notes 6
-        id: branch6
-        run: |
-          GITHUB_SHA_SHORT_5=`sh ${{ github.workspace }}/.github/scripts/app_center_release_notes.sh releaseNotes`
-          echo "5...  ${GITHUB_SHA_SHORT_5}"
-
-#    GITHUB_SHA_SHORT_2=$(git log --date=format:%y%m%d%H%M --format=%cd -n1)
-#    GITHUB_SHA_SHORT_3=`git log --date=format:%y%m%d%H%M --format=%cd -n1`
-#  GITHUB_SHA_SHORT_7=sh ${{ github.workspace }}/.github/scripts/app_center_release_notes.sh >> $GITHUB_ENV
-# GITHUB_SHA_SHORT_7=sh ${{ github.workspace }}/.github/scripts/app_center_release_notes.sh >> $GITHUB_ENV
-#  GITHUB_SHA_SHORT_5=$(${{ github.workspace }}/.github/scripts/app_center_release_notes.sh)
-#  GITHUB_SHA_SHORT_6=`${{ github.workspace }}/.github/scripts/app_center_release_notes.sh`
-#   GITHUB_SHA_SHORT_4=`sh ${{ github.workspace }}/.github/scripts/app_center_release_notes.sh`
-#        GITHUB_SHA_SHORT_8=`sh ${{ github.workspace }}/.github/scripts/app_center_release_notes.sh` >> $GITHUB_ENV
-#          echo "7...  ${GITHUB_SHA_SHORT_7}"
-#          GITHUB_SHA_SHORT_7=sh ${{ github.workspace }}/.github/scripts/app_center_release_notes.sh >> $GITHUB_ENV
-#  - name: Get Release Notes 5
-#      id: branch5
-#      run: |
-#        echo "GITHUB_SHA_SHORT=$(git log --date=format:%y%m%d%H%M --format=%cd -n1)" >> $GITHUB_ENV
-#        echo "action_state=yellow" >> $GITHUB_ENV
-#          rnotes=$(sh ${{ github.workspace }}/.github/scripts/app_center_release_notes.sh)
-#          echo rnotes
-#          echo $rnotes
 
 #      - name: Extract branch name
 #        shell: bash
 #        run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
 #        id: extract_branch
 
-      - name: Print release notes message
-        run: |
-          echo ${{ env.action_state }}
-          echo $GITHUB_SHA_SHORT
-          echo ${GITHUB_SHA_SHORT_2}
-
-
-
-
-      - name: Upload to Appcenter
-        run: |
-          sh ${{ github.workspace }}/.github/scripts/get_feature_name.sh -b "${{ github.ref }}"
-          echo "github ref: " ${{ github.ref }}
-        shell: bash
+#          - name: Upload to Appcenter
+#              run: |
+#                sh ${{ github.workspace }}/.github/scripts/get_feature_name.sh -b "${{ github.ref }}"
+#                echo "github ref: " ${{ github.ref }}
+#              shell: bash
