@@ -86,8 +86,8 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Download All Artifacts
-        uses: actions/download-artifact@v2
+      - name: Checkout code
+        uses: actions/checkout@v2
 
       - name: Print if tagged with pre-release
         if: startsWith(github.ref.tags, 'refs/tags/pre-release')
