@@ -12,78 +12,84 @@ on:
 
 jobs:
 
-  unit_tests:
-    runs-on: [ubuntu-latest]
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Run Unit tests
-        run: ./gradlew test
-
-  android_tests:
-    runs-on: [ macos-latest ]
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Set up Java
-        uses: actions/setup-java@v2
-        with:
-          java-version: '11'
-          distribution: 'adopt'
-
-  build:
-    needs: [ unit_tests ]
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Generate Dev APK
-        run: ./gradlew assembleDebug
-
-      - name: List build output
-        if: always()
-        run: |
-          echo "Build outputs"
-          cd /home/runner/work/GitHubActionsPlayground/GitHubActionsPlayground/app/build/outputs/apk/debug/
-          tree -a
-
-      - name: Export build artifact
-        uses: actions/upload-artifact@v2
-        with:
-          name: dev-build
-          path: |
-            ${{ github.workspace }}/app/build/outputs/apk/debug/*.apk
-          retention-days: 3
+#  unit_tests:
+#    runs-on: [ubuntu-latest]
+#
+#    steps:
+#      - name: Checkout code
+#        uses: actions/checkout@v2
+#
+#      - name: Run Unit tests
+#        run: ./gradlew test
+#
+#  android_tests:
+#    runs-on: [ macos-latest ]
+#
+#    steps:
+#      - name: Checkout code
+#        uses: actions/checkout@v2
+#
+#      - name: Set up Java
+#        uses: actions/setup-java@v2
+#        with:
+#          java-version: '11'
+#          distribution: 'adopt'
+#
+#  build:
+#    needs: [ unit_tests ]
+#    runs-on: ubuntu-latest
+#
+#    steps:
+#      - name: Checkout code
+#        uses: actions/checkout@v2
+#
+#      - name: Generate Dev APK
+#        run: ./gradlew assembleDebug
+#
+#      - name: List build output
+#        if: always()
+#        run: |
+#          echo "Build outputs"
+#          cd /home/runner/work/GitHubActionsPlayground/GitHubActionsPlayground/app/build/outputs/apk/debug/
+#          tree -a
+#
+#      - name: Export build artifact
+#        uses: actions/upload-artifact@v2
+#        with:
+#          name: dev-build
+#          path: |
+#            ${{ github.workspace }}/app/build/outputs/apk/debug/*.apk
+#          retention-days: 3
 
   deploy:
-    needs: [ build ]
+#    needs: [ build ]
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Download All Artifacts
-        uses: actions/download-artifact@v2
-
-      - name: Install AppCenter CLI
-        run: |
-          npm install -g appcenter-cli
-          echo "List downloads folder contents:"
-          ls -R
-        shell: bash
+#      - name: Checkout code
+#        uses: actions/checkout@v2
+#
+#      - name: Download All Artifacts
+#        uses: actions/download-artifact@v2
+#
+#      - name: Install AppCenter CLI
+#        run: |
+#          npm install -g appcenter-cli
+#          echo "List downloads folder contents:"
+#          ls -R
+#        shell: bash
+#
+#      - name: Upload to Appcenter
+#        run: |
+#          RELEASE_NOTES=`sh ${{ github.workspace }}/.github/scripts/app_center_release_notes.sh releaseNotes`
+#          echo ${RELEASE_NOTES}
+#          appcenter distribute groups publish -f ./dev-build/app-debug.apk --token ${{ secrets.APP_CENTER_TOKEN }} --app GithubTest/GithubActionsApp -g "Beta Testers" -r "${RELEASE_NOTES}" --debug
+#        shell: bash
 
       - name: Upload to Appcenter
         run: |
           RELEASE_NOTES=`sh ${{ github.workspace }}/.github/scripts/app_center_release_notes.sh releaseNotes`
           echo ${RELEASE_NOTES}
-          appcenter distribute groups publish -f ./dev-build/app-debug.apk --token ${{ secrets.APP_CENTER_TOKEN }} --app GithubTest/GithubActionsApp -g "Beta Testers" -r "${RELEASE_NOTES}" --debug
         shell: bash
 
 #      - name: Extract branch name
