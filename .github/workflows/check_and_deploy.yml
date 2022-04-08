@@ -107,7 +107,7 @@ jobs:
       - name: Get Release Notes 6
         id: branch6
         run: |
-          ::set-output name=foo::`sh ${{ github.workspace }}/.github/scripts/app_center_release_notes.sh releaseNotes`
+          ::set-output name=foo::"jnjn"
 
 
       - name: Print release notes message
