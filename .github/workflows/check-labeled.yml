@@ -19,7 +19,7 @@ jobs:
           fetch-depth: 0
 
       - name: Print match
-        if: ${{ contains(github.event.label.name, 'pre-release') }}
+        if: ${{ contains(github.event.*.labels.*.name, 'pre-release') }}
         run: |
-          echo "contains match: ${{ github.event.labels.*.name }}"
+          echo "contains match: (${{ github.event.*.labels.*.name }} == 'pre-release')"
         shell: bash
