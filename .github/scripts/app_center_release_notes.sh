@@ -1,17 +1,23 @@
 #!/usr/bin/env bash
 
 getGitSha() {
-  stdout 'git rev-parse --short HEAD'
+  git rev-parse --short HEAD
 }
 
 getLastCommitMessages(){
-  stdout 'git log --oneline -n 5'
+  git log --oneline -n 5
 }
 
 getLastCommitDateTime() {
-  stdout 'git log --date=format:%y%m%d%H%M --format=%cd -n1'
+ git log --date=format:%y%m%d%H%M --format=%cd -n1
 }
 
 releaseNotes() {
-  stdout "Git hash: " + getGitSha + "\n\nLast changes: \n" + getLastCommitMessage + " \n\nLast change date: \n" + getLastCommitDateTime
+  printf "Git hash: %s \n\nLast changes: \n %s \n\nLast change date:\n %s " "$(getGitSha)" "$(getLastCommitMessages)" "$(getLastCommitDateTime)"
 }
+
+case "$1" in
+    "") ;;
+    releaseNotes) "$@"; exit;;
+    *) log_error "Unknown function: $1()"; exit 2;;
+esac
