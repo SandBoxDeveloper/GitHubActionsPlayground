@@ -84,9 +84,3 @@ jobs:
   tagging:
     runs-on: [ubuntu-latest]
 
-    steps:
-      - name: Print if tagged with pre-release
-        if: startsWith(github.ref.tags, 'refs/tags/pre-release')
-        run: |
-          echo "This PR is tagged"
-        shell: bash
