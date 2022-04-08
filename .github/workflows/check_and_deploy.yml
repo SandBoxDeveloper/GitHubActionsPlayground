@@ -4,8 +4,8 @@ name: Test and deploy
 on:
   push:
     branches:
-      - main
-      - feature/*
+      - 'main'
+      - 'feature/*'
 
   workflow_dispatch:
 
