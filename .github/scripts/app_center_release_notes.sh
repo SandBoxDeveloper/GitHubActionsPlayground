@@ -5,7 +5,7 @@ getGitSha() {
 }
 
 getLastCommitMessages(){
-  git log --oneline -n 5
+  git log -n 5
 }
 
 getLastCommitDateTime() {
