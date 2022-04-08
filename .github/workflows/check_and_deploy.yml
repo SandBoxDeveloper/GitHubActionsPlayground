@@ -72,7 +72,7 @@ jobs:
           fetch-depth: 0
 
       - name: Print match
-        if: ${{ github.event.action }} == 'labeled' && ${{ github.event.label.name }} == 'pre-release'
+        if: ${{ github.event.action }} == 'labeled'
         run: |
           echo "contains match: ${{ github.event.label.name }}"
         shell: bash
