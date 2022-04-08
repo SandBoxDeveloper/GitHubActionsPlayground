@@ -6,7 +6,6 @@ on:
       - 'main'
       - 'feature/*'
 
-    types: [synchronize, opened, reopened, labeled, unlabeled]
 
 jobs:
   check:
@@ -19,7 +18,7 @@ jobs:
           fetch-depth: 0
 
       - name: Print match
-        if: ${{ contains(github.event.*.labels.*.name, 'pre-release') }}
+        if: ${{ contains(github.event.*.labels.*.name, 'pre-release') }} && github.event.action == 'labeled' && github.event.action == 'synchronize'
         run: |
-          echo "contains match: (${{ github.event.*.labels.*.name['pre-release'] }} == 'pre-release')"
+          echo "contains match: ${{ github.event.*.labels.*.name['pre-release'] }}"
         shell: bash
