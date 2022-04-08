@@ -109,7 +109,7 @@ jobs:
         run: |
           GITHUB_SHA_SHORT_2=$(git log --date=format:%y%m%d%H%M --format=%cd -n1)
           GITHUB_SHA_SHORT_3=`git log --date=format:%y%m%d%H%M --format=%cd -n1`
-          GITHUB_SHA_SHORT_7=sh ${{ github.workspace }}/.github/scripts/app_center_release_notes.sh >> $GITHUB_ENV
+
 
           echo $GITHUB_SHA_SHORT_2
           echo ${GITHUB_SHA_SHORT_2}
@@ -121,7 +121,7 @@ jobs:
           echo "6...  ${GITHUB_SHA_SHORT_6}"
           echo "8...  ${GITHUB_SHA_SHORT_8}"
 
-
+# GITHUB_SHA_SHORT_7=sh ${{ github.workspace }}/.github/scripts/app_center_release_notes.sh >> $GITHUB_ENV
 #  GITHUB_SHA_SHORT_5=$(${{ github.workspace }}/.github/scripts/app_center_release_notes.sh)
 #  GITHUB_SHA_SHORT_6=`${{ github.workspace }}/.github/scripts/app_center_release_notes.sh`
 #   GITHUB_SHA_SHORT_4=`sh ${{ github.workspace }}/.github/scripts/app_center_release_notes.sh`
