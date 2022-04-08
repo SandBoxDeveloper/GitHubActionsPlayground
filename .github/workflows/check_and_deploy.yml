@@ -72,9 +72,9 @@ jobs:
           fetch-depth: 0
 
       - name: Print match
-        if: ${{ github.event.action }} == 'labeled' && ${{ github.event.label.name == 'pre-release' }}
+        if: ${{ github.event.action }} == 'labeled' && ${{ github.event.label.name }} == 'pre-release'
         run: |
-          echo "contains: ${{ github.event.label.name }}"
+          echo "contains match: ${{ github.event.label.name }}"
         shell: bash
 
 #      - name: Download All Artifacts
