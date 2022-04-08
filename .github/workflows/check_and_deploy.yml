@@ -92,5 +92,5 @@ jobs:
       - name: Print if tagged with pre-release
         if: startsWith(github.ref.tags, 'refs/tags/pre-release')
         run: |
-          echo "This PR is tagged"
+          echo "This PR is tagged: "
         shell: bash
