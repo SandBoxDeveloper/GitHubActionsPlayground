@@ -1,6 +1,6 @@
 name: Test and deploy
 
-## Actions that will be executed when you push to the following
+## Actions that will be executed when you push code to the following
 on:
   push:
     branches:
@@ -12,57 +12,57 @@ on:
 
 jobs:
 
-#  unit_tests:
-#    runs-on: [ubuntu-latest]
-#
-#    steps:
-#      - name: Checkout code
-#        uses: actions/checkout@v2
-#
-#      - name: Run Unit tests
-#        run: ./gradlew test
-#
-#  android_tests:
-#    runs-on: [ macos-latest ]
-#
-#    steps:
-#      - name: Checkout code
-#        uses: actions/checkout@v2
-#
-#      - name: Set up Java
-#        uses: actions/setup-java@v2
-#        with:
-#          java-version: '11'
-#          distribution: 'adopt'
-#
-#  build:
-#    needs: [ unit_tests ]
-#    runs-on: ubuntu-latest
-#
-#    steps:
-#      - name: Checkout code
-#        uses: actions/checkout@v2
-#
-#      - name: Generate Dev APK
-#        run: ./gradlew assembleDebug
-#
-#      - name: List build output
-#        if: always()
-#        run: |
-#          echo "Build outputs"
-#          cd /home/runner/work/GitHubActionsPlayground/GitHubActionsPlayground/app/build/outputs/apk/debug/
-#          tree -a
-#
-#      - name: Export build artifact
-#        uses: actions/upload-artifact@v2
-#        with:
-#          name: dev-build
-#          path: |
-#            ${{ github.workspace }}/app/build/outputs/apk/debug/*.apk
-#          retention-days: 3
+  unit_tests:
+    runs-on: [ubuntu-latest]
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Run Unit tests
+        run: ./gradlew test
+
+  android_tests:
+    runs-on: [ macos-latest ]
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Java
+        uses: actions/setup-java@v2
+        with:
+          java-version: '11'
+          distribution: 'adopt'
+
+  build:
+    needs: [ unit_tests ]
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Generate Dev APK
+        run: ./gradlew assembleDebug
+
+      - name: List build output
+        if: always()
+        run: |
+          echo "Build outputs"
+          cd /home/runner/work/GitHubActionsPlayground/GitHubActionsPlayground/app/build/outputs/apk/debug/
+          tree -a
+
+      - name: Export build artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: dev-build
+          path: |
+            ${{ github.workspace }}/app/build/outputs/apk/debug/*.apk
+          retention-days: 3
 
   deploy:
-#    needs: [ build ]
+    needs: [ build ]
     runs-on: ubuntu-latest
 
     steps:
@@ -83,14 +83,7 @@ jobs:
 
       - name: Upload to Appcenter
         run: |
-          distribution_folder=`sh ${{ github.workspace }}/.github/scripts/distribution_folder_name.sh -b "${{ github.ref }}"`
-          echo "distribution folder: ${distribution_folder}"
-#          appcenter distribute groups publish -f ./dev-build/app-debug.apk --token ${{ secrets.APP_CENTER_TOKEN }} --app GithubTest/GithubActionsApp/demo-$distribution_folder -g "Beta Testers" -r "${RELEASE_NOTES}" --debug
+          RELEASE_NOTES=`sh ${{ github.workspace }}/.github/scripts/app_center_release_notes.sh releaseNotes`
+          echo "Generated release notes: ${RELEASE_NOTES}"
+          appcenter distribute groups publish -f ./dev-build/app-debug.apk --token ${{ secrets.APP_CENTER_TOKEN }} --app GithubTest/GithubActionsApp -g "Beta Testers" -r "${RELEASE_NOTES}" --debug
         shell: bash
-
-#  RELEASE_NOTES=`sh ${{ github.workspace }}/.github/scripts/app_center_release_notes.sh releaseNotes`
-#      - name: Upload to Appcenter
-#        run: |
-#          RELEASE_NOTES=`sh ${{ github.workspace }}/.github/scripts/app_center_release_notes.sh releaseNotes`
-#          echo ${RELEASE_NOTES}
-#        shell: bash
