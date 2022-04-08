@@ -9,11 +9,11 @@ getLastCommitMessages(){
 }
 
 getLastCommitDateTime() {
- git log --date=format:%y%m%d%H%M --format=%cd -n1
+ git log --date=format:'Date: %d/%m/%y, Time: %H:%M:%S' --format=%cd -n1
 }
 
 releaseNotes() {
-  printf "Git hash: %s \n\nLast changes: \n %s \n\nLast change date:\n %s " "$(getGitSha)" "$(getLastCommitMessages)" "$(getLastCommitDateTime)"
+  printf "Git hash: %s \n\nLast changes: \n%s \n\nLast change date:\n%s " "$(getGitSha)" "$(getLastCommitMessages)" "$(getLastCommitDateTime)"
 }
 
 case "$1" in

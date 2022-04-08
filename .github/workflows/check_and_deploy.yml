@@ -107,12 +107,11 @@ jobs:
       - name: Get Release Notes 6
         id: branch6
         run: |
-          GITHUB_SHA_SHORT_2=$(git log --date=format:%y%m%d%H%M --format=%cd -n1)
-          GITHUB_SHA_SHORT_3=`git log --date=format:%y%m%d%H%M --format=%cd -n1`
           GITHUB_SHA_SHORT_5=`sh ${{ github.workspace }}/.github/scripts/app_center_release_notes.sh releaseNotes`
           echo "5...  ${GITHUB_SHA_SHORT_5}"
 
-
+#    GITHUB_SHA_SHORT_2=$(git log --date=format:%y%m%d%H%M --format=%cd -n1)
+#    GITHUB_SHA_SHORT_3=`git log --date=format:%y%m%d%H%M --format=%cd -n1`
 #  GITHUB_SHA_SHORT_7=sh ${{ github.workspace }}/.github/scripts/app_center_release_notes.sh >> $GITHUB_ENV
 # GITHUB_SHA_SHORT_7=sh ${{ github.workspace }}/.github/scripts/app_center_release_notes.sh >> $GITHUB_ENV
 #  GITHUB_SHA_SHORT_5=$(${{ github.workspace }}/.github/scripts/app_center_release_notes.sh)
@@ -139,7 +138,7 @@ jobs:
         run: |
           echo ${{ env.action_state }}
           echo $GITHUB_SHA_SHORT
-          echo ${GITHUB_SHA_SHORT_2}
+          echo ${GITHUB_SHA_SHORT_5}
 
 
 
