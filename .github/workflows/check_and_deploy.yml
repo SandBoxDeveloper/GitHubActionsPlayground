@@ -107,7 +107,7 @@ jobs:
       - name: Get Release Notes 6
         id: branch6
         run: |
-          GITHUB_SHA_SHORT_5=`sh ${{ github.workspace }}/.github/scripts/app_center_release_notes.sh releaseNotes` >> $GITHUB_ENV
+          GITHUB_SHA_SHORT_5=$(sh ${{ github.workspace }}/.github/scripts/app_center_release_notes.sh releaseNotes) >> $GITHUB_ENV
 
 
       - name: Print release notes message
