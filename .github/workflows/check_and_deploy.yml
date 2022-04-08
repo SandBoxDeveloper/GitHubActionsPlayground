@@ -73,7 +73,7 @@ jobs:
 
       - name: Print taggs
         run: |
-          echo "Tags: ${{ github.refs.tags }}"
+          echo "Tags: ${{ refs.tags }}"
           echo "Tags: ${{ github.ref.tags }}=='pre-release'"
           echo "Tags : ${{ github.refs }}"
         shell: bash
