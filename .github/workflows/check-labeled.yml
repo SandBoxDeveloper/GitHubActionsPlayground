@@ -20,5 +20,5 @@ jobs:
       - name: Print match
         if: ${{ contains(github.event.*.labels.*.name, 'pre-release') }} && github.event.action == 'labeled' && github.event.action == 'synchronize'
         run: |
-          echo "contains match: ${{ github.event.*.labels.*.name['pre-release'] }}"
+          echo " contains match: ${{ github.event.*.labels.*.name['pre-release'] }}"
         shell: bash
