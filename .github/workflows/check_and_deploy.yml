@@ -78,11 +78,10 @@ jobs:
         shell: bash
 
   deploy-windows:
-    matrix:
+    strategy:
+      matrix:
+        os: [ ubuntu-latest, macos-latest, windows-latest ]
       runs-on: ${{ matrix.os }}
-      strategy:
-        matrix:
-          os: [ macOS-latest, ubuntu-latest, windows-latest ]
 
     steps:
       - name: Checkout code
