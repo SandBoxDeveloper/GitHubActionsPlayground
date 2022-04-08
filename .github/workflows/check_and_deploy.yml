@@ -108,13 +108,13 @@ jobs:
         id: branch6
         run: |
           GITHUB_SHA_SHORT_123=$(sh ${{ github.workspace }}/.github/scripts/app_center_release_notes.sh releaseNotes) >> $GITHUB_ENV
-          echo "5...  ${GITHUB_SHA_SHORT_5}"
+          echo "5...  ${env.GITHUB_SHA_SHORT_123}"
 
       - name: Print release notes message
         run: |
           echo ${{ env.action_state }}
           echo $GITHUB_SHA_SHORT_123
-          echo ${GITHUB_SHA_SHORT_5}
+          echo ${env.GITHUB_SHA_SHORT_5}
 
 
 
