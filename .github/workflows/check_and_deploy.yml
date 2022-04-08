@@ -11,16 +11,16 @@ on:
 
 
 jobs:
-
-  unit_tests:
-    runs-on: [ubuntu-latest]
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Run Unit tests
-        run: ./gradlew test
+#
+#  unit_tests:
+#    runs-on: [ubuntu-latest]
+#
+#    steps:
+#      - name: Checkout code
+#        uses: actions/checkout@v2
+#
+#      - name: Run Unit tests
+#        run: ./gradlew test
 #
 #  android_tests:
 #    runs-on: [ macos-latest ]
@@ -93,3 +93,29 @@ jobs:
 #        run: |
 #          echo "This PR is tagged: "
 #        shell: bash
+
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Download All Artifacts
+        uses: actions/download-artifact@v2
+
+      - name: Install AppCenter CLI
+        run: |
+          npm install -g appcenter-cli
+          echo "List downloads folder contents:"
+          ls -R
+        shell: bash
+
+      - name: Upload to Appcenter
+        run: |
+          distribution_folder=`sh ${{ github.workspace }}/.github/scripts/distribution_folder_name.sh -b "${{ github.ref }}"`
+          echo "distribution folder: ${distribution_folder}"
+        #          appcenter distribute groups publish -f ./dev-build/app-debug.apk --token ${{ secrets.APP_CENTER_TOKEN }} --app GithubTest/GithubActionsApp/demo-$distribution_folder -g "Beta Testers" -r "${RELEASE_NOTES}" --debug
+        shell: bash
