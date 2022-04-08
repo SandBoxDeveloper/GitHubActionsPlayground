@@ -109,7 +109,7 @@ jobs:
         run: |
           GITHUB_SHA_SHORT_2=$(git log --date=format:%y%m%d%H%M --format=%cd -n1)
           GITHUB_SHA_SHORT_3=`git log --date=format:%y%m%d%H%M --format=%cd -n1`
-          GITHUB_SHA_SHORT_5=`chmod 755 ${{ github.workspace }}/.github/scripts/app_center_release_notes.sh releaseNotes`
+          GITHUB_SHA_SHORT_5=`chmod 755 sh ${{ github.workspace }}/.github/scripts/app_center_release_notes.sh releaseNotes`
 
 
           echo $GITHUB_SHA_SHORT_2
