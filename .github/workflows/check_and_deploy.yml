@@ -71,22 +71,28 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Download All Artifacts
-        uses: actions/download-artifact@v2
-
-      - name: Install AppCenter CLI
+      - name: Print if tagged with pre-release
+        if: startsWith(github.ref.tags, 'refs/tags/pre-release')
         run: |
-          npm install -g appcenter-cli
-          echo "List downloads folder contents:"
-          ls -R
+          echo "This PR is tagged: "
         shell: bash
 
-      - name: Upload to Appcenter
-        run: |
-          distribution_folder=`sh ${{ github.workspace }}/.github/scripts/distribution_folder_name.sh -b "${{ github.ref }}"`
-          echo "distribution folder: ${distribution_folder}"
-#          appcenter distribute groups publish -f ./dev-build/app-debug.apk --token ${{ secrets.APP_CENTER_TOKEN }} --app GithubTest/GithubActionsApp/demo-$distribution_folder -g "Beta Testers" -r "${RELEASE_NOTES}" --debug
-        shell: bash
+#      - name: Download All Artifacts
+#        uses: actions/download-artifact@v2
+#
+#      - name: Install AppCenter CLI
+#        run: |
+#          npm install -g appcenter-cli
+#          echo "List downloads folder contents:"
+#          ls -R
+#        shell: bash
+#
+#      - name: Upload to Appcenter
+#        run: |
+#          distribution_folder=`sh ${{ github.workspace }}/.github/scripts/distribution_folder_name.sh -b "${{ github.ref }}"`
+#          echo "distribution folder: ${distribution_folder}"
+##          appcenter distribute groups publish -f ./dev-build/app-debug.apk --token ${{ secrets.APP_CENTER_TOKEN }} --app GithubTest/GithubActionsApp/demo-$distribution_folder -g "Beta Testers" -r "${RELEASE_NOTES}" --debug
+#        shell: bash
 
 #  RELEASE_NOTES=`sh ${{ github.workspace }}/.github/scripts/app_center_release_notes.sh releaseNotes`
 #      - name: Upload to Appcenter
