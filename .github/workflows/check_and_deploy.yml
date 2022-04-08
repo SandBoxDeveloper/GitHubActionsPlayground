@@ -90,9 +90,3 @@ jobs:
         run: |
           echo "This PR is tagged"
         shell: bash
-
-      - name: Print when not tagged
-        if: !startsWith(github.ref.tags, 'refs/tags/pre-release')
-        run: |
-          echo "This PR is not tagged with pre-release"
-        shell: bash
