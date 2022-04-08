@@ -71,6 +71,24 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: Print taggs
+        run: |
+          echo "Tags: ${{ github.ref.tags }}"
+          echo "Tags: ${{ github.ref.tags }}=='pre-release'"
+        shell: bash
+
+      - name: Print match
+        if: contains(github.ref.tags, 'refs/tags/pre-release')
+        run: |
+          echo "contains"
+        shell: bash
+
+      - name: Print match 2
+        run: |
+          echo "contains"
+        shell: bash
+        if: contains(github.ref.tags, 'refs/tags/pre-release')
+
       - name: Print if tagged with pre-release
         if: startsWith(github.ref.tags, 'refs/tags/pre-release')
         run: |
