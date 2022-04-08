@@ -71,30 +71,10 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Print taggs
-        run: |
-          echo "Tags: ${{ github.event.label.name }}"
-          echo "Tags: ${{ github.event.label.name }}=='pre-release'"
-          echo "Tags : ${{ github.refs }}"
-        shell: bash
-
       - name: Print match
         if: ${{ github.event.action }} == 'labeled' && ${{ github.event.label.name == 'pre-release' }}
-#        if: contains(github.ref.tags, 'refs/tags/pre-release')
         run: |
           echo "contains: ${{ github.event.label.name }}"
-        shell: bash
-
-      - name: Print match 2
-        run: |
-          echo "contains"
-        shell: bash
-        if: contains(github.ref.tags, 'refs/tags/pre-release')
-
-      - name: Print if tagged with pre-release
-        if: startsWith(github.ref.tags, 'refs/tags/pre-release')
-        run: |
-          echo "This PR is tagged: "
         shell: bash
 
 #      - name: Download All Artifacts
