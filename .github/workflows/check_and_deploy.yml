@@ -79,7 +79,7 @@ jobs:
         shell: bash
 
       - name: Print match
-        if: ${{ github.event.label.name == 'pre-release' }}
+        if: ${{ github.event.action }} == 'labeled' && ${{ github.event.label.name == 'pre-release' }}
 #        if: contains(github.ref.tags, 'refs/tags/pre-release')
         run: |
           echo "contains"
