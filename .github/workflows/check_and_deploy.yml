@@ -92,6 +92,17 @@ jobs:
           echo "workspace path: ${{ github.workspace }}"
         shell: bash
 
+      - name: Get Release Tag
+        run: |
+          RELEASE_TAG=$(sh ./gradlew getReleaseTag --stacktrace) >> $GITHUB_ENV
+          MY_VAR=$(sh ./gradlew getReleaseTag --stacktrace)
+          echo "printing... $MY_VAR"
+        shell: bash
+
+      - name: Get Release Tag
+        run: |
+          echo "Release Tag: ${{ env.RELEASE_TAG }}"
+        shell: bash
 
 #      - name: Download All Artifacts
 #        uses: actions/download-artifact@v2
