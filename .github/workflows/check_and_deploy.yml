@@ -84,6 +84,12 @@ jobs:
     runs-on: ${{ matrix.os }}
 
     steps:
+      - name: Set up Java
+        uses: actions/setup-java@v2
+        with:
+          java-version: '11'
+          distribution: 'adopt'
+
       - name: Checkout code
         uses: actions/checkout@v2
 
