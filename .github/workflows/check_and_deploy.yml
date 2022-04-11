@@ -111,7 +111,7 @@ jobs:
 
       - name: Get Release Tag
         run: |
-          echo "printing... {{ $steps.release.outputs.test }}"
+          echo "printing... ${{ steps.release.outputs.test }}"
           echo "Release Tag: ${{ env.RELEASE_TAG }}"
           echo "Release Tag: ${{ env.distribution_folder }}"
         shell: bash
