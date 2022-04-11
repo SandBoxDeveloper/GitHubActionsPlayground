@@ -100,14 +100,15 @@ jobs:
 
       - name: Get Release Tag
         run: |
-          RELEASE_TAG=$(sh ./gradlew getReleaseTag --stacktrace) >> $GITHUB_ENV
-          MY_VAR=$(sh ./gradlew getReleaseTag --stacktrace)
-          echo "printing... $MY_VAR"
+          RELEASE_TAG=$(sh ./gradlew getReleaseTag --stacktrace) > $GITHUB_ENV
+          distribution_folder=`sh ./gradlew getReleaseTag --stacktrace` > $GITHUB_ENV
+          echo "printing... {$distribution_folder}"
         shell: bash
 
       - name: Get Release Tag
         run: |
           echo "Release Tag: ${{ env.RELEASE_TAG }}"
+          echo "Release Tag: ${{ env.distribution_folder }}"
         shell: bash
 
 #      - name: Download All Artifacts
