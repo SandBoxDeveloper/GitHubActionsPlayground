@@ -100,7 +100,7 @@ jobs:
 
       - name: Print Android Home Path
         run: |
-          echo "Android Home: ${{ $ANDROID_HOME }}"
+          echo "Android Home: $ANDROID_HOME"
         shell: bash
 
       - name: Get Release Tag
