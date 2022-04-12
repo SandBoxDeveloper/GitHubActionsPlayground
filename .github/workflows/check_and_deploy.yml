@@ -102,8 +102,9 @@ jobs:
         id: release
         run: |
           RELEASE_TAG=$(sh ./gradlew getReleaseTag --stacktrace)
+          RELEASE_TAG2=`sh ./gradlew getReleaseTag --stacktrace`
           echo ::set-output name=test::$(sh ./gradlew getReleaseTag --stacktrace)
-          ::set-output name=test2::`sh ./gradlew getReleaseTag --stacktrace`
+          echo ::set-output name=test2::`sh ./gradlew getReleaseTag --stacktrace`
           distribution_folder=`sh ./gradlew getReleaseTag --stacktrace` > $GITHUB_ENV
           echo "printing... {$RELEASE_TAG}"
           echo $RELEASE_TAG
@@ -111,7 +112,10 @@ jobs:
         shell: bash
 
       - name: Get Release Tag
+        env:
+          STEP_OUTPUT: ${{ steps.release.outputs.test2 }}
         run: |
+          echo "step printing... $STEP_OUTPUT"
           echo "printing... ${{ steps.release.outputs.test }}"
           echo "printing... ${{ steps.release.outputs.test2 }}"
           echo "Release Tag: ${{ env.RELEASE_TAG }}"
