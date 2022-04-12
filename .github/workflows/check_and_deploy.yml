@@ -102,7 +102,7 @@ jobs:
         id: release
         run: |
           RELEASE_TAG=$(sh ./gradlew getReleaseTag --stacktrace)
-          echo "::set-output name=test::$(sh ./gradlew getReleaseTag --stacktrace)"
+          echo "::set-output name=test::hello"
           distribution_folder=`sh ./gradlew getReleaseTag --stacktrace` > $GITHUB_ENV
           echo "printing... {$RELEASE_TAG}"
           echo $RELEASE_TAG
