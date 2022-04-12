@@ -115,7 +115,7 @@ jobs:
         env:
           STEP_OUTPUT: ${{ steps.release.outputs.test2 }}
         run: |
-          echo "step printing... $STEP_OUTPUT"
+          echo "$STEP_OUTPUT"
           echo "printing... ${{ steps.release.outputs.test }}"
           echo "printing... ${{ steps.release.outputs.test2 }}"
           echo "Release Tag: ${{ env.RELEASE_TAG }}"
