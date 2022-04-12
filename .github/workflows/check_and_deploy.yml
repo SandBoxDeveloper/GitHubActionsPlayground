@@ -98,6 +98,11 @@ jobs:
           echo "workspace path: ${{ github.workspace }}"
         shell: bash
 
+      - name: Print Android Home Path
+        run: |
+          echo "Android Home: ${{ $ANDROID_HOME }}"
+        shell: bash
+
       - name: Get Release Tag
         id: release
         run: |
