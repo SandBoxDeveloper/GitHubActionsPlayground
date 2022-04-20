@@ -1,0 +1,11 @@
+Git hash: 4e0e7f9 
+
+Latest changes: 
+4e0e7f9 - test uploading to app center with release notes by uploading a release notes files
+898e2a5 - test uploading to app center with release notes
+2d411fb - print ANDROID HOME
+f442a86 - print ANDROID HOME
+2ece057 - set output var 
+
+Last change date:
+Date: 20/04/22, Time: 20:56:10 
