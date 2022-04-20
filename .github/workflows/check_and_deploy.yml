@@ -61,6 +61,7 @@ jobs:
           retention-days: 3
 
   deploy_to_app_Center:
+    needs: [ build ]
     runs-on: ubuntu-latest
 
     steps:
