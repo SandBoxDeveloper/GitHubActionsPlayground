@@ -13,7 +13,7 @@ getLastCommitDateTime() {
 }
 
 releaseNotes() {
-  printf "Git hash: %s \n\nLast changes: \n%s \n\nLast change date:\n%s " "$(getGitSha)" "$(getLastCommitMessages)" "$(getLastCommitDateTime)"
+  printf "Git hash: %s \n\nLatest changes: \n%s \n\nLast change date:\n%s " "$(getGitSha)" "$(getLastCommitMessages)" "$(getLastCommitDateTime)"
 }
 
 case "$1" in
