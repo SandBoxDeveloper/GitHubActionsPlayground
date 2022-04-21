@@ -1,11 +1,11 @@
-Git hash: 4e0e7f9 
+Git hash: 412ce29 
 
 Latest changes: 
-4e0e7f9 - test uploading to app center with release notes by uploading a release notes files
-898e2a5 - test uploading to app center with release notes
-2d411fb - print ANDROID HOME
-f442a86 - print ANDROID HOME
-2ece057 - set output var 
+412ce29 - test uploading to app center with release notes by uploading a release notes files
+77fa66f - test uploading to app center with release notes by uploading a release notes files
+6f84152 - test uploading to app center with release notes by uploading a release notes files
+450f6a2 - test uploading to app center with release notes by uploading a release notes files
+394c0ea - test uploading to app center with release notes by uploading a release notes files 
 
 Last change date:
-Date: 20/04/22, Time: 20:56:10 
+Date: 20/04/22, Time: 22:21:11 
