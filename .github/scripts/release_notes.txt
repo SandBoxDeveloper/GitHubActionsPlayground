@@ -1,6 +1,6 @@
 Git hash: 412ce29 
 
-Latest changes: 
+Latest changes: \n\n
 412ce29 - test uploading to app center with release notes by uploading a release notes files
 77fa66f - test uploading to app center with release notes by uploading a release notes files
 6f84152 - test uploading to app center with release notes by uploading a release notes files
