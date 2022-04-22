@@ -5,7 +5,7 @@ getGitSha() {
 }
 
 getLastCommitMessages(){
-  git log --oneline -n 5
+  git log --pretty=format:'* %h %d %s' -n 5
 }
 
 getLastCommitDateTime() {
@@ -13,7 +13,7 @@ getLastCommitDateTime() {
 }
 
 releaseNotes() {
-  printf "Git hash: %s \n\nLatest changes: \n%s \n\nLast change date:\n%s " "$(getGitSha)" "$(getLastCommitMessages)" "$(getLastCommitDateTime)" > release_notes_markdown.md
+  printf "#### 👾 Git hash: \n%s \n\n#### 🧑🏾‍💻 Latest changes in this build: \n%s \n\n#### 📆 Last change date:\n%s " "$(getGitSha)" "$(getLastCommitMessages)" "$(getLastCommitDateTime)" > release_notes_markdown.md
 }
 
 case "$1" in
