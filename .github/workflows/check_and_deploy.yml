@@ -80,7 +80,11 @@ jobs:
 
       - name: Upload to Appcenter
         run: |
-          appcenter distribute groups publish -f ./dev-build/app-debug.apk --token ${{ secrets.APP_CENTER_TOKEN }} --app GithubTest/GithubActionsApp -g "Beta Testers" -r "{{ github.workspace }}/.github/scripts/release_notes_markdown.md" --debug
+          mkdir ${{ github.workspace }}/.github/scripts/notes
+          cd ${{ github.workspace }}/.github/scripts/notes
+          sh ${{ github.workspace }}/.github/scripts/app_center_release_notes.sh releaseNotes
+          cat ${{ github.workspace }}/.github/scripts/notes/release_notes_markdown.md
+          appcenter distribute groups publish -f ./dev-build/app-debug.apk --token ${{ secrets.APP_CENTER_TOKEN }} --app GithubTest/GithubActionsApp -g "Beta Testers" -R ${{ github.workspace }}/.github/scripts/release_notes_markdown.md --debug
         shell: bash
 
 #  deploy:
