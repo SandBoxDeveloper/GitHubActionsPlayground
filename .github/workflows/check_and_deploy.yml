@@ -78,20 +78,9 @@ jobs:
           ls -R
         shell: bash
 
-      - name: Generate Release Notes
-        run: |
-          sh ${{ github.workspace }}/.github/scripts/app_center_release_notes.sh releaseNotes
-        shell: bash
-
       - name: Upload to Appcenter
         run: |
-          mkdir ${{ github.workspace }}/.github/scripts/notes
-          cd ${{ github.workspace }}/.github/scripts/notes
-          sh ${{ github.workspace }}/.github/scripts/app_center_release_notes.sh releaseNotes
-          echo 'This is a test cat' > notes.md
-          cat ${{ github.workspace }}/.github/scripts/notes/notes.md
-          cat ${{ github.workspace }}/.github/scripts/notes/release_notes_markdown.md
-          appcenter distribute groups publish -f ./dev-build/app-debug.apk --token ${{ secrets.APP_CENTER_TOKEN }} --app GithubTest/GithubActionsApp -g "Beta Testers" -R ${{ github.workspace }}/.github/scripts/release_notes_markdown.md --debug
+          appcenter distribute groups publish -f ./dev-build/app-debug.apk --token ${{ secrets.APP_CENTER_TOKEN }} --app GithubTest/GithubActionsApp -g "Beta Testers" -r "{{ github.workspace }}/.github/scripts/release_notes_markdown.md" --debug
         shell: bash
 
 #  deploy:
