@@ -78,7 +78,7 @@ jobs:
           ls -R
         shell: bash
 
-      - name: Upload to Appcenter
+      - name: Upload to0 Appcenter
         run: |
           mkdir ${{ github.workspace }}/.github/scripts/notes
           cd ${{ github.workspace }}/.github/scripts/notes
