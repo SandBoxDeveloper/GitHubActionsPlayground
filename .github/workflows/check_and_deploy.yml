@@ -82,7 +82,7 @@ jobs:
         run: |
           sh ${{ github.workspace }}/.github/scripts/app_center_release_notes.sh releaseNotes
           cat release_notes_markdown.md
-          appcenter distribute groups publish -f ./dev-build/app-debug.apk --token ${{ secrets.APP_CENTER_TOKEN }} --app GithubTest/GithubActionsApp -g "Beta Testers" -R ./dev-build/release_notes_markdown.md --debug
+          appcenter distribute groups publish -f ./dev-build/app-debug.apk --token ${{ secrets.APP_CENTER_TOKEN }} --app GithubTest/GithubActionsApp -g "Beta Testers" -R release_notes_markdown.md --debug
         shell: bash
 
 #  deploy:
