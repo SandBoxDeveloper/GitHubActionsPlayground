@@ -78,11 +78,17 @@ jobs:
           ls -R
         shell: bash
 
+      - name: Generate release notes
+        run: |
+          mkdir ${{ github.workspace }}/.github/scripts/notes
+          cd ${{ github.workspace }}/.github/scripts/notes
+          sh ${{ github.workspace }}/.github/scripts/app_center_release_notes.sh releaseNotes
+          cat ${{ github.workspace }}/.github/scripts/notes/release_notes_markdown.md
+        shell: bash
+
       - name: Upload to0 Appcenter
         run: |
-          sh ${{ github.workspace }}/.github/scripts/app_center_release_notes.sh releaseNotes
-          cat release_notes_markdown.md
-          appcenter distribute groups publish -f ./dev-build/app-debug.apk --token ${{ secrets.APP_CENTER_TOKEN }} --app GithubTest/GithubActionsApp -g "Beta Testers" -R release_notes_markdown.md --debug
+          cat ${{ github.workspace }}/.github/scripts/release_notes_markdown.md
         shell: bash
 
 #  deploy:
