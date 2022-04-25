@@ -2,80 +2,207 @@ name: Test and deploy
 
 ## Actions that will be executed when you push code currently none
 on:
-  pull_request:
+  push:
     branches:
-      - main
+      - 'main'
+      - 'feature/*'
 
   workflow_dispatch:
 
 
 jobs:
 
-  unit_tests:
-    runs-on: [ubuntu-latest]
+#  unit_tests:
+#    runs-on: [ubuntu-latest]
+#
+#    steps:
+#      - name: Checkout code
+#        uses: actions/checkout@v2
+#
+#      - name: Run Unit tests
+#        run: ./gradlew test
+#
+#  android_tests:
+#    runs-on: [ macos-latest ]
+#
+#    steps:
+#      - name: Checkout code
+#        uses: actions/checkout@v2
+#
+#      - name: Set up Java
+#        uses: actions/setup-java@v2
+#        with:
+#          java-version: '11'
+#          distribution: 'adopt'
+#
+#  build:
+#    runs-on: ubuntu-latest
+#
+#    steps:
+#      - name: Checkout code
+#        uses: actions/checkout@v2
+#
+#      - name: Generate Dev APK
+#        run: ./gradlew assembleDebug
+#
+#      - name: List build output
+#        if: always()
+#        run: |
+#          echo "Build outputs"
+#          cd /home/runner/work/GitHubActionsPlayground/GitHubActionsPlayground/app/build/outputs/apk/debug/
+#          tree -a
+#
+#      - name: Export build artifact
+#        uses: actions/upload-artifact@v2
+#        with:
+#          name: dev-build
+#          path: |
+#            ${{ github.workspace }}/app/build/outputs/apk/debug/*.apk
+#          retention-days: 3
 
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Run Unit tests
-        run: ./gradlew test
-
-  android_tests:
-    runs-on: [ macos-latest ]
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Set up Java
-        uses: actions/setup-java@v2
-        with:
-          java-version: '11'
-          distribution: 'adopt'
-
-  build:
-    needs: [ unit_tests ]
+  distribute_to_branch:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Generate Dev APK
-        run: ./gradlew assembleDebug
-
-      - name: List build output
-        if: always()
+      - name: Get Distribution Folder
         run: |
-          echo "Build outputs"
-          cd /home/runner/work/GitHubActionsPlayground/GitHubActionsPlayground/app/build/outputs/apk/debug/
-          tree -a
-
-      - name: Export build artifact
-        uses: actions/upload-artifact@v2
-        with:
-          name: dev-build
-          path: |
-            ${{ github.workspace }}/app/build/outputs/apk/debug/*.apk
-          retention-days: 3
-
-  deploy:
-    needs: [ build ]
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Download All Artifacts
-        uses: actions/download-artifact@v2
-
-      - name: Install AppCenter CLI
-        run: |
-          npm install -g appcenter-cli
-          echo "List downloads folder contents:"
-          ls -R
+          distribution_folder=`sh ${{ github.workspace }}/.github/scripts/distribution_folder_name.sh -b "${{ github.ref }}"`
+          echo "firefly-${distribution_folder}"
         shell: bash
 
-      - name: Upload to Appcenter
-        run: |
-          appcenter distribute groups publish -f ./dev-build/app-debug.apk --token ${{ secrets.APP_CENTER_TOKEN }} --app GithubTest/GithubActionsApp -g "Beta Testers" -r "TODO some release notes" --debug
-        shell: bash
+#  deploy_to_app_Center:
+#    needs: [ build ]
+#    runs-on: ubuntu-latest
+#
+#    steps:
+#      - name: Checkout code
+#        uses: actions/checkout@v2
+#
+#      - name: Download All Artifacts
+#        uses: actions/download-artifact@v2
+#
+#      - name: Install AppCenter CLI
+#        run: |
+#          npm install -g appcenter-cli
+#          echo "List downloads folder contents:"
+#          ls -R
+#        shell: bash
+#
+#      - name: Upload to Appcenter
+#        run: |
+#          sh ${{ github.workspace }}/.github/scripts/app_center_release_notes.sh releaseNotes
+#          cat release_notes_markdown.md
+#          appcenter distribute groups publish -f ./dev-build/app-debug.apk --token ${{ secrets.APP_CENTER_TOKEN }} --app GithubTest/GithubActionsApp -g "Beta Testers" -R release_notes_markdown.md --debug
+#        shell: bash
+
+#  - name: Generate release notes
+#      run: |
+#        mkdir ${{ github.workspace }}/.github/scripts/notes
+#        cd ${{ github.workspace }}/.github/scripts/notes
+#        sh ${{ github.workspace }}/.github/scripts/app_center_release_notes.sh releaseNotes
+#        cat ${{ github.workspace }}/.github/scripts/notes/release_notes_markdown.md
+#         appcenter distribute groups publish -f ./dev-build/app-debug.apk --token ${{ secrets.APP_CENTER_TOKEN }} --app GithubTest/GithubActionsApp -g "Beta Testers" -R ${{ github.workspace }}/.github/scripts/release_notes_markdown.md --debug
+
+#      shell: bash
+#  deploy:
+##    needs: [ build ]
+#    runs-on: ubuntu-latest
+#
+#    steps:
+#      - name: Checkout code
+#        uses: actions/checkout@v2
+#        with:
+#          fetch-depth: 0
+#
+#      - name: Print match
+#        if: ${{ contains(github.event.*.labels.*.name, 'do not merge') }}
+#        run: |
+#          echo "contains match: ${{ github.event.*.labels.*.name }}"
+#        shell: bash
+
+#  deploy-windows:
+#    strategy:
+#      matrix:
+#        os: [ ubuntu-latest, macos-latest, windows-latest ]
+#    runs-on: ${{ matrix.os }}
+#
+#    steps:
+#      - name: Set up Java
+#        uses: actions/setup-java@v2
+#        with:
+#          java-version: '11'
+#          distribution: 'adopt'
+#
+#      - name: Checkout code
+#        uses: actions/checkout@v2
+#
+#      - name: Print workspace
+#        run: |
+#          echo "workspace path: ${{ github.workspace }}"
+#        shell: bash
+#
+#      - name: Print Android Home Path
+#        run: |
+#          echo "Android Home: $ANDROID_HOME"
+#        shell: bash
+#
+#      - name: Get Release Tag
+#        id: release
+#        run: |
+#          RELEASE_TAG=$(sh ./gradlew getReleaseTag --stacktrace)
+#          RELEASE_TAG2=`sh ./gradlew getReleaseTag --stacktrace`
+#          echo ::set-output name=test::$(sh ./gradlew getReleaseTag --stacktrace)
+#          echo ::set-output name=test2::`sh ./gradlew getReleaseTag --stacktrace`
+#          distribution_folder=`sh ./gradlew getReleaseTag --stacktrace` > $GITHUB_ENV
+#          echo "printing... {$RELEASE_TAG}"
+#          echo $RELEASE_TAG
+#          echo "printing... {$distribution_folder}"
+#        shell: bash
+#
+#      - name: Get Release Tag
+#        env:
+#          STEP_OUTPUT: ${{ steps.release.outputs.test2 }}
+#        run: |
+#          echo $STEP_OUTPUT
+#          echo "printing... ${{ steps.release.outputs.test }}"
+#          echo "printing... ${{ steps.release.outputs.test2 }}"
+#          echo "Release Tag: ${{ env.RELEASE_TAG }}"
+#          echo "Release Tag: ${{ env.distribution_folder }}"
+#        shell: bash
+
+#      - name: Download All Artifacts
+#        uses: actions/download-artifact@v2
+#
+#      - name: Install AppCenter CLI
+#        run: |
+#          npm install -g appcenter-cli
+#          echo "List downloads folder contents:"
+#          ls -R
+#        shell: bash
+#
+#      - name: Upload to Appcenter
+#        run: |
+#          distribution_folder=`sh ${{ github.workspace }}/.github/scripts/distribution_folder_name.sh -b "${{ github.ref }}"`
+#          echo "distribution folder: ${distribution_folder}"
+##          appcenter distribute groups publish -f ./dev-build/app-debug.apk --token ${{ secrets.APP_CENTER_TOKEN }} --app GithubTest/GithubActionsApp/demo-$distribution_folder -g "Beta Testers" -r "${RELEASE_NOTES}" --debug
+#        shell: bash
+
+#  RELEASE_NOTES=`sh ${{ github.workspace }}/.github/scripts/app_center_release_notes.sh releaseNotes`
+#      - name: Upload to Appcenter
+#        run: |
+#          RELEASE_NOTES=`sh ${{ github.workspace }}/.github/scripts/app_center_release_notes.sh releaseNotes`
+#          echo ${RELEASE_NOTES}
+#        shell: bash
+#      - name: Extract branch name
+#        shell: bash
+#        run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
+#        id: extract_branch
+
+#          - name: Upload to Appcenter
+#              run: |
+#                sh ${{ github.workspace }}/.github/scripts/distribution_folder_name.sh -b "${{ github.ref }}"
+#                echo "github ref: " ${{ github.ref }}
+#              shell: bash
