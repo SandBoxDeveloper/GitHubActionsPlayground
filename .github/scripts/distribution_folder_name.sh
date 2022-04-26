@@ -11,6 +11,66 @@ do
     esac
 done
 
+printStart(){
+  start_feature=$1
+  end=$2
+  branch=$3
+
+  echo "start feature: $start_feature"
+  echo "end: $end"
+
+  if [[ ("$start_feature" == "refs/heads/feature/") && "$end" == "main" ]];
+  then
+    branch_ref=${branch##*/feature/}
+    feature_name=${branch_ref%/main*}
+    echo "Hey ${branch_ref}"
+#    echo "Hey ${feature_name}"
+#    echo $1
+    echo "firefly-${feature_name}"
+  else
+    echo "you're not deploying to a feature branch of type \"feature/x/master\" ! - Please check where you're merging to."
+  fi
+}
+
+if [ "$FEATURE_BRANCH_NAME" == "refs/heads/main" ]
+then
+  # this deletes everything from the left side up till / and keeps the right hand side
+  # refs/heads/main -> main
+  echo "firefly-master"
+else
+  # feature branch
+  feature_branch_start="${FEATURE_BRANCH_NAME%feature*}"
+
+  # end of any branch
+  feature_branch_end="${FEATURE_BRANCH_NAME##**/}"
+
+  echo "branch: $FEATURE_BRANCH_NAME"
+  echo "feature branch: $feature_branch_start"
+
+  printStart "$feature_branch_start" "$feature_branch_end" "$FEATURE_BRANCH_NAME"
+fi
+
+
+#  branch_ref="${FEATURE_BRANCH_NAME/#*feature}"
+#  branch_ref="${FEATURE_BRANCH_NAME%/*}"
+#  echo "branch does not match main"
+#  echo "1st... ${branch_ref}"
+#  echo "${FEATURE_BRANCH_NAME##*/}"
+#  echo "firefly-${branch_ref##*/}"
+
+  # this starts from the end of the ref
+  # and moving left, deletes everything up till the first /
+  # keeping everything to the left of it
+  # refs/heads/feature/instant_credentials/master -> refs/heads/feature/instant_credentials
+#  new_folder="${FEATURE_BRANCH_NAME%/*/}"
+#  echo "first chop: ${new_folder}"
+  # this kicks off from the beginning of the ref, moving right
+  # moving right, deletes everything till the last /
+  # keeping everything to the right of it
+  # refs/heads/feature/instant_credentials -> instant_credentials
+#  echo "second chop: ${new_folder#*/}"
+#  echo "yo"
+
 # feature/instant_credentials/master -> instant_credentials
 # feature/FIREFLY-2345_something -> don't push build to this folder
 # fix/FIREFLY_2345_something -> don't push build to this folder
@@ -21,28 +81,3 @@ done
 # feature/FIREFLY-2345_something going to feature/instant_credentials/main-> instant_credentials
 # fix/FIREFLY_2345_something going to feature/instant_credentials/main -> instant_credentials
 # chore/FIREFLY_2345_something  going to feature/instant_credentials/main -> instant_credentials
-
-if [ "$FEATURE_BRANCH_NAME" == "refs/heads/main" ]
-then
-  echo "feature branch matches main"
-  # this deletes everything from the left side up till / and keeps the right hand side
-  # refs/heads/main -> main
-  echo "${FEATURE_BRANCH_NAME##*/}"
-else
-  branch_ref="${FEATURE_BRANCH_NAME%/*}"
-  echo "branch does not match main"
-  echo "1st... ${branch_ref}"
-  echo "${FEATURE_BRANCH_NAME##*/}"
-
-  # this starts from the end of the ref
-  # and moving left, deletes everything up till the first /
-  # keeping everything to the left of it
-  # refs/heads/feature/instant_credentials/master -> refs/heads/feature/instant_credentials
-  new_folder="${FEATURE_BRANCH_NAME%/*/}"
-  echo "first chop: ${new_folder}"
-  # this kicks off from the beginning of the ref, moving right
-  # moving right, deletes everything till the last /
-  # keeping everything to the right of it
-  # refs/heads/feature/instant_credentials -> instant_credentials
-  echo "second chop: ${new_folder#*/}"
-fi
