@@ -19,7 +19,7 @@ printStart(){
   echo "start feature: $start_feature"
   echo "end: $end"
 
-  if [[ ("$start_feature" == "refs/heads/feature/") && "$end" == "main" ]];
+  if [[ ("$start_feature" == "refs/heads/feature/") && ("$end" == "main") ]];
   then
     branch_ref=${branch##*/feature/}
     feature_name=${branch_ref%/main*}
