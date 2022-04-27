@@ -23,7 +23,7 @@ printStart(){
   then
     branch_ref=${branch##*/feature/}
     feature_name=${branch_ref%/main*}
-    echo "firefly-${feature_name}"
+    echo "firefly-android-${feature_name}"
   else
     echo "you're not deploying to a feature branch of type \"feature/x/master\" ! - Please check where you're merging to."
   fi
@@ -33,7 +33,7 @@ if [ "$FEATURE_BRANCH_NAME" == "refs/heads/main" ]
 then
   # this deletes everything from the left side up till / and keeps the right hand side
   # refs/heads/main -> main
-  echo "firefly-master"
+  echo "firefly-android-master"
 else
   # feature branch
   feature_branch_start="${FEATURE_BRANCH_NAME%feature*}"

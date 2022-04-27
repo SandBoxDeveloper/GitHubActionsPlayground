@@ -69,5 +69,5 @@ jobs:
       - name: Get Distribution Folder
         run: |
           distribution_folder=`sh ${{ github.workspace }}/.github/scripts/distribution_folder_name.sh -b "${{ github.ref }}"`
-          echo "firefly-${distribution_folder}"
+          echo "${distribution_folder}"
         shell: bash
