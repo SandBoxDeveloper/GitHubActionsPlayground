@@ -11,13 +11,13 @@ do
     esac
 done
 
-printStart(){
+getDistributionFolderName(){
   start_feature=$1
   end=$2
   branch=$3
 
-  echo "start feature: $start_feature"
-  echo "end: $end"
+  echo "printing start of feature branch: $start_feature"
+  echo "printing end of branch: $end"
 
   if [[ ("$start_feature" == "refs/heads/feature/") && ("$end" == "main") ]];
   then
@@ -36,13 +36,14 @@ then
   echo "firefly-android-master"
 else
   # feature branch
-  feature_branch_start="${FEATURE_BRANCH_NAME%feature*}"
+  #refs/heads/feature/hello/main
+  feature_branch_start="${FEATURE_BRANCH_NAME%/*}"
 
   # end of any branch
   feature_branch_end="${FEATURE_BRANCH_NAME##**/}"
 
   echo "branch: $FEATURE_BRANCH_NAME"
-  echo "feature branch: $feature_branch_start"
+  echo "start of feature branch: $feature_branch_start"
 
-  printStart "$feature_branch_start" "$feature_branch_end" "$FEATURE_BRANCH_NAME"
+  getDistributionFolderName "$feature_branch_start" "$feature_branch_end" "$FEATURE_BRANCH_NAME"
 fi
