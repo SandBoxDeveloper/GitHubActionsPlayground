@@ -18,10 +18,10 @@ platform :android do
           build_type: "Release",
           print_command: false,
           properties: {
-            "android.injected.signing.store.file" => "/Users/andrehitchman/learning-projects/android-projects/key/brightboy/bright-boy-keystore.jks",
-            "android.injected.signing.store.password" => "8ZC1Zc^@w4m",
-            "android.injected.signing.key.alias" => "BrightBoy",
-            "android.injected.signing.key.password" => "8ZC1Zc^@w4m",
+            "android.injected.signing.store.file" => ENV["KEYSTORE_FILE"],
+            "android.injected.signing.store.password" => ENV["KEYSTORE_STORE_PASSWORD"],
+            "android.injected.signing.key.alias" => ENV["KEYSTORE_KEY_ALIAS"],
+            "android.injected.signing.key.password" => ENV["KEYSTORE_KEY_PASSWORD"],
             })
     upload_to_play_store(
           track: 'beta',
