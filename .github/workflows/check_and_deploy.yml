@@ -11,28 +11,28 @@ on:
 
 jobs:
 
-  unit_tests:
-    runs-on: [ubuntu-latest]
+#  unit_tests:
+#    runs-on: [ubuntu-latest]
+#
+#    steps:
+#      - name: Checkout code
+#        uses: actions/checkout@v2
+#
+#      - name: Run Unit tests
+#        run: ./gradlew test
 
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Run Unit tests
-        run: ./gradlew test
-
-  android_tests:
-    runs-on: [ macos-latest ]
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Set up Java
-        uses: actions/setup-java@v2
-        with:
-          java-version: '11'
-          distribution: 'adopt'
+#  android_tests:
+#    runs-on: [ macos-latest ]
+#
+#    steps:
+#      - name: Checkout code
+#        uses: actions/checkout@v2
+#
+#      - name: Set up Java
+#        uses: actions/setup-java@v2
+#        with:
+#          java-version: '11'
+#          distribution: 'adopt'
 
   build:
     needs: [ unit_tests ]
@@ -60,22 +60,63 @@ jobs:
             ${{ github.workspace }}/app/build/outputs/apk/debug/*.apk
           retention-days: 3
 
-  deploy:
-    needs: [ build ]
+#  deploy:
+#    needs: [ build ]
+#    runs-on: ubuntu-latest
+#
+#    steps:
+#      - name: Download All Artifacts
+#        uses: actions/download-artifact@v2
+#
+#      - name: Install AppCenter CLI
+#        run: |
+#          npm install -g appcenter-cli
+#          echo "List downloads folder contents:"
+#          ls -R
+#        shell: bash
+#
+#      - name: Upload to Appcenter
+#        run: |
+#          appcenter distribute groups publish -f ./dev-build/app-debug.apk --token ${{ secrets.APP_CENTER_TOKEN }} --app GithubTest/GithubActionsApp -g "Beta Testers" -r "TODO some release notes" --debug
+#        shell: bash
+
+  build_aab:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Generate AAB
+        run: ./gradlew clean assembleRelease
+
+      - name: Export build artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: release-build
+          path: |
+            ${{ github.workspace }}/app/build/outputs/bundle/release/*.aab
+          retention-days: 3
+
+  fastlane:
     runs-on: ubuntu-latest
 
     steps:
       - name: Download All Artifacts
         uses: actions/download-artifact@v2
 
-      - name: Install AppCenter CLI
-        run: |
-          npm install -g appcenter-cli
-          echo "List downloads folder contents:"
-          ls -R
-        shell: bash
+      - name: Setup ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 2.7
 
-      - name: Upload to Appcenter
+      - name: Install dependencies to support ruby project
         run: |
-          appcenter distribute groups publish -f ./dev-build/app-debug.apk --token ${{ secrets.APP_CENTER_TOKEN }} --app GithubTest/GithubActionsApp -g "Beta Testers" -r "TODO some release notes" --debug
-        shell: bash
+          bundle config --global set deploy_platform_default x86_64-linux
+          bundle install
+
+      - name: Build and distribute app
+        run: |
+          export LC_ALL=en_US.UTF-8
+          export LANG=en_US.UTF-8
+          bundle exec fastlane beta
