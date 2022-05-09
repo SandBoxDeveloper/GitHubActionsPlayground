@@ -24,8 +24,8 @@ platform :android do
             "android.injected.signing.key.password" => ENV["KEYSTORE_KEY_PASSWORD"],
             })
     upload_to_play_store(
+            json_key: ENV["CONSOLE_CONFIG_JSON"],
             track: 'beta',
-            json_key: ENV["PLAY_CONSOLE_CONFIG_JSON"],
             skip_upload_metadata: 'true',
             skip_upload_apk: 'true',
             skip_upload_images: 'true',
