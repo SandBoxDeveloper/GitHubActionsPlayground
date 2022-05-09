@@ -1,0 +1,28 @@
+default_platform(:android)
+
+platform :android do
+
+  desc "Distribute to Beta track"
+  lane :beta do
+    gradle(
+          task: "bundle",
+          build_type: "Release",
+          print_command: false,
+          flags: "--stacktrace",
+          properties: {
+            "android.injected.signing.store.file" => ENV["KEYSTORE_FILE"],
+            "android.injected.signing.store.password" => ENV["KEYSTORE_STORE_PASSWORD"],
+            "android.injected.signing.key.alias" => ENV["KEYSTORE_KEY_ALIAS"],
+            "android.injected.signing.key.password" => ENV["KEYSTORE_KEY_PASSWORD"],
+            })
+    upload_to_play_store(
+            json_key: ENV["CONSOLE_CONFIG_JSON"],
+            track: 'beta',
+            skip_upload_metadata: 'true',
+            skip_upload_apk: 'true',
+            skip_upload_images: 'true',
+            skip_upload_screenshots: 'true',
+          )
+  end
+
+end
