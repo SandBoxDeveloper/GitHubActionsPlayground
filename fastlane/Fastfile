@@ -8,6 +8,7 @@ platform :android do
           task: "bundle",
           build_type: "Release",
           print_command: false,
+          flags: "--stacktrace",
           properties: {
             "android.injected.signing.store.file" => ENV["KEYSTORE_FILE"],
             "android.injected.signing.store.password" => ENV["KEYSTORE_STORE_PASSWORD"],
