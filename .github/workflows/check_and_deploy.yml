@@ -127,6 +127,7 @@ jobs:
           echo "keyAlias=$KEYSTORE_KEY_ALIAS" >> keystore.properties
           echo "keyPassword=$KEY_STORE_KEY_PASSWORD" >> keystore.properties
           echo "storePassword=$KEY_STORE_PASSWORD" >> keystore.properties
+          ls -R
         env:
           KEYSTORE_FILE: ${{ secrets.KEYSTORE_FILE }}
           KEYSTORE_KEY_ALIAS: ${{ secrets.KEY_STORE_ALIAS }}
@@ -140,7 +141,7 @@ jobs:
         env:
           PLAY_CONSOLE_CONFIG_JSON: ${{ secrets.PLAY_CONSOLE_CONFIG_JSON }}
 
-      - name: Build and distribute app --env KEYSTORE_FILE KEYSTORE_KEY_ALIAS KEYSTORE_KEY_PASSWORD KEYSTORE_STORE_PASSWORD
+      - name: Build and distribute app
         run: |
           export LC_ALL=en_US.UTF-8
           export LANG=en_US.UTF-8
