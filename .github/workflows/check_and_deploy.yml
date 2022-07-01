@@ -101,11 +101,6 @@ jobs:
     needs: [ build ]
 
     steps:
-      - name: Set up Java
-        uses: actions/setup-java@v2
-        with:
-          java-version: '11'
-          distribution: 'adopt'
 
       - name: Download All Artifacts
         uses: actions/download-artifact@v2
@@ -116,25 +111,14 @@ jobs:
           ls -R
         shell: bash
 
-      - name: Get Release Tag
-        run: |
-          RELEASE_TAG=$(sh ./gradlew getReleaseTag --stacktrace)
-          MY_VAR=$(sh ./gradlew getReleaseTag --stacktrace)
-          echo "printing... $MY_VAR"
-          echo "flag=${{ env.RELEASE_TAG }}"
-          shell: bash
-
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: $RELEASE_TAG.${{ github.run_number }}
+          tag_name: ${{ github.ref }}-${{ github.run_number }}
           release_name: Release ${{ github.ref }}-${{ github.run_number }}
-          run: |
-            sh ${{ github.workspace }}/.github/scripts/app_center_release_notes.sh releaseNotes
-            cat release_notes_markdown.md
           body: |
             release_notes_markdown.md
           prerelease: true
