@@ -93,3 +93,64 @@ jobs:
           cat release_notes_markdown.md
           appcenter distribute groups publish -f ./dev-build/app-debug.apk --token ${{ secrets.APP_CENTER_TOKEN }} --app GithubTest/GithubActionsApp -g "Beta Testers" -R release_notes_markdown.md --debug
         shell: bash
+
+
+  release:
+    name: Create Release
+    runs-on: ubuntu-latest
+    needs: [ build ]
+
+    steps:
+      - name: Download All Artifacts
+        uses: actions/download-artifact@v2
+
+      - name: Explore Artifacts
+        run: |
+          echo "Exploring files..."
+          ls -R
+        shell: bash
+
+      - name: Get Release Tag
+        run: |
+          RELEASE_TAG=$(sh ./gradlew getReleaseTag --stacktrace)
+          MY_VAR=$(sh ./gradlew getReleaseTag --stacktrace)
+          echo "printing... $MY_VAR"
+          echo "flag=${{ env.RELEASE_TAG }}"
+          shell: bash
+
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: $RELEASE_TAG.${{ github.run_number }}
+          release_name: Release ${{ github.ref }}-${{ github.run_number }}
+          run: |
+            sh ${{ github.workspace }}/.github/scripts/app_center_release_notes.sh releaseNotes
+            cat release_notes_markdown.md
+          body: |
+            release_notes_markdown.md
+          prerelease: true
+        if: contains(github.event.pull_request.labels.*.name, 'pre release')
+
+      - name: Upload Release Artifacts
+        uses: actions/github-script@v3
+        with:
+          github-token: ${{secrets.GITHUB_TOKEN}}
+          script: |
+            const path = require('path');
+            const fs = require('fs');
+            const release_id = '${{ steps.create_release.outputs.id }}';
+              for (let file of await fs.readdirSync(dir)) {
+                if (path.extname(file) === '.zip' || path.extname(file) === '.apk') {
+                  await github.repos.uploadReleaseAsset({
+                    owner: context.repo.owner,
+                    repo: context.repo.repo,
+                    release_id: release_id,
+                    name: file,
+                    data: await fs.readFileSync(`./${dir}/${file}`)
+                  });
+                }
+            }
+        if: contains(github.event.pull_request.labels.*.name, 'pre release')
