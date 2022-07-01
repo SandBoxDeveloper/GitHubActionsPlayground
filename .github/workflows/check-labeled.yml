@@ -1,0 +1,25 @@
+name: Check If Labeled
+
+on:
+  push:
+    branches:
+      - 'main'
+      - 'feature/*'
+
+    #types: [synchronize, opened, reopened, labeled, unlabeled]
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Print match
+        if: ${{ contains(github.event.*.labels.*.name, 'pre-release') }}
+        run: |
+          echo "contains match: ${{ github.event.*.labels.*.name['pre-release'] }}"
+        shell: bash
