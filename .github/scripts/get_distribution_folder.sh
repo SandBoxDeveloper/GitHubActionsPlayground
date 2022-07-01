@@ -24,7 +24,7 @@ done
 # e.g refs/heads/feature/some_branch_name/
 # becomes -> feature/some_branch_name/
 
-if [ "$BRANCH_REF" == "ref/head/master" ]
+if [ "$BRANCH_REF" == "ref/head/main" ]
 then
   echo "${BRANCH_REF##*/}"
 else
