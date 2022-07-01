@@ -60,7 +60,7 @@ jobs:
           KEYSTORE_FILE: ${{ secrets.KEYSTORE_FILE }}
           KEYSTORE_KEY_ALIAS: ${{ secrets.KEY_STORE_ALIAS }}
           KEYSTORE_KEY_PASSWORD: ${{ secrets.KEY_STORE_KEY_PASSWORD }}
-          KEYSTORE_STORE_PASSWORD: ${{ secrets.KEY_STORE_PASSWORD }
+          KEYSTORE_STORE_PASSWORD: ${{ secrets.KEY_STORE_PASSWORD }}
 
       - name: Build and distribute app
         run: |
