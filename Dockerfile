@@ -9,9 +9,9 @@ ENV PATH=$PATH:$ANDROID_HOME/tools:$ANDROID_HOME/tools/bin:$ANDROID_HOME/platfor
 RUN apt-get update && apt-get install -y wget
 
 # Install Android SDK components
-RUN wget https://dl.google.com/android/repository/sdk-tools-linux-4333796.zip -O sdk-tools-linux.zip && \
-    unzip sdk-tools-linux.zip -d /opt && \
-    rm sdk-tools-linux.zip
+RUN wget -O android-sdk.zip https://dl.google.com/android/repository/sdk-tools-linux-4333796.zip \
+    && unzip android-sdk.zip -d /opt/android-sdk \
+    && rm android-sdk.zip
 
 RUN yes | sdkmanager --licenses && \
     sdkmanager "platform-tools" "platforms;android-30" "emulator" "system-images;android-30;default;armeabi-v7a"
