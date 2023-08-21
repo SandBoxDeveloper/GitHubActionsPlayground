@@ -35,22 +35,25 @@ jobs:
           sudo apt-get install -y android-tools-adb
         shell: bash
 
-      - name: Wait for Emulator
-        run: |
-          EMULATOR_READY=false
-          while [ "$EMULATOR_READY" = false ]; do
-            if adb devices | grep -q "emulator"; then
-              EMULATOR_READY=true
-              echo "Emulator is ready!"
-            else
-              echo "Waiting for emulator..."
-              sleep 10
-            fi
-          done
-        shell: bash
+      - name: List Emulators
+        run: adb devices
 
-      - name: Run Espresso Tests
-        run: ./gradlew connectedAndroidTest
+#      - name: Wait for Emulator
+#        run: |
+#          EMULATOR_READY=false
+#          while [ "$EMULATOR_READY" = false ]; do
+#            if adb devices | grep -q "emulator"; then
+#              EMULATOR_READY=true
+#              echo "Emulator is ready!"
+#            else
+#              echo "Waiting for emulator..."
+#              sleep 10
+#            fi
+#          done
+#        shell: bash
+#
+#      - name: Run Espresso Tests
+#        run: ./gradlew connectedAndroidTest
 
 #      - name: Print Environment
 #        run: |
