@@ -54,11 +54,16 @@ jobs:
         run: $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --list | grep system-images
 
       - name: Install Emulator Components
-        run: |
-          yes | $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --licenses
-          $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager "system-images;android-25;google_apis;armeabi-v7a"
+        run: $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --install "system-images;android-25;google_apis;armeabi-v7a"
 
-      - name: Create AVD and Start Emulator
+      - name: Create AVD
         run: |
-          echo "no" | $ANDROID_HOME/cmdline-tools/latest/bin/avdmanager create avd --force --name my_workflow_avd --package "system-images;android-25;google_apis;armeabi-v7a" --abi google_apis/armeabi-v7a
-          $ANDROID_HOME/emulator/emulator -avd my_workflow_avd -no-window
+          echo "no" | $ANDROID_HOME/cmdline-tools/latest/bin/avdmanager create avd \
+          --force \
+          --name my_workflow_avd \
+          --package "system-images;android-25;google_apis;armeabi-v7a" \
+          --abi google_apis/armeabi-v7a
+          --device "Nexus5"
+
+      - name: Start Emulator
+        run: $ANDROID_HOME/emulator/emulator -avd my_workflow_avd -no-window
