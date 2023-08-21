@@ -29,17 +29,14 @@ jobs:
       - name: Run Emulator in Docker Container
         run: docker run -d --name emulator-container android-emulator
 
-      - name: Wait for Emulator
+      - name: Install ADB
         run: |
-          # echo "$(date +"[%Y-%m-%d %H:%M:%S]") Waiting for the emulator to be ready..."
-          # $ANDROID_SDK_ROOT/platform-tools/adb wait-for-device
-          # echo "$(date +"[%Y-%m-%d %H:%M:%S]") Emulator is now ready!"
-          # Install ADB
           sudo apt-get update
           sudo apt-get install -y android-tools-adb
+        shell: bash
 
-          # Wait for emulator to be ready
-          # Use a loop to wait for emulator readiness
+      - name: Wait for Emulator
+        run: |
           EMULATOR_READY=false
           while [ "$EMULATOR_READY" = false ]; do
             if adb devices | grep -q "emulator"; then
@@ -50,6 +47,7 @@ jobs:
               sleep 10
             fi
           done
+        shell: bash
 
       - name: Run Espresso Tests
         run: ./gradlew connectedAndroidTest
