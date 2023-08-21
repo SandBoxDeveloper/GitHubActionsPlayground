@@ -30,15 +30,18 @@ jobs:
       - name: Download and Extract Android SDK
         run: |
           echo "Workspace: ${{ github.workspace }}"
-          echo "HOME: $HOME"
-          ls -l $HOME
           /usr/bin/wget https://dl.google.com/android/repository/sdk-tools-linux-4333796.zip
-          ls -l
           unzip sdk-tools-linux-4333796.zip -d $HOME/android-sdk
         env:
           HOME: ${{ github.workspace }}
           ANDROID_HOME: $HOME/android-sdk
           PATH: $PATH:$ANDROID_HOME/cmdline-tools/latest/bin
+
+      - name: Print HOME Environment
+        run: |
+          echo "Home environment:"
+          ls -l $HOME 
+          echo "HOME: $HOME"
 
       - name: Accept Android SDK Licenses
         run: yes | $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --licenses
