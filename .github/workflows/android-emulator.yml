@@ -21,6 +21,12 @@ jobs:
           java-version: '11'
           distribution: 'adopt'
 
+      - name: Print Environment
+        run: |
+          echo "Available Tools:"
+          ls -l /usr/bin
+          echo "PATH: $PATH"
+
       - name: Download and Extract Android SDK
         run: |
           echo "Workspace: ${{ github.workspace }}"
