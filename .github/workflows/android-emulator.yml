@@ -1,0 +1,37 @@
+name: Android Emulator Workflow
+
+on:
+  pull_request:
+    branches:
+      - 'main'
+      - 'feature/*/master'
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Set up Android SDK
+        uses: actions/setup-java@v2
+        with:
+          java-version: '8'
+
+      - name: Download and Extract Android SDK
+        run: |
+          wget https://dl.google.com/android/repository/commandlinetools-linux-7583922_latest.zip -O android-sdk.zip
+          unzip -q android-sdk.zip -d $HOME/android-sdk
+        env:
+          ANDROID_HOME: $HOME/android-sdk
+          PATH: $PATH:$ANDROID_HOME/cmdline-tools/latest/bin
+
+      - name: Accept Android SDK Licenses
+        run: yes | $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --licenses
+
+      - name: Create AVD and Start Emulator
+        run: |
+          echo "no" | $ANDROID_HOME/cmdline-tools/latest/bin/avdmanager create avd --force --name my_workflow_avd --package "system-images;android-30;default;armeabi-v7a" --abi armeabi-v7a
+          $ANDROID_HOME/emulator/emulator -avd my_workflow_avd -no-window
