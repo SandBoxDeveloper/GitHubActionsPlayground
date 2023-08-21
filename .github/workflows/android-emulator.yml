@@ -62,7 +62,7 @@ jobs:
           --force \
           --name my_workflow_avd \
           --package "system-images;android-25;google_apis;armeabi-v7a" \
-          --abi google_apis/armeabi-v7a
+          --abi google_apis/armeabi-v7a \
           --device "Nexus5"
 
       - name: Start Emulator
