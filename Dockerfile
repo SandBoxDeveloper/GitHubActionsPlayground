@@ -1,24 +1,35 @@
-# Use a base image with the necessary components (e.g., Java, Android SDK tools)
-FROM adoptopenjdk/openjdk8:latest
+# Use an official Ubuntu as the base image
+FROM ubuntu:20.04
 
-# Set environment variables for Android SDK
+# Set up environment variables
+ENV DEBIAN_FRONTEND=noninteractive
 ENV ANDROID_HOME=/opt/android-sdk
-ENV PATH=$PATH:$ANDROID_HOME/tools:$ANDROID_HOME/tools/bin:$ANDROID_HOME/platform-tools
+ENV PATH=$PATH:$ANDROID_HOME/emulator:$ANDROID_HOME/tools/bin:$ANDROID_HOME/platform-tools
 
-# Install wget command
-RUN apt-get update && apt-get install -y wget
+# Install required dependencies
+RUN apt-get update && apt-get install -y wget unzip openjdk-11-jdk
 
-# Install Android SDK components
-RUN wget -O android-sdk.zip https://dl.google.com/android/repository/sdk-tools-linux-4333796.zip \
-    && unzip android-sdk.zip -d /opt/android-sdk \
-    && rm android-sdk.zip
+# Download and extract Android SDK
+RUN wget https://dl.google.com/android/repository/sdk-tools-linux-4333796.zip -O sdk-tools-linux.zip && \
+    unzip sdk-tools-linux.zip -d $ANDROID_HOME && \
+    rm sdk-tools-linux.zip
 
-RUN yes | sdkmanager --licenses && \
-    sdkmanager "platform-tools" "platforms;android-30" "emulator" "system-images;android-30;default;armeabi-v7a"
+# Accept Android SDK licenses
+RUN yes | $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --licenses
+
+# Install Android emulator components
+RUN $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --install "system-images;android-25;google_apis;armeabi-v7a"
 
 # Set up emulator environment variables
 ENV ANDROID_SDK_ROOT=$ANDROID_HOME
 
-# Create AVD and start emulator
-CMD echo "no" | avdmanager create avd --force --name my_docker_avd --package "system-images;android-30;default;armeabi-v7a" --abi armeabi-v7a && \
-    emulator -avd my_docker_avd -no-window
+# Set up AVD
+RUN echo "no" | $ANDROID_HOME/cmdline-tools/latest/bin/avdmanager create avd \
+    --force \
+    --name my_docker_avd \
+    --package "system-images;android-25;google_apis;armeabi-v7a" \
+    --abi google_apis/armeabi-v7a \
+    --device "Nexus 5"
+
+# Set the entrypoint to start the emulator
+CMD $ANDROID_HOME/emulator/emulator -avd my_docker_avd -no-window
