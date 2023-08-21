@@ -30,6 +30,7 @@ jobs:
       - name: Download and Extract Android SDK
         run: |
           echo "Workspace: ${{ github.workspace }}"
+          echo "HOME: $HOME"
           ls -l $HOME
           /usr/bin/wget https://dl.google.com/android/repository/sdk-tools-linux-4333796.zip
           ls -l
