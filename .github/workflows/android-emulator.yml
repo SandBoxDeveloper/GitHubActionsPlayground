@@ -38,19 +38,20 @@ jobs:
       - name: List Emulators
         run: adb devices
 
-#      - name: Wait for Emulator
-#        run: |
-#          EMULATOR_READY=false
-#          while [ "$EMULATOR_READY" = false ]; do
-#            if adb devices | grep -q "emulator"; then
-#              EMULATOR_READY=true
-#              echo "Emulator is ready!"
-#            else
-#              echo "Waiting for emulator..."
-#              sleep 10
-#            fi
-#          done
-#        shell: bash
+      - name: Wait for Emulator
+        run: |
+          start_time=$(date +%s)
+          while ! $ANDROID_SDK_ROOT/platform-tools/adb devices | grep -wq "emulator"; do
+            current_time=$(date +%s)
+            elapsed_time=$((current_time - start_time))
+            if [ "$elapsed_time" -ge 300 ]; then
+              echo "Emulator did not become ready within 5 minutes. Exiting."
+              exit 1
+            fi
+            sleep 10
+          done
+          echo "Emulator is ready"
+        shell: bash
 #
 #      - name: Run Espresso Tests
 #        run: ./gradlew connectedAndroidTest
