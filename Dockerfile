@@ -1,35 +1,84 @@
-# Use an official Ubuntu as the base image
-FROM ubuntu:20.04
+## Use an official image as the base
+#FROM ubuntu:20.04
+#
+## Set environment variables
+##ENV JAVA_HOME /usr/lib/jvm/java-11-openjdk-amd64
+#ENV ANDROID_SDK_ROOT /opt/android-sdk
+#ENV ANDROID_HOME /opt/android-sdk
+#ENV PATH $PATH:$ANDROID_SDK_ROOT/cmdline-tools/*/bin
+#
+## Install required packages
+#RUN apt-get update && \
+#    apt-get install -y wget unzip openjdk-11-jdk curl && \
+#    rm -rf /var/lib/apt/lists/*
+#
+## Download and extract Android SDK
+#RUN wget https://dl.google.com/android/repository/commandlinetools-linux-6858069_latest.zip -O android-sdk.zip && \
+#    ls -l && \
+#    unzip android-sdk.zip -d $ANDROID_SDK_ROOT && \
+#    ls -l $ANDROID_SDK_ROOT && \
+#    rm android-sdk.zip
+#
+## Accept Android SDK licenses
+#RUN echo $ANDROID_SDK_ROOT/cmdline-tools
+#RUN ls -l $ANDROID_SDK_ROOT/cmdline-tools/bin
+#RUN echo "y" | $ANDROID_SDK_ROOT/cmdline-tools/*/bin/sdkmanager --licenses
+##
+### Install required Android components
+##RUN $ANDROID_HOME/cmdline-tools/bin/sdkmanager "system-images;android-25;google_apis;armeabi-v7a" "emulator"
+#
+## Set up AVD and start emulator (optional)
+## RUN echo "no" | $ANDROID_HOME/cmdline-tools/latest/bin/avdmanager create avd \
+##     --force \
+##     --name my_avd \
+##     --package "system-images;android-25;google_apis;armeabi-v7a" \
+##     --abi google_apis/armeabi-v7a \
+##     --device "Nexus 5"
+#
+## Set up entrypoint
+#CMD ["/bin/bash"]
+FROM ubuntu:bionic
 
-# Set up environment variables
-ENV DEBIAN_FRONTEND=noninteractive
-ENV ANDROID_HOME=/opt/android-sdk
-ENV PATH=$PATH:$ANDROID_HOME/emulator:$ANDROID_HOME/tools/bin:$ANDROID_HOME/platform-tools
+# Install packages
+RUN apt-get -qqy update && \
+    apt-get -qqy --no-install-recommends install software-properties-common && \
+    add-apt-repository ppa:openjdk-r/ppa && \
+    apt-get -qqy --no-install-recommends install \
+    openjdk-14-jdk \
+    curl \
+    zip \
+    unzip \
+    git \
+    locales \
+  && rm -rf /var/lib/apt/lists/* \
 
-# Install required dependencies
-RUN apt-get update && apt-get install -y wget unzip openjdk-11-jdk
+ENV JAVA_HOME="/usr/lib/jvm/java-14-openjdk-amd64/" \
+    PATH=$PATH:$JAVA_HOME/bin
 
-# Download and extract Android SDK
-RUN wget https://dl.google.com/android/repository/sdk-tools-linux-4333796.zip -O sdk-tools-linux.zip && \
-    unzip sdk-tools-linux.zip -d $ANDROID_HOME && \
-    rm sdk-tools-linux.zip
+ENV ANDROID_SDK_ROOT="/usr/local/android-sdk"
+ENV PATH=$PATH:$ANDROID_SDK_ROOT/cmdline-tools/latest:$ANDROID_SDK_ROOT/cmdline-tools/latest/bin:$ANDROID_SDK_ROOT/platform-tools
 
-# Accept Android SDK licenses
-RUN yes | $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --licenses
+ENV CMDLINE_TOOLS_URL="https://dl.google.com/android/repository/commandlinetools-linux-6858069_latest.zip"
 
-# Install Android emulator components
-RUN $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --install "system-images;android-25;google_apis;armeabi-v7a"
+# Download Android SDK
+RUN mkdir "$ANDROID_SDK_ROOT" .android \
+    && mkdir -p "$ANDROID_SDK_ROOT/cmdline-tools" \
+    && curl -o commandlinetools.zip $CMDLINE_TOOLS_URL \
+    && unzip commandlinetools.zip -d "$ANDROID_SDK_ROOT/cmdline-tools" \
+    && mv "$ANDROID_SDK_ROOT/cmdline-tools/cmdline-tools" "$ANDROID_SDK_ROOT/cmdline-tools/latest" \
+    && rm commandlinetools.zip
 
-# Set up emulator environment variables
-ENV ANDROID_SDK_ROOT=$ANDROID_HOME
+# Accept all licenses
+RUN yes | sdkmanager --licenses
 
-# Set up AVD
-RUN echo "no" | $ANDROID_HOME/cmdline-tools/latest/bin/avdmanager create avd \
-    --force \
-    --name my_docker_avd \
-    --package "system-images;android-25;google_apis;armeabi-v7a" \
-    --abi google_apis/armeabi-v7a \
-    --device "Nexus 5"
+### Install required Android components
+RUN $ANDROID_SDK_ROOT/cmdline-tools/latest/bin/sdkmanager "system-images;android-25;google_apis;armeabi-v7a" "emulator"
 
-# Set the entrypoint to start the emulator
-CMD $ANDROID_HOME/emulator/emulator -avd my_docker_avd -no-window
+#============================================
+# Create required emulator
+#============================================
+ARG EMULATOR_NAME="nexus"
+ARG EMULATOR_DEVICE="Nexus 6"
+ENV EMULATOR_NAME=$EMULATOR_NAME
+ENV DEVICE_NAME=$EMULATOR_DEVICE
+RUN echo "no" | avdmanager --verbose create avd --force --name "${EMULATOR_NAME}" --device "${EMULATOR_DEVICE}" --package "${EMULATOR_PACKAGE}"

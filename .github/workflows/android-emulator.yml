@@ -21,48 +21,63 @@ jobs:
           java-version: '11'
           distribution: 'adopt'
 
-      - name: Print Environment
-        run: |
-          echo "Available Tools:"
-          ls -l /usr/bin
-          echo "PATH: $PATH"
+      - name: Set up Docker
+        uses: actions/setup-docker@v2
 
-      - name: Download and Extract Android SDK
-        run: |
-          echo "Workspace: ${{ github.workspace }}"
-          /usr/bin/wget https://dl.google.com/android/repository/sdk-tools-linux-4333796.zip
-          /usr/bin/unzip sdk-tools-linux-4333796.zip -d $HOME/android-sdk
-        env:
-          HOME: ${{ github.workspace }}
-          ANDROID_HOME: $HOME/android-sdk
-          PATH: $PATH:$ANDROID_HOME/cmdline-tools/latest/bin
+      - name: Build Docker Image
+        run: docker build -t android-emulator .
 
-      - name: Print HOME Environment
-        run: |
-          echo "Home environment:"
-          ls -l $HOME 
-          echo "HOME: $HOME"
-          echo "ANDROID HOME: $ANDROID_HOME"
+      - name: Run Emulator in Docker Container
+        run: docker run -d --name emulator-container android-emulator
 
-      - name: Accept Android SDK Licenses
-        run: yes | $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --licenses
+      - name: Wait for Emulator
+        run: $ANDROID_SDK_ROOT/platform-tools/adb wait-for-device
 
-      - name: List AVD Target(s)
-        run: $ANDROID_HOME/cmdline-tools/latest/bin/avdmanager list target
+      - name: Run Espresso Tests
+        run: ./gradlew connectedAndroidTest
 
-      - name: List Available System Images
-        run: $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --list | grep system-images
-
-      - name: Install Emulator Components
-        run: $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --install "system-images;android-25;google_apis;armeabi-v7a"
-
-      - name: Create AVD
-        run: |
-          echo "no" | $ANDROID_HOME/cmdline-tools/latest/bin/avdmanager create avd \
-          --force \
-          --name my_workflow_avd \
-          --package "system-images;android-25;google_apis;armeabi-v7a" \
-          --abi google_apis/armeabi-v7a \
-
-      - name: Start Emulator
-        run: $ANDROID_HOME/emulator/emulator -avd my_workflow_avd -no-window
+#      - name: Print Environment
+#        run: |
+#          echo "Available Tools:"
+#          ls -l /usr/bin
+#          echo "PATH: $PATH"
+#
+#      - name: Download and Extract Android SDK
+#        run: |
+#          echo "Workspace: ${{ github.workspace }}"
+#          /usr/bin/wget https://dl.google.com/android/repository/sdk-tools-linux-4333796.zip
+#          /usr/bin/unzip sdk-tools-linux-4333796.zip -d $HOME/android-sdk
+#        env:
+#          HOME: ${{ github.workspace }}
+#          ANDROID_HOME: $HOME/android-sdk
+#          PATH: $PATH:$ANDROID_HOME/cmdline-tools/latest/bin
+#
+#      - name: Print HOME Environment
+#        run: |
+#          echo "Home environment:"
+#          ls -l $HOME
+#          echo "HOME: $HOME"
+#          echo "ANDROID HOME: $ANDROID_HOME"
+#
+#      - name: Accept Android SDK Licenses
+#        run: yes | $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --licenses
+#
+#      - name: List AVD Target(s)
+#        run: $ANDROID_HOME/cmdline-tools/latest/bin/avdmanager list target
+#
+#      - name: List Available System Images
+#        run: $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --list | grep system-images
+#
+#      - name: Install Emulator Components
+#        run: $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --install "system-images;android-25;google_apis;armeabi-v7a"
+#
+#      - name: Create AVD
+#        run: |
+#          echo "no" | $ANDROID_HOME/cmdline-tools/latest/bin/avdmanager create avd \
+#          --force \
+#          --name my_workflow_avd \
+#          --package "system-images;android-25;google_apis;armeabi-v7a" \
+#          --abi google_apis/armeabi-v7a \
+#
+#      - name: Start Emulator
+#        run: $ANDROID_HOME/emulator/emulator -avd my_workflow_avd -no-window
