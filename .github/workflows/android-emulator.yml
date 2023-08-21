@@ -23,7 +23,7 @@ jobs:
 
       - name: Download and Extract Android SDK
         run: |
-          curl -o android-sdk.zip https://dl.google.com/android/repository/sdk-tools-linux-4333796.zip
+          wget https://dl.google.com/android/repository/sdk-tools-linux-4333796.zip -O android-sdk.zip
           unzip android-sdk.zip -d $HOME/android-sdk
         env:
           HOME: ${{ github.workspace }}
