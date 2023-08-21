@@ -32,6 +32,7 @@ jobs:
           echo "Workspace: ${{ github.workspace }}"
           /usr/bin/wget https://dl.google.com/android/repository/sdk-tools-linux-4333796.zip
           unzip sdk-tools-linux-4333796.zip -d $HOME/android-sdk
+        shell: bash
         env:
           HOME: ${{ github.workspace }}
           ANDROID_HOME: $HOME/android-sdk
