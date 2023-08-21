@@ -5,7 +5,7 @@ FROM adoptopenjdk/openjdk8:latest
 ENV ANDROID_HOME=/opt/android-sdk
 ENV PATH=$PATH:$ANDROID_HOME/tools:$ANDROID_HOME/tools/bin:$ANDROID_HOME/platform-tools
 
-# Install wget
+# Install wget command
 RUN apt-get update && apt-get install -y wget
 
 # Install Android SDK components
