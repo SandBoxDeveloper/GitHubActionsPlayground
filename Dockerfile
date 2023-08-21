@@ -50,7 +50,23 @@ RUN apt-get -qqy update && \
     unzip \
     git \
     locales \
-  && rm -rf /var/lib/apt/lists/* \
+  && rm -rf /var/lib/apt/lists/*
+
+#==============================
+# Android SDK ARGS
+#==============================
+ARG ARCH="x86_64"
+ARG TARGET="google_apis_playstore"
+ARG API_LEVEL="33"
+ARG BUILD_TOOLS="33.0.2"
+ARG ANDROID_ARCH=${ANDROID_ARCH_DEFAULT}
+ARG ANDROID_API_LEVEL="android-${API_LEVEL}"
+ARG ANDROID_APIS="${TARGET};${ARCH}"
+ARG EMULATOR_PACKAGE="system-images;${ANDROID_API_LEVEL};${ANDROID_APIS}"
+ARG PLATFORM_VERSION="platforms;${ANDROID_API_LEVEL}"
+ARG BUILD_TOOL="build-tools;${BUILD_TOOLS}"
+ARG ANDROID_CMD="commandlinetools-linux-6858069_latest.zip"
+ARG ANDROID_SDK_PACKAGES="${EMULATOR_PACKAGE} ${PLATFORM_VERSION} ${BUILD_TOOL} platform-tools"
 
 ENV JAVA_HOME="/usr/lib/jvm/java-14-openjdk-amd64/" \
     PATH=$PATH:$JAVA_HOME/bin
@@ -70,6 +86,7 @@ RUN mkdir "$ANDROID_SDK_ROOT" .android \
 
 # Accept all licenses
 RUN yes | sdkmanager --licenses
+RUN yes Y | sdkmanager --verbose --no_https ${ANDROID_SDK_PACKAGES}
 
 ### Install required Android components
 RUN $ANDROID_SDK_ROOT/cmdline-tools/latest/bin/sdkmanager "system-images;android-25;google_apis;armeabi-v7a" "emulator"

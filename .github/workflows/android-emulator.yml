@@ -23,6 +23,7 @@ jobs:
 
       - name: Build Docker Image
         run: docker build -t android-emulator .
+        working-directory: ${{ github.workspace }}
 
       - name: Run Emulator in Docker Container
         run: docker run -d --name emulator-container android-emulator
