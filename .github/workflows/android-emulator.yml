@@ -32,7 +32,6 @@ jobs:
           echo "Workspace: ${{ github.workspace }}"
           /usr/bin/wget https://dl.google.com/android/repository/sdk-tools-linux-4333796.zip
           /usr/bin/unzip sdk-tools-linux-4333796.zip -d $HOME/android-sdk
-        shell: bash
         env:
           HOME: ${{ github.workspace }}
           ANDROID_HOME: $HOME/android-sdk
@@ -43,9 +42,16 @@ jobs:
           echo "Home environment:"
           ls -l $HOME 
           echo "HOME: $HOME"
+          echo "ANDROID HOME: $ANDROID_HOME"
 
       - name: Accept Android SDK Licenses
         run: yes | $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --licenses
+
+      - name: List AVD Target(s)
+        run: $ANDROID_HOME/cmdline-tools/latest/bin/avdmanager list target
+
+      - name: List Available System Images
+        run: $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --list | grep system-images
 
       - name: Create AVD and Start Emulator
         run: |
