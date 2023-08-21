@@ -21,9 +21,6 @@ jobs:
           java-version: '11'
           distribution: 'adopt'
 
-      - name: Set up Docker
-        uses: docker/setup-docker@v2
-
       - name: Build Docker Image
         run: docker build -t android-emulator .
 
