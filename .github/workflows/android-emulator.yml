@@ -48,12 +48,15 @@ jobs:
               echo "Emulator did not become ready within 5 minutes. Exiting."
               exit 1
             fi
+            echo "Waiting for emulator to become ready..."
             sleep 10
           done
           echo "Emulator is ready"
         shell: bash
+
 #
 #      - name: Run Espresso Tests
+#        needs: wait-for-emulator
 #        run: ./gradlew connectedAndroidTest
 
 #      - name: Print Environment
