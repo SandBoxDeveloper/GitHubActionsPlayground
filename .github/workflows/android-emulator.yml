@@ -35,6 +35,9 @@ jobs:
       - name: List Docker Container
         run: docker ps
 
+      - name: Print Docker Logs for container
+        run: docker logs emulator-container
+
       - name: Install ADB
         run: |
           sudo apt-get update
