@@ -33,7 +33,7 @@ jobs:
         run: docker run -d --name emulator-container android-emulator
 
       - name: List Docker Container
-          run: docker ps
+        run: docker ps
 
       - name: Install ADB
         run: |
