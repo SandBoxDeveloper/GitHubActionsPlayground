@@ -29,6 +29,9 @@ jobs:
       - name: View Docker Images
         run: docker images
 
+      - name: List Docker Container
+        run: docker ps
+
       - name: Run Emulator in Docker Container
         run: docker run -d --name emulator-container android-emulator
 
