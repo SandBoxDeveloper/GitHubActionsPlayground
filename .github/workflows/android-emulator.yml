@@ -30,7 +30,7 @@ jobs:
         run: docker images
 
       - name: Run Emulator in Docker Container
-        run: docker run -d --name emulator-container android-emulator
+        run: docker run -d --name emulator-container -p 5037:5037 -p 5554-5584:5554-5584 android-emulator
 
       - name: List Docker Container
         run: docker ps
