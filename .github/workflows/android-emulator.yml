@@ -26,6 +26,9 @@ jobs:
         run: docker build -t android-emulator .
         working-directory: ${{ github.workspace }}
 
+      - name: View Docker Images
+        run: docker images
+
       - name: Run Emulator in Docker Container
         run: docker run -d --name emulator-container android-emulator
 
@@ -35,7 +38,7 @@ jobs:
           sudo apt-get install -y android-tools-adb
         shell: bash
 
-      - name: List Emulators
+      - name: List Emulator(s)
         run: adb devices
 
       - name: Wait for Emulator
