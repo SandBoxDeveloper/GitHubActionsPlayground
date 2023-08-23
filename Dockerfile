@@ -39,18 +39,20 @@
 #CMD ["/bin/bash"]
 FROM ubuntu:bionic
 
-# Install packages
-RUN apt-get -qqy update && \
-    apt-get -qqy --no-install-recommends install software-properties-common && \
-    add-apt-repository ppa:openjdk-r/ppa && \
-    apt-get -qqy --no-install-recommends install \
-    openjdk-14-jdk \
-    curl \
-    zip \
-    unzip \
-    git \
-    locales \
-  && rm -rf /var/lib/apt/lists/*
+#EXPOSE 22
+#
+## Install packages
+#RUN apt-get -qqy update && \
+#    apt-get -qqy --no-install-recommends install software-properties-common && \
+#    add-apt-repository ppa:openjdk-r/ppa && \
+#    apt-get -qqy --no-install-recommends install \
+#    openjdk-14-jdk \
+#    curl \
+#    zip \
+#    unzip \
+#    git \
+#    locales \
+#  && rm -rf /var/lib/apt/lists/*
 
 #==============================
 # Android SDK ARGS
