@@ -27,9 +27,7 @@ jobs:
           java-version: 11
 
       - name: Set up Android SDK
-        uses: actions/setup-android@v3
-        with:
-          sdk-platform: 'platforms;android-30'
+        uses: android-actions/setup-android@v2
 
       - name: Grant execute permission for gradlew
         run: chmod +x ./gradlew
