@@ -14,8 +14,8 @@ jobs:
         target: [ default, google_apis ]
 
     env:
-      ANDROID_SDK_ROOT: ${{ runner.workspace }}/android-sdk
-      PATH: ${{ runner.workspace }}/android-sdk/platform-tools:$PATH
+      ANDROID_SDK_ROOT: ${{ github.workspace }}/android-sdk
+      PATH: ${{ github.workspace }}/android-sdk/platform-tools:$PATH
 
     steps:
       - name: Checkout Repository
