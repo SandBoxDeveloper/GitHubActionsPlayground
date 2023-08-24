@@ -37,8 +37,8 @@ jobs:
         run: ./gradlew
         shell: bash
 
-#      - name: List Profiles
-#        run: avdmanager list device
+      - name: List Profiles
+        run: $ANDROID_HOME/cmdline-tools/latest/bin/avdmanager list device
 
       - name: Start Android Emulator
         uses: reactivecircus/android-emulator-runner@v2
