@@ -24,6 +24,19 @@ jobs:
           distribution: 'adopt'
           cache: 'gradle'
 
+      - name: Grant Permission for Gradlew to Execute
+        run: chmod +x gradlew
+        shell: bash
+
+      - name: Setup Gradle
+        uses: gradle/gradle-build-action@v2
+        with:
+          generate-job-summary: false
+
+      - name: Setup GradleW
+        run: ./gradlew
+        shell: bash
+
       - name: Start Android Emulator
         uses: reactivecircus/android-emulator-runner@v2
         with:
@@ -35,7 +48,7 @@ jobs:
 
       - name: Save Test Reports
         if: ${{ failure() }}
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: test-reports
           path: ${{ github.workspace }}/app/build/reports
