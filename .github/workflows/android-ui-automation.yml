@@ -37,13 +37,16 @@ jobs:
         run: ./gradlew
         shell: bash
 
+      - name: List Profiles
+        run: avdmanager list device
+
       - name: Start Android Emulator
         uses: reactivecircus/android-emulator-runner@v2
         with:
           api-level: ${{ matrix.api-level }}
           target: ${{ matrix.target }}
           arch: x86_64
-          profile: Nexus 6
+          profile: pixel_4a
           script: ./gradlew connectedAndroidTest
 
       - name: Save Test Reports
