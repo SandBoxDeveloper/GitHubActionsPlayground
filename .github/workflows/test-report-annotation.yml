@@ -1,0 +1,42 @@
+name: Add Test Reports Annotation
+
+on:
+  workflow_run:
+    workflows: ["Android Emulator and Espresso Tests"]
+    types:
+      - completed
+
+jobs:
+  add-annotation:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Add Test Reports Annotation
+        uses: actions/github-script@v5
+        with:
+          script: |
+            const runId = ${{ github.event.workflow_run.id }};
+            const artifactUrl = "${{ github.server_url }}/${{ github.repository }}/actions/runs/${runId}/artifacts";
+            github.rest.checks.update({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              check_run_id: context.runId,
+              output: {
+                title: "Test Reports",
+                summary: "View the test reports for this workflow run",
+                annotations: [
+                  {
+                    path: "app/build/reports/androidTests/connected",
+                    title: "Test Reports",
+                    start_line: 1,
+                    end_line: 1,
+                    annotation_level: "notice",
+                    raw_details: "View the test reports",
+                    message: artifactUrl,
+                  }
+                ]
+              }
+            });
