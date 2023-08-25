@@ -126,7 +126,7 @@ jobs:
         with:
           script: |
             const artifactUrl="${GITHUB_WORKSPACE}/app/build/reports/androidTests/connected"
-            const failedTests = steps.extract_failed_tests.outputs.failed_tests;
+            const failedTests = "${{ steps.extract_failed_tests.outputs.failed_tests }}";
 
             const comment = `
             ## 🚀 Espresso Tests - Pull Request Comment 🚀
@@ -136,7 +136,7 @@ jobs:
             **Device Configuration:** Pixel 4a (API 24)
 
             **Failed Tests:**
-            ${failedTests.map(test => `- ${test}`).join('\n')}
+            ${failedTests.split('\n').map(test => `- ${test}`).join('\n')}
 
             **Artifacts:**
             - [Link to Test Report](${artifactUrl})
