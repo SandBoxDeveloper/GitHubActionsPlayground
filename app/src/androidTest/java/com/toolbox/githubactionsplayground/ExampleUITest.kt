@@ -31,6 +31,6 @@ class ExampleUITest {
 
     @Test
     fun basicCheckForButtons() {
-        onView(withId(R.id.button_first)).check(matches(withText("Next")))
+        onView(withId(R.id.button_first)).check(matches(withText("Nxt")))
     }
 }
