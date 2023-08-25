@@ -36,6 +36,9 @@ jobs:
         run: ./gradlew
         shell: bash
 
+      - name: List Files in Project Directory
+        run: ls ${{ github.workspace }}
+
       - name: List Profiles
         run: $ANDROID_HOME/cmdline-tools/latest/bin/avdmanager list device
 
@@ -85,3 +88,34 @@ jobs:
           name: test-reports
           path: ${{ github.workspace }}/app/build/reports
           retention-days: 1
+
+      - name: Add Pull Request Comment
+        uses: actions/github-script@v5
+        with:
+          script: |
+            const comment = `
+            ## 🚀 Espresso Tests - Pull Request Comment 🚀
+
+            **Test Results:** ❌ Tests Failed
+            **Build Version:** ${GITHUB_SHA}
+            **Device Configuration:** Nexus 5X (API 30)
+
+            **Failed Tests:**
+            - LoginScreenTest - Assertion failure: Username not displayed
+
+            **Artifacts:**
+            - [Link to Test Report](https://example.com/link-to-report)
+            - [Screenshots](https://example.com/link-to-screenshots-folder)
+
+            **Action Required:**
+            - Please review the test artifacts and address the test failures if necessary.
+
+            Thank you for your attention! 🙌
+            `;
+
+            github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              body: comment
+            });
