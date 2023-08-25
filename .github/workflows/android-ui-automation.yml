@@ -75,6 +75,22 @@ jobs:
           disable-animations: true
           script: ./gradlew connectedAndroidTest
 
+      - name: Manual Approval
+        id: approval
+        if: steps.test.outcome == 'success'
+        uses: actions/github-script@v5
+        with:
+          github-token: ${{ secrets.ACTION_TOKEN }}
+          script: |
+            const response = await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: context.issue.number,
+                body: 'Tests have passed. Approve this step to proceed.'
+              });
+            
+              core.setOutput('comment_id', response.data.id);              
+
       - name: List Files in Project Directory
         if: ${{ failure() }}
         run: ls ${{ github.workspace }}
@@ -94,25 +110,36 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: test-reports
-          path: ${{ github.workspace }}/app/build/reports
+          path: ${{ github.workspace }}/app/build/reports/androidTests
           retention-days: 1
+
+      - name: Extract Failed Tests
+        if: ${{ failure() }}
+        id: extract_failed_tests
+        run: |
+          # Extract failed test names from the test report
+          failed_tests=$(grep -hR "FAIL:" $GITHUB_WORKSPACE/app/build/reports/androidTest/* | sed 's/.*\(app.*\)/\1/' | sort -u)
+          echo "::set-output name=failed_tests::$failed_tests"
 
       - name: Add Pull Request Comment
         uses: actions/github-script@v5
         with:
           script: |
+            const artifactUrl = $(find $GITHUB_WORKSPACE -name 'test-reports' -type d -print -quit);
+            const failedTests = steps.extract_failed_tests.outputs.failed_tests;
+
             const comment = `
             ## 🚀 Espresso Tests - Pull Request Comment 🚀
 
             **Test Results:** ❌ Tests Failed
-            **Build Version:** 2
-            **Device Configuration:** Nexus 5X (API 30)
+            **Build Version:** ${{ github.run_number }}
+            **Device Configuration:** Pixel 4a (API 24)
 
             **Failed Tests:**
-            - LoginScreenTest - Assertion failure: Username not displayed
+            ${failedTests.map(test => `- ${test}`).join('\n')}
 
             **Artifacts:**
-            - [Link to Test Report](https://example.com/link-to-report)
+            - [Link to Test Report](${artifactUrl})
             - [Screenshots](https://example.com/link-to-screenshots-folder)
 
             **Action Required:**
