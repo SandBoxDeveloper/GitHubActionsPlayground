@@ -79,7 +79,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: test-reports
-          path: app/build/reports/androidTests/connected
+          path: ${{ github.workspace }}/app/build/reports/androidTests/connected
 
       - name: Save Test Reports
         if: ${{ failure() }}
