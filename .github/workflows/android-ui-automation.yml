@@ -94,10 +94,6 @@ jobs:
         if: ${{ failure() }}
         run: ls ${{ github.workspace }}
 
-      - name: List Files in Project Directory
-        if: ${{ failure() }}
-        run: ls ${{ github.workspace }}
-
       - name: Upload Test Reports
         uses: actions/upload-artifact@v3
         with:
@@ -119,10 +115,6 @@ jobs:
           # Extract failed test names from the test report
           failed_tests=$(grep -hR "FAIL:" ${{ github.workspace }}/app/build/reports/androidTest/* | sed 's/.*\(app.*\)/\1/' | sort -u)
           echo "::set-output name=failed_tests::$failed_tests"
-
-      - name: List Artifacts
-        if: ${{ failure() }}
-        run: ls ${{ github.workspace }}/suites
 
       - name: Add Pull Request Comment
         uses: actions/github-script@v6
