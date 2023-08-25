@@ -72,6 +72,12 @@ jobs:
           disable-animations: true
           script: ./gradlew connectedAndroidTest
 
+      - name: Upload Test Reports
+        uses: actions/upload-artifact@v3
+        with:
+          name: test-reports
+          path: app/build/reports/androidTests/connected
+
       - name: Save Test Reports
         if: ${{ failure() }}
         uses: actions/upload-artifact@v3
