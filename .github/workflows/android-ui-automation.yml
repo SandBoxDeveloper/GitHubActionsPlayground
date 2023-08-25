@@ -120,6 +120,10 @@ jobs:
           failed_tests=$(grep -hR "FAIL:" ${{ github.workspace }}/app/build/reports/androidTest/* | sed 's/.*\(app.*\)/\1/' | sort -u)
           echo "::set-output name=failed_tests::$failed_tests"
 
+      - name: List Artifacts
+        if: ${{ failure() }}
+        run: ls ${{ github.workspace }}/suites
+
       - name: Add Pull Request Comment
         uses: actions/github-script@v6
         with:
