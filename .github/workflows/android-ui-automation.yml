@@ -90,10 +90,6 @@ jobs:
             
               core.setOutput('comment_id', response.data.id);              
 
-      - name: List Files in Project Directory
-        if: ${{ failure() }}
-        run: ls ${{ github.workspace }}
-
       - name: Upload Test Reports
         uses: actions/upload-artifact@v3
         with:
@@ -117,6 +113,7 @@ jobs:
           echo "::set-output name=failed_tests::$failed_tests"
 
       - name: Add Pull Request Comment
+        if: ${{ failure() }}
         uses: actions/github-script@v6
         with:
           script: |
@@ -135,7 +132,6 @@ jobs:
 
             **Artifacts:**
             - [Link to Test Report](${artifactUrl})
-            - [Screenshots](https://example.com/link-to-screenshots-folder)
 
             **Action Required:**
             - Please review the test artifacts and address the test failures if necessary.
