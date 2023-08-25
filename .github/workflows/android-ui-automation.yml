@@ -105,7 +105,7 @@ jobs:
             ## 🚀 Espresso Tests - Pull Request Comment 🚀
 
             **Test Results:** ❌ Tests Failed
-            **Build Version:** ${GITHUB_SHA}
+            **Build Version:** 2
             **Device Configuration:** Nexus 5X (API 30)
 
             **Failed Tests:**
