@@ -125,7 +125,7 @@ jobs:
         uses: actions/github-script@v5
         with:
           script: |
-            const artifactUrl = $(find $GITHUB_WORKSPACE -name 'test-reports' -type d -print -quit);
+            const artifactUrl="${GITHUB_WORKSPACE}/app/build/reports/androidTests/connected"
             const failedTests = steps.extract_failed_tests.outputs.failed_tests;
 
             const comment = `
