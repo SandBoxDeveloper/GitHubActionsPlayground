@@ -32,10 +32,10 @@ android {
     buildFeatures {
         viewBinding true
     }
-    testOptions {
-        animationsDisabled = true
-        execution 'ANDROIDX_TEST_ORCHESTRATOR'
-    }
+//    testOptions {
+//        animationsDisabled = true
+//        execution 'ANDROIDX_TEST_ORCHESTRATOR'
+//    }
     namespace 'com.toolbox.githubactionsplayground'
 }
 
