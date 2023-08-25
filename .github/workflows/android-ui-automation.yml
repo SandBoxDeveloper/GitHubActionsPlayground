@@ -24,7 +24,7 @@ jobs:
         with:
           java-version: 11
           distribution: 'adopt'
-          cache: 'gradle'
+
 
       - name: Grant Permission for Gradlew to Execute
         run: chmod +x gradlew
