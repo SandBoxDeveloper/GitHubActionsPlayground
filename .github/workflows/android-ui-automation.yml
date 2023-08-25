@@ -6,6 +6,10 @@ on:
       - main
   schedule:
     - cron: '*/5 * * * *'  # Run every 5 minute
+  workflow_run:
+    workflows: [ "Android Emulator and Espresso Tests" ]
+    types:
+      - completed
 
 jobs:
   test:
@@ -26,7 +30,6 @@ jobs:
         with:
           java-version: 11
           distribution: 'adopt'
-
 
       - name: Grant Permission for Gradlew to Execute
         run: chmod +x gradlew
@@ -78,7 +81,7 @@ jobs:
       - name: Manual Approval
         id: approval
         if: steps.test.outcome == 'success'
-        uses: actions/github-script@v5
+        uses: actions/github-script@v6
         with:
           github-token: ${{ secrets.ACTION_TOKEN }}
           script: |
@@ -118,14 +121,14 @@ jobs:
         id: extract_failed_tests
         run: |
           # Extract failed test names from the test report
-          failed_tests=$(grep -hR "FAIL:" $GITHUB_WORKSPACE/app/build/reports/androidTest/* | sed 's/.*\(app.*\)/\1/' | sort -u)
+          failed_tests=$(grep -hR "FAIL:" ${{ github.workspace }}/app/build/reports/androidTest/* | sed 's/.*\(app.*\)/\1/' | sort -u)
           echo "::set-output name=failed_tests::$failed_tests"
 
       - name: Add Pull Request Comment
-        uses: actions/github-script@v5
+        uses: actions/github-script@v6
         with:
           script: |
-            const artifactUrl="${GITHUB_WORKSPACE}/app/build/reports/androidTests/connected"
+            const artifactUrl="${{ github.workspace }}/app/build/reports/androidTests/connected"
             const failedTests = "${{ steps.extract_failed_tests.outputs.failed_tests }}";
 
             const comment = `
@@ -153,4 +156,31 @@ jobs:
               repo: context.repo.repo,
               issue_number: context.issue.number,
               body: comment
+            });
+
+      - name: Add Test Reports Annotation
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const runId = ${{ github.event.workflow_run.id }};
+            const artifactUrl = "${{ github.server_url }}/${{ github.repository }}/actions/runs/${runId}/artifacts";
+            github.rest.checks.update({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              check_run_id: context.runId,
+              output: {
+                title: "Test Reports",
+                summary: "View the test reports for this workflow run",
+                annotations: [
+                  {
+                    path: "app/build/reports/androidTests/connected",
+                    title: "Test Reports",
+                    start_line: 1,
+                    end_line: 1,
+                    annotation_level: "notice",
+                    raw_details: "View the test reports",
+                    message: artifactUrl,
+                  }
+                ]
+              }
             });
