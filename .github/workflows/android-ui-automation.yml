@@ -36,9 +36,6 @@ jobs:
         run: ./gradlew
         shell: bash
 
-      - name: List Files in Project Directory
-        run: ls ${{ github.workspace }}
-
       - name: List Profiles
         run: $ANDROID_HOME/cmdline-tools/latest/bin/avdmanager list device
 
@@ -74,6 +71,9 @@ jobs:
           profile: pixel_4a
           disable-animations: true
           script: ./gradlew connectedAndroidTest
+
+      - name: List Files in Project Directory
+        run: ls ${{ github.workspace }}
 
       - name: Upload Test Reports
         uses: actions/upload-artifact@v3
