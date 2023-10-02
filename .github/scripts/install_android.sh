@@ -43,7 +43,7 @@ rm -f sdk.zip
 # Set environment variables
 export ANDROID_SDK_ROOT="$SDK_DIR"
 #export PATH="$PATH:$ANDROID_SDK_ROOT/cmdline-tools/latest/bin"
-export PATH="$ANDROID_SDK_ROOT/cmdline-tools/latest/bin:$PATH"
+export PATH="$ANDROID_SDK_ROOT/cmdline-tools/bin:$PATH"
 export PATH="$JAVA_HOME/bin:$PATH"
 
 # Print the value of SDK_DIR
