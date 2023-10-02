@@ -16,16 +16,6 @@ jobs:
       - name: Check out code
         uses: actions/checkout@v2
 
-      - name: List output
-        run: |
-          echo "file path structure"
-          tree -a
-
-      - name: List Files in workspace
-        run: |
-          # List files in the github.workspace directory
-          ls "${{ github.workspace }}"
-
       - name: List Files in .github/scripts folder
         run: |
           # List files in the .github/scripts folder
@@ -36,7 +26,7 @@ jobs:
         run: |
           # Run the install_android.sh script
           chmod +x install_android.sh
-          ${{ github.workspace }}./.github/scripts/install_android.sh
+          ${{ github.workspace }}/.github/scripts/install_android.sh
         timeout-minutes: 20 # Adjust as needed
 
       - name: Start Android Emulator
