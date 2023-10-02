@@ -5,6 +5,9 @@ set -e
 SDK_URL="https://dl.google.com/android/repository/commandlinetools-linux-6858069_latest.zip"
 SDK_DIR="$HOME/android-sdk"
 
+# Print the value of SDK_DIR
+echo "SDK_DIR is set to: $SDK_DIR"
+
 # Install required dependencies
 sudo apt-get update
 sudo apt-get install -y openjdk-11-jdk unzip
@@ -18,6 +21,10 @@ rm -f sdk.zip
 # Set environment variables
 export ANDROID_SDK_ROOT="$SDK_DIR"
 export PATH="$PATH:$ANDROID_SDK_ROOT/cmdline-tools/tools/bin"
+
+# Print the value of SDK_DIR
+echo "ANDROID_SDK_ROOT is set to: $ANDROID_SDK_ROOT"
+echo "PATH is set to: $PATH"
 
 source $HOME/.bashrc # Load environment variables
 
