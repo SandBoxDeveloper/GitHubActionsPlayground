@@ -50,8 +50,8 @@ echo "ANDROID_SDK_ROOT is set to: $ANDROID_SDK_ROOT"
 echo "PATH is set to: $PATH"
 
 # List the contents of the ANDROID_SDK_ROOT directory
-echo "Contents of ANDROID_SDK_ROOT:"
-tree "$ANDROID_SDK_ROOT"
+# echo "Contents of ANDROID_SDK_ROOT:"
+# tree "$ANDROID_SDK_ROOT"
 
 # Accept Android licenses
 yes | $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --licenses
