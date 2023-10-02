@@ -56,7 +56,7 @@ tree "$ANDROID_SDK_ROOT"
 # source $HOME/.bashrc # Load environment variables
 
 # Accept Android licenses
-yes | "$ANDROID_HOME"/cmdline-tools/latest/bin/sdkmanager --licenses
+yes | sdkmanager --licenses
 
 # Install desired Android components
-$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager "platform-tools" "platforms;android-30" "build-tools;30.0.3" "emulator"
+sdkmanager "platform-tools" "platforms;android-30" "build-tools;30.0.3" "emulator"
