@@ -11,9 +11,24 @@ echo "SDK_DIR is set to: $SDK_DIR"
 # The desired Java version (Java 17)
 JAVA_VERSION="17"
 
-# Install required dependencies
-sudo apt-get update
-sudo apt-get install -y openjdk-$JAVA_VERSION-jdk unzip
+# Check if the desired Java version is already installed
+if ! java -version 2>&1 | grep "openjdk version \"$JAVA_VERSION" > /dev/null; then
+    echo "Java $JAVA_VERSION not found. Installing..."
+
+    # Install required dependencies
+    sudo apt-get update
+    sudo apt-get install -y openjdk-$JAVA_VERSION-jdk
+
+    # Set JAVA_HOME and update PATH
+    export JAVA_HOME="/usr/lib/jvm/java-$JAVA_VERSION-openjdk-amd64"
+    export PATH="$JAVA_HOME/bin:$PATH"
+
+    # Print the value of JAVA_VERSION
+    echo "Java $JAVA_VERSION installed successfully."
+
+    # Print the value of JAVA_HOME
+    echo "Java HOME is set to: $JAVA_HOME"
+fi
 
 # Download and unzip Android SDK tools
 mkdir -p "$SDK_DIR"
@@ -28,6 +43,8 @@ export PATH="$PATH:$ANDROID_SDK_ROOT/cmdline-tools/bin"
 # Print the value of SDK_DIR
 echo "ANDROID_SDK_ROOT is set to: $ANDROID_SDK_ROOT"
 echo "PATH is set to: $PATH"
+echo "PATH is set to: $PATH"
+
 
 # List the contents of the ANDROID_SDK_ROOT directory
 echo "Contents of ANDROID_SDK_ROOT:"
