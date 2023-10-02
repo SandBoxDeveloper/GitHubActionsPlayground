@@ -1,0 +1,40 @@
+name: Simple Android Espresso Tests
+
+on:
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  - name: Build and Test
+    runs-on: ubuntu-latest # Using Ubuntu runner
+
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v2
+
+      - name: Install Android SDK and Emulator
+        run: |
+          # Run the install_android.sh script
+          chmod +x install_android.sh
+          ./install_android.sh
+        timeout-minutes: 20 # Adjust as needed
+
+      - name: Start Android Emulator
+        run: |
+          # Run the start_emulator.sh script
+          chmod +x start_emulator.sh
+          source $HOME/.bashrc # Load environment variables
+          ./start_emulator.sh
+        timeout-minutes: 10 # Adjust as needed
+
+      - name: Run Tests
+        run: |
+          # Your test commands here
+        timeout-minutes: 30 # Adjust as needed
+
+      - name: Stop Android Emulator
+        run: |
+          $ANDROID_SDK_ROOT/emulator/emulator -
+
