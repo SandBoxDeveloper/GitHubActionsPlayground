@@ -57,6 +57,12 @@ tree "$ANDROID_SDK_ROOT"
 
 #$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --install "cmdline-tools;latest"
 
+echo "Contents of ANDROID_HOME:"
+tree $ANDROID_HOME
+
+echo "Contents of ANDROID_HOME command line tools:"
+tree $ANDROID_HOME/cmdline-tools
+
 # Accept Android licenses
 yes | $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --licenses
 
