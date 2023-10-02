@@ -30,7 +30,7 @@ echo "PATH is set to: $PATH"
 echo "Contents of ANDROID_SDK_ROOT:"
 tree "$ANDROID_SDK_ROOT"
 
-source $HOME/.bashrc # Load environment variables
+# source $HOME/.bashrc # Load environment variables
 
 # Accept Android licenses
 yes | sdkmanager --licenses
