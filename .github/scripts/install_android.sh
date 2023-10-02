@@ -2,14 +2,14 @@
 set -e
 
 # Define Android SDK tools URL and directory
-SDK_URL="https://dl.google.com/android/repository/sdk-tools-linux-4333796.zip"
+SDK_URL="https://dl.google.com/android/repository/commandlinetools-linux-6609375_latest.zip"
 SDK_DIR="$HOME/android-sdk"
 
 # Print the value of SDK_DIR
 echo "SDK_DIR is set to: $SDK_DIR"
 
 # The desired Java version (Java 17)
-JAVA_VERSION="17"
+JAVA_VERSION="8"
 
 # Check if the desired Java version is already installed
 if ! java -version 2>&1 | grep "openjdk version \"$JAVA_VERSION" > /dev/null; then
