@@ -20,7 +20,7 @@ if ! java -version 2>&1 | grep "openjdk version \"$JAVA_VERSION" > /dev/null; th
     sudo apt-get install -y -qq openjdk-$JAVA_VERSION-jdk
 
     # Set JAVA_HOME and update PATH
-    export JAVA_HOME="/usr/lib/jvm/java-$JAVA_VERSION-openjdk-amd64"
+    export JAVA_HOME="/usr/lib/jvm/java-$JAVA_VERSION-openjdk"
     export PATH="$JAVA_HOME/bin:$PATH"
     # echo "PATH JAVA is set to: $PATH"
 
