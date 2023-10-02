@@ -2,7 +2,7 @@
 set -e
 
 # Define Android SDK tools URL and directory
-SDK_URL="https://developer.android.com/tools/releases/cmdline-tools#android_sdk_command-line_tools_30"
+SDK_URL="https://dl.google.com/android/repository/sdk-tools-linux-4333796.zip"
 SDK_DIR="$HOME/android-sdk"
 
 # Print the value of SDK_DIR
