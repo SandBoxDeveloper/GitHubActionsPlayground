@@ -22,6 +22,7 @@ if ! java -version 2>&1 | grep "openjdk version \"$JAVA_VERSION" > /dev/null; th
     # Set JAVA_HOME and update PATH
     export JAVA_HOME="/usr/lib/jvm/java-$JAVA_VERSION-openjdk-amd64"
     export PATH="$JAVA_HOME/bin:$PATH"
+    echo "PATH JAVA is set to: $PATH"
 
     # Print the value of JAVA_VERSION
     echo "Java $JAVA_VERSION installed successfully."
@@ -39,12 +40,11 @@ rm -f sdk.zip
 # Set environment variables
 export ANDROID_SDK_ROOT="$SDK_DIR"
 export PATH="$PATH:$ANDROID_SDK_ROOT/cmdline-tools/bin"
+export PATH="$JAVA_HOME/bin:$PATH"
 
 # Print the value of SDK_DIR
 echo "ANDROID_SDK_ROOT is set to: $ANDROID_SDK_ROOT"
 echo "PATH is set to: $PATH"
-echo "PATH is set to: $PATH"
-
 
 # List the contents of the ANDROID_SDK_ROOT directory
 echo "Contents of ANDROID_SDK_ROOT:"
