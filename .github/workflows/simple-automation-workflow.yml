@@ -16,6 +16,11 @@ jobs:
       - name: Check out code
         uses: actions/checkout@v2
 
+      - name: List output
+        run: |
+          echo "file path structure"
+          tree -a
+
       - name: Install Android SDK and Emulator
         run: |
           # Run the install_android.sh script
