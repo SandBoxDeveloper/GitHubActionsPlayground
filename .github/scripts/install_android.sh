@@ -28,7 +28,7 @@ echo "PATH is set to: $PATH"
 
 # List the contents of the ANDROID_SDK_ROOT directory
 echo "Contents of ANDROID_SDK_ROOT:"
-ls "$ANDROID_SDK_ROOT"
+tree "$ANDROID_SDK_ROOT"
 
 source $HOME/.bashrc # Load environment variables
 
