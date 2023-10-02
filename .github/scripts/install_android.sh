@@ -17,7 +17,7 @@ if ! java -version 2>&1 | grep "openjdk version \"$JAVA_VERSION" > /dev/null; th
 
     # Install required dependencies
     sudo apt-get update -q
-    sudo apt-get install -y openjdk-$JAVA_VERSION-jdk
+    sudo apt-get install -y -qq openjdk-$JAVA_VERSION-jdk
 
     # Set JAVA_HOME and update PATH
     export JAVA_HOME="/usr/lib/jvm/java-$JAVA_VERSION-openjdk-amd64"
