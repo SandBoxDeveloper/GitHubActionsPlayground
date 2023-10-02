@@ -17,7 +17,7 @@ if ! java -version 2>&1 | grep "openjdk version \"$JAVA_VERSION" > /dev/null; th
 
     # Install required dependencies
     sudo apt-get update -q
-    sudo apt-get install -qq -y openjdk-$JAVA_VERSION-jdk
+    sudo apt-get install -y openjdk-$JAVA_VERSION-jdk
 
     # Set JAVA_HOME and update PATH
     export JAVA_HOME="/usr/lib/jvm/java-$JAVA_VERSION-openjdk-amd64"
@@ -52,8 +52,6 @@ echo "PATH is set to: $PATH"
 # List the contents of the ANDROID_SDK_ROOT directory
 echo "Contents of ANDROID_SDK_ROOT:"
 tree "$ANDROID_SDK_ROOT"
-
-# source $HOME/.bashrc # Load environment variables
 
 # Accept Android licenses
 yes | sdkmanager --licenses
