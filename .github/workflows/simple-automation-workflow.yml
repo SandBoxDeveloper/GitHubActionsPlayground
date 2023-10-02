@@ -26,14 +26,10 @@ jobs:
           # List files in the github.workspace directory
           ls "${{ github.workspace }}"
 
-      - name: List Files in scripts folder
-        run: |
-          # List files in the 'scripts' folder within github.workspace
-          ls "${{ github.workspace }}/scripts"
-
       - name: List Files in .github/scripts folder
         run: |
           # List files in the .github/scripts folder
+          ls "${{ github.workspace }}/.github/scripts"
           ls "${{ github.workspace }}/.github/scripts"
 
       - name: Install Android SDK and Emulator
