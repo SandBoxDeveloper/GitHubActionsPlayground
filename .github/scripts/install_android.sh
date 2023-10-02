@@ -20,7 +20,7 @@ rm -f sdk.zip
 
 # Set environment variables
 export ANDROID_SDK_ROOT="$SDK_DIR"
-export PATH="$PATH:$ANDROID_SDK_ROOT/tools/bin"
+export PATH="$PATH:$ANDROID_SDK_ROOT/cmdline-tools/bin"
 
 # Print the value of SDK_DIR
 echo "ANDROID_SDK_ROOT is set to: $ANDROID_SDK_ROOT"
