@@ -10,7 +10,7 @@ echo "SDK_DIR is set to: $SDK_DIR"
 
 # Install required dependencies
 sudo apt-get update
-sudo apt-get install -y openjdk-11-jdk unzip
+sudo apt-get install -y openjdk-17-jdk unzip
 
 # Download and unzip Android SDK tools
 mkdir -p "$SDK_DIR"
