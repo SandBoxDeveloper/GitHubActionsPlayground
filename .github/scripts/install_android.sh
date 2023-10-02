@@ -9,7 +9,7 @@ SDK_DIR="$HOME/android-sdk"
 echo "SDK_DIR is set to: $SDK_DIR"
 
 # The desired Java version (Java 17)
-JAVA_VERSION="11"
+JAVA_VERSION="8"
 
 # Check if the desired Java version is already installed
 if ! java -version 2>&1 | grep "openjdk version \"$JAVA_VERSION" > /dev/null; then
