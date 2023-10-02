@@ -2,7 +2,7 @@
 set -e
 
 # Define Android SDK tools URL and directory
-SDK_URL="https://dl.google.com/android/repository/commandlinetools-linux-6200805_latest.zip"
+SDK_URL="https://dl.google.com/android/repository/commandlinetools-linux-10406996_latest.zip"
 SDK_DIR="$HOME/android-sdk"
 
 # Print the value of SDK_DIR
@@ -20,7 +20,7 @@ if ! java -version 2>&1 | grep "openjdk version \"$JAVA_VERSION" > /dev/null; th
     sudo apt-get install -y -qq openjdk-$JAVA_VERSION-jdk
 
     # Set JAVA_HOME and update PATH
-    export JAVA_HOME="/usr/lib/jvm/java-$JAVA_VERSION-openjdk"
+    export JAVA_HOME="/usr/lib/jvm/java-$JAVA_VERSION-openjdk-amd64"
     export PATH="$JAVA_HOME/bin:$PATH"
     # echo "PATH JAVA is set to: $PATH"
 
