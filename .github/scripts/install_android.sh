@@ -16,7 +16,7 @@ if ! java -version 2>&1 | grep "openjdk version \"$JAVA_VERSION" > /dev/null; th
     echo "Java $JAVA_VERSION not found. Installing..."
 
     # Install required dependencies
-    sudo apt-get update
+    sudo apt-get -qq update
     sudo apt-get install -qq -y openjdk-$JAVA_VERSION-jdk
 
     # Set JAVA_HOME and update PATH
@@ -56,7 +56,7 @@ tree "$ANDROID_SDK_ROOT"
 # source $HOME/.bashrc # Load environment variables
 
 # Accept Android licenses
-yes | sdkmanager --licenses
+yes | "$ANDROID_HOME"/cmdline-tools/latest/bin/sdkmanager --licenses
 
 # Install desired Android components
-sdkmanager "platform-tools" "platforms;android-30" "build-tools;30.0.3" "emulator"
+$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager "platform-tools" "platforms;android-30" "build-tools;30.0.3" "emulator"
