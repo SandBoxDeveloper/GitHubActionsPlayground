@@ -48,8 +48,8 @@ export PATH="$PATH:$ANDROID_SDK_ROOT/cmdline-tools/latest/bin"
 export PATH="$JAVA_HOME/bin:$PATH"
 
 # Print the value of SDK_DIR
-echo "ANDROID_SDK_ROOT is set to: $ANDROID_SDK_ROOT"
-echo "PATH is set to: $PATH"
+#echo "ANDROID_SDK_ROOT is set to: $ANDROID_SDK_ROOT"
+#echo "PATH is set to: $PATH"
 
 # List the contents of the ANDROID_SDK_ROOT directory
 #echo "Contents of ANDROID_SDK_ROOT:"
@@ -60,7 +60,7 @@ echo "PATH is set to: $PATH"
 #echo "Contents of ANDROID_HOME:"
 #tree $ANDROID_HOME
 #
-#echo "Contents of ANDROID_HOME command line tools:"
+echo "Contents of ANDROID_HOME command line tools:"
 tree $ANDROID_HOME/cmdline-tools
 
 # Accept Android licenses
