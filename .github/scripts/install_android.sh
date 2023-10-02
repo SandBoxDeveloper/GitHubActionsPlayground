@@ -26,7 +26,8 @@ export PATH="$PATH:$ANDROID_SDK_ROOT/cmdline-tools/tools/bin"
 echo "ANDROID_SDK_ROOT is set to: $ANDROID_SDK_ROOT"
 echo "PATH is set to: $PATH"
 
-# Print the contents of the ANDROID_SDK_ROOT directory
+# List the contents of the ANDROID_SDK_ROOT directory
+echo "Contents of ANDROID_SDK_ROOT:"
 ls "$ANDROID_SDK_ROOT"
 
 source $HOME/.bashrc # Load environment variables
