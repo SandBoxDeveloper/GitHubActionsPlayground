@@ -54,7 +54,7 @@ echo "Contents of ANDROID_SDK_ROOT:"
 tree "$ANDROID_SDK_ROOT"
 
 # Accept Android licenses
-yes | sdkmanager --licenses
+yes | $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --licenses
 
 # Install desired Android components
 sdkmanager "platform-tools" "platforms;android-30" "build-tools;30.0.3" "emulator"
