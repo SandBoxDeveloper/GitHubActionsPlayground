@@ -8,9 +8,12 @@ SDK_DIR="$HOME/android-sdk"
 # Print the value of SDK_DIR
 echo "SDK_DIR is set to: $SDK_DIR"
 
+# The desired Java version (Java 17)
+JAVA_VERSION="17"
+
 # Install required dependencies
 sudo apt-get update
-sudo apt-get install -y openjdk-17-jdk unzip
+sudo apt-get install -y openjdk-$JAVA_VERSION-jdk unzip
 
 # Download and unzip Android SDK tools
 mkdir -p "$SDK_DIR"
