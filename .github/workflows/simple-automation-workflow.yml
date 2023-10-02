@@ -16,6 +16,12 @@ jobs:
       - name: Check out code
         uses: actions/checkout@v2
 
+      - name: Set up Android SDK
+        uses: actions/setup-java@v3
+        with:
+          java-version: '11'
+          distribution: 'adopt'
+
       - name: List Files in .github/scripts folder
         run: |
           # List files in the .github/scripts folder
