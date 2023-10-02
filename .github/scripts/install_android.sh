@@ -21,8 +21,8 @@ if ! java -version 2>&1 | grep "openjdk version \"$JAVA_VERSION" > /dev/null; th
 
     # Set JAVA_HOME and update PATH
     export JAVA_HOME="/usr/lib/jvm/java-$JAVA_VERSION-openjdk-amd64"
-    export PATH="$JAVA_HOME/bin:$PATH"
-    echo "PATH JAVA is set to: $PATH"
+    # export PATH="$JAVA_HOME/bin:$PATH"
+    # echo "PATH JAVA is set to: $PATH"
 
     # Print the value of JAVA_VERSION
     echo "Java $JAVA_VERSION installed successfully."
