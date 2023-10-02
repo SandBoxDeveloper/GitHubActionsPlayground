@@ -53,11 +53,11 @@ echo "PATH is set to: $PATH"
 # List the contents of the ANDROID_SDK_ROOT directory
 echo "Contents of ANDROID_SDK_ROOT:"
 tree "$ANDROID_SDK_ROOT"
-
-$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --install "cmdline-tools;latest"
-
-# Accept Android licenses
-yes | $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --licenses
-
-# Install desired Android components
-$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --install "platform-tools" "platforms;android-30" "build-tools;30.0.3" "emulator"
+#
+#$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --install "cmdline-tools;latest"
+#
+## Accept Android licenses
+#yes | $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --licenses
+#
+## Install desired Android components
+#$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --install "platform-tools" "platforms;android-30" "build-tools;30.0.3" "emulator"
