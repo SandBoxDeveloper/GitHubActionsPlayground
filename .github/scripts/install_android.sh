@@ -53,7 +53,7 @@ echo "PATH is set to: $PATH"
 
 # List the contents of the ANDROID_SDK_ROOT directory
 #echo "Contents of ANDROID_SDK_ROOT:"
-tree "$ANDROID_SDK_ROOT"
+#tree "$ANDROID_SDK_ROOT"
 
 #$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --install "cmdline-tools;latest"
 
@@ -61,7 +61,7 @@ tree "$ANDROID_SDK_ROOT"
 #tree $ANDROID_HOME
 #
 #echo "Contents of ANDROID_HOME command line tools:"
-#tree $ANDROID_HOME/cmdline-tools
+tree $ANDROID_HOME/cmdline-tools
 
 # Accept Android licenses
 yes | $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --licenses
