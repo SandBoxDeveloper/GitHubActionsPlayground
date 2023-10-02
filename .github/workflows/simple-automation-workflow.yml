@@ -9,7 +9,7 @@ on:
 jobs:
 
   setup_and_build:
-    name: Build and Test
+    name: Setup and Build Android Emulator
     runs-on: ubuntu-latest # Using Ubuntu runner
 
     steps:
@@ -20,19 +20,18 @@ jobs:
         run: |
           # List files in the .github/scripts folder
           ls "${{ github.workspace }}/.github/scripts"
-          ls "${{ github.workspace }}/.github/scripts"
 
       - name: Install Android SDK and Emulator
         run: |
           # Run the install_android.sh script
-          chmod +x install_android.sh
+          chmod +x ${{ github.workspace }}/.github/scripts/install_android.sh
           ${{ github.workspace }}/.github/scripts/install_android.sh
         timeout-minutes: 20 # Adjust as needed
 
       - name: Start Android Emulator
         run: |
           # Run the start_emulator.sh script
-          chmod +x start_emulator.sh
+          chmod +x ${{ github.workspace }}/.github/scripts/start_emulator.sh
           source $HOME/.bashrc # Load environment variables
           ${{ github.workspace }}/.github/scripts/start_emulator.sh
         timeout-minutes: 10 # Adjust as needed
