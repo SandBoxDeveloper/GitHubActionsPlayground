@@ -19,6 +19,8 @@ rm -f sdk.zip
 export ANDROID_SDK_ROOT="$SDK_DIR"
 export PATH="$PATH:$ANDROID_SDK_ROOT/cmdline-tools/tools/bin"
 
+source $HOME/.bashrc # Load environment variables
+
 # Accept Android licenses
 yes | sdkmanager --licenses
 
