@@ -58,7 +58,7 @@ echo "PATH is set to: $PATH"
 #$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --install "cmdline-tools;latest"
 
 # Accept Android licenses
-yes | $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --licenses -qq
+yes | $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --licenses -q
 
 # Install desired Android components
 $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --install "platform-tools" "platforms;android-30" "build-tools;30.0.3" "emulator"
