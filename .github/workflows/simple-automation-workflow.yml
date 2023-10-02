@@ -20,7 +20,7 @@ jobs:
         run: |
           # Run the install_android.sh script
           chmod +x install_android.sh
-          ./.github/scripts/install_android.sh
+          /.github/scripts/install_android.sh
         timeout-minutes: 20 # Adjust as needed
 
       - name: Start Android Emulator
@@ -28,7 +28,7 @@ jobs:
           # Run the start_emulator.sh script
           chmod +x start_emulator.sh
           source $HOME/.bashrc # Load environment variables
-          ./.github/scripts/start_emulator.sh
+          /.github/scripts/start_emulator.sh
         timeout-minutes: 10 # Adjust as needed
 
       - name: Run Tests
