@@ -16,7 +16,7 @@ if ! java -version 2>&1 | grep "openjdk version \"$JAVA_VERSION" > /dev/null; th
     echo "Java $JAVA_VERSION not found. Installing..."
 
     # Install required dependencies
-    sudo apt-get -qq update
+    sudo apt-get update -q
     sudo apt-get install -qq -y openjdk-$JAVA_VERSION-jdk
 
     # Set JAVA_HOME and update PATH
@@ -42,7 +42,7 @@ rm -f sdk.zip
 
 # Set environment variables
 export ANDROID_SDK_ROOT="$SDK_DIR"
-export PATH="$PATH:$ANDROID_SDK_ROOT/cmdline-tools/latest/bin"
+export PATH="$PATH:$ANDROID_SDK_ROOT/cmdline-tools/bin"
 export PATH="$JAVA_HOME/bin:$PATH"
 
 # Print the value of SDK_DIR
