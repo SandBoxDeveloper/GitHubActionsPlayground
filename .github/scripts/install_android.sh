@@ -41,18 +41,18 @@ unzip -q sdk.zip -d "$SDK_DIR"
 rm -f sdk.zip
 
 # Set environment variables
-export ANDROID_SDK_ROOT="$SDK_DIR"
-#export PATH="$PATH:$ANDROID_SDK_ROOT/cmdline-tools/latest/bin"
-export PATH="$ANDROID_SDK_ROOT/cmdline-tools/bin:$PATH"
-export PATH="$JAVA_HOME/bin:$PATH"
-
-# Print the value of SDK_DIR
-echo "ANDROID_SDK_ROOT is set to: $ANDROID_SDK_ROOT"
-echo "PATH is set to: $PATH"
-
-# List the contents of the ANDROID_SDK_ROOT directory
-echo "Contents of ANDROID_SDK_ROOT:"
-tree "$ANDROID_SDK_ROOT"
+#export ANDROID_SDK_ROOT="$SDK_DIR"
+##export PATH="$PATH:$ANDROID_SDK_ROOT/cmdline-tools/latest/bin"
+#export PATH="$ANDROID_SDK_ROOT/cmdline-tools/bin:$PATH"
+#export PATH="$JAVA_HOME/bin:$PATH"
+#
+## Print the value of SDK_DIR
+#echo "ANDROID_SDK_ROOT is set to: $ANDROID_SDK_ROOT"
+#echo "PATH is set to: $PATH"
+#
+## List the contents of the ANDROID_SDK_ROOT directory
+#echo "Contents of ANDROID_SDK_ROOT:"
+#tree "$ANDROID_SDK_ROOT"
 #
 #$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --install "cmdline-tools;latest"
 #
