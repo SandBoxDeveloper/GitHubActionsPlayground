@@ -2,7 +2,7 @@
 set -e
 
 # Define Android SDK tools URL and directory
-SDK_URL="https://dl.google.com/android/repository/sdk-tools-linux-4333796.zip"
+SDK_URL="https://dl.google.com/android/repository/commandlinetools-mac-10406996_latest.zip"
 SDK_DIR="$HOME/android-sdk"
 
 # Print the value of SDK_DIR
@@ -20,7 +20,7 @@ rm -f sdk.zip
 
 # Set environment variables
 export ANDROID_SDK_ROOT="$SDK_DIR"
-export PATH="$PATH:$ANDROID_SDK_ROOT/cmdline-tools/bin"
+export PATH="$PATH:$ANDROID_SDK_ROOT/tools/bin"
 
 # Print the value of SDK_DIR
 echo "ANDROID_SDK_ROOT is set to: $ANDROID_SDK_ROOT"
