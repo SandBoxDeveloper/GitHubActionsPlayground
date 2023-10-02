@@ -57,4 +57,4 @@ tree "$ANDROID_SDK_ROOT"
 yes | $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --licenses
 
 # Install desired Android components
-sdkmanager "platform-tools" "platforms;android-30" "build-tools;30.0.3" "emulator"
+$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager "platform-tools" "platforms;android-30" "build-tools;30.0.3" "emulator"
