@@ -29,6 +29,9 @@ if ! java -version 2>&1 | grep "openjdk version \"$JAVA_VERSION" > /dev/null; th
 
     # Print the value of JAVA_HOME
     echo "Java HOME is set to: $JAVA_HOME"
+
+    echo "Contents of JAVA_HOME:"
+    tree "$JAVA_HOME"
 fi
 
 # Download and unzip Android SDK tools
