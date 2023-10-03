@@ -18,7 +18,7 @@ $ANDROID_SDK_ROOT/tools/emulator @$AVD_NAME $AVD_OPTIONS &
 echo "Waiting for the emulator to start..."
 #$ANDROID_SDK_ROOT/tools/emulator/emulator -avd $AVD_NAME -no-boot-anim -no-window -gpu swiftshader -no-snapshot -camera-back none -camera-front none -selinux disabled -qemu -m 2048 &
 #$ANDROID_HOME/build-tools/emulator -avd $AVD_NAME -no-boot-anim -no-window -gpu swiftshader -no-snapshot -camera-back none -camera-front none -selinux disabled -qemu -m 2048 &
-$ANDROID_SDK_ROOT/tools/emulator -avd $AVD_NAME -no-boot-anim -no-window -gpu swiftshader -no-snapshot -camera-back none -camera-front none -selinux disabled -qemu -m 2048 &
+#$ANDROID_SDK_ROOT/tools/emulator -avd $AVD_NAME -no-boot-anim -no-window -gpu swiftshader -no-snapshot -camera-back none -camera-front none -selinux disabled -qemu -m 2048 &
 
 # Wait for the emulator to fully start (adjust the timeout as needed)
-timeout 10m $ANDROID_SDK_ROOT/platform-tools/adb wait-for-device shell 'while [[ -z $(getprop sys.boot_completed) ]]; do sleep 1; done; input keyevent 82'
+#timeout 10m $ANDROID_SDK_ROOT/platform-tools/adb wait-for-device shell 'while [[ -z $(getprop sys.boot_completed) ]]; do sleep 1; done; input keyevent 82'
