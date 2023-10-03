@@ -52,4 +52,4 @@ jobs:
 
       - name: Stop Android Emulator
         run: |
-          $ANDROID_SDK_ROOT/emulator/emulator adb emu kill -avd my_emulator ${EMULATOR_NAME}
+          $ANDROID_SDK_ROOT/emulator/emulator adb emu kill -avd my_emulator $EMULATOR_NAME
