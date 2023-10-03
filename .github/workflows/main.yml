@@ -37,4 +37,4 @@ jobs:
       - name: Launch emulator
         run: |
           chmod +x  ${{ github.workspace }}/.github/scripts/start_emu_headless.sh
-          EMULATOR_TIMEOUT=$EMULATOR_TIMEOUT EMULATOR_NAME=$EMULATOR_NAME ./start_emu_headless.sh
+          EMULATOR_TIMEOUT=$EMULATOR_TIMEOUT EMULATOR_NAME=$EMULATOR_NAME ${{ github.workspace }}/.github/scripts/start_emu_headless.sh
