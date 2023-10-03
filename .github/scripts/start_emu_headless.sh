@@ -1,9 +1,9 @@
 #!/bin/bash
 
-BL='\033[0;34m'
-G='\033[0;32m'
+BLUE='\033[0;34m'
+GREEN='\033[0;32m'
 RED='\033[0;31m'
-YE='\033[1;33m'
+YELLOW='\033[1;33m'
 NC='\033[0m' # No Color
 
 emulator_name=${EMULATOR_NAME}
@@ -52,7 +52,7 @@ function launch_emulator () {
 }
 
 function check_emulator_status () {
-  printf "${G}==> ${BL}Checking emulator booting up status 🧐${NC}\n"
+  printf "${GREEN}==> ${BLUE}Checking emulator booting up status 🧐${NC}\n"
   start_time=$(date +%s)
   spinner=( "⠹" "⠺" "⠼" "⠶" "⠦" "⠧" "⠇" "⠏" )
   i=0
@@ -63,12 +63,12 @@ function check_emulator_status () {
     result=$(adb shell getprop sys.boot_completed 2>&1)
 
     if [ "$result" == "1" ]; then
-      printf "\e[K${G}==> \u2713 Emulator is ready : '$result'           ${NC}\n"
+      printf "\e[K${GREEN}==> \u2713 Emulator is ready : '$result'           ${NC}\n"
       adb devices -l
 #      adb shell input keyevent 82
       break
     elif [ "$result" == "" ]; then
-      printf "${YE}==> Emulator is partially Booted! 😕 ${spinner[$i]} ${NC}\r"
+      printf "${YELLOW}==> Emulator is partially Booted! 😕 ${spinner[$i]} ${NC}\r"
     else
       printf "${RED}==> $result, please wait ${spinner[$i]} ${NC}\r"
       i=$(( (i+1) % 8 ))

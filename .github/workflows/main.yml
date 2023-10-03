@@ -27,6 +27,13 @@ jobs:
           java-version: '11'
           distribution: 'adopt'
 
+      - name: Stop Android Emulator 1
+        run: |
+          devices=$(adb devices | awk 'NR>1 {print $1}')
+          for device in $devices; do
+            adb -s "$device" emu kill 2>/dev/null || adb -s "$device" kill-server
+          done
+
       - name: Add avdmanager and sdkmanager to system PATH
         run: |
           echo "$ANDROID_HOME/cmdline-tools/latest/bin:$ANDROID_HOME/emulator:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools:$ANDROID_HOME/build-tools/${{ env.ANDROID_BUILD_TOOLS_VERSION }}" >> $GITHUB_PATH
@@ -50,6 +57,6 @@ jobs:
           ./gradlew connectedAndroidTest
         timeout-minutes: 30 # Adjust as needed
 
-      - name: Stop Android Emulator
+      - name: Stop Android Emulator 2
         run: |
-          $ANDROID_SDK_ROOT/emulator/emulator adb emu kill
+          $ANDROID_SDK_ROOT/emulator/emulator adb emu kill -avd $EMULATOR_NAME
