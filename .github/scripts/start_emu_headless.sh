@@ -94,6 +94,8 @@ function hidden_policy() {
   adb shell "settings put global hidden_api_policy_pre_p_apps 1;settings put global hidden_api_policy_p_apps 1;settings put global hidden_api_policy 1"
 };
 
+echo "List packages..."
+$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --list
 launch_emulator
 sleep 2
 check_emulator_status
