@@ -6,11 +6,11 @@ on:
   workflow_dispatch:
 
 env:
-  ANDROID_ARCH: x86_64
-  ANDROID_TARGET: google_apis_playstore
-  API_LEVEL: 33
-  ANDROID_BUILD_TOOLS_VERSION: 33.0.2
-  ANDROID_SDK_PACKAGES: system-images;android-33;google_apis_playstore;x86_64 platforms;android-33 build-tools;33.0.2 platform-tools emulator
+  ANDROID_ARCH: armeabi-v7a
+  ANDROID_TARGET: google_apis
+  API_LEVEL: 15
+  ANDROID_BUILD_TOOLS_VERSION: 19.1.0
+  ANDROID_SDK_PACKAGES: system-images;android-15;google_apis;armeabi-v7a platforms;android-15 build-tools;19.1.0 platform-tools emulator
   EMULATOR_TIMEOUT: 350
   EMULATOR_NAME: nexus
 
@@ -42,16 +42,16 @@ jobs:
 
       - name: Launch emulator
         run: |
-          echo "List packages..."
-          $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --list
-#          chmod +x  ${{ github.workspace }}/.github/scripts/start_emu_headless.sh
-#          EMULATOR_TIMEOUT=$EMULATOR_TIMEOUT EMULATOR_NAME=$EMULATOR_NAME ${{ github.workspace }}/.github/scripts/start_emu_headless.sh
+#          echo "List packages..."
+#          $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --list
+          chmod +x  ${{ github.workspace }}/.github/scripts/start_emu_headless.sh
+          EMULATOR_TIMEOUT=$EMULATOR_TIMEOUT EMULATOR_NAME=$EMULATOR_NAME ${{ github.workspace }}/.github/scripts/start_emu_headless.sh
 
-#      - name: Run Tests
-#        run: |
-#          ./gradlew connectedAndroidTest --stacktrace --info
-#        timeout-minutes: 30 # Adjust as needed
-#
-#      - name: Stop Android Emulator
-#        run: |
-#          $ANDROID_SDK_ROOT/emulator/emulator adb emu kill
+      - name: Run Tests
+        run: |
+          ./gradlew connectedAndroidTest --stacktrace --info
+        timeout-minutes: 30 # Adjust as needed
+
+      - name: Stop Android Emulator
+        run: |
+          $ANDROID_SDK_ROOT/emulator/emulator adb emu kill
