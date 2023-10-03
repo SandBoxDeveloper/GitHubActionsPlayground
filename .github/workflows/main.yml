@@ -29,7 +29,7 @@ jobs:
 
       - name: Stop Android Emulator 1
         run: |
-          ${{ github.workspace }}/.github/scripts/list_devices.sh
+          chmod +x ${{ github.workspace }}/.github/scripts/list_devices.sh
 
       - name: Add avdmanager and sdkmanager to system PATH
         run: |
