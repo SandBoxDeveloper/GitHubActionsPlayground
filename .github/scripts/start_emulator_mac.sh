@@ -21,4 +21,4 @@ $ANDROID_SDK_ROOT/emulator -avd $AVD_NAME $AVD_OPTIONS &
 echo "Waiting for the emulator to start..."
 
 # You can adjust the timeout as needed (e.g., change 'timeout 10m' to 'timeout 5m' for a 5-minute timeout)
-timeout 10m $ANDROID_SDK_ROOT/platform-tools/adb wait-for-device shell 'while [[ -z $(getprop sys.boot_completed) ]]; do sleep 1; done; input keyevent 82'
+gtimeout 10m $ANDROID_SDK_ROOT/platform-tools/adb wait-for-device shell 'while [[ -z $(getprop sys.boot_completed) ]]; do sleep 1; done; input keyevent 82'
