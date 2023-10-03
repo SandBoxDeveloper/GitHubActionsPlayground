@@ -6,7 +6,7 @@ AVD_NAME="my_emulator"
 AVD_OPTIONS="-no-snapshot -no-audio -no-window"
 
 echo "List packages..."
-echo $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --list
+$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --list
 
 # Create and start the emulator
 echo "Creating and starting the Android emulator..."
