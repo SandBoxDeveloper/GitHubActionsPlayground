@@ -10,7 +10,7 @@ jobs:
 
   setup_and_build:
     name: Setup and Build Android Emulator
-    runs-on: ubuntu-latest # Using Ubuntu runner
+    runs-on: macOS-latest # Using Ubuntu runner
 
     steps:
       - name: Check out code
@@ -26,12 +26,6 @@ jobs:
         run: |
           # List files in the .github/scripts folder
           ls "${{ github.workspace }}/.github/scripts"
-
-      - name: Enable KVM group perms
-        run: |
-          echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
-          sudo udevadm control --reload-rules
-          sudo udevadm trigger --name-match=kvm
 
       - name: Install Android SDK and Emulator
         run: |
