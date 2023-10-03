@@ -34,14 +34,14 @@ hw_accel_flag=$(check_hardware_acceleration)
 
 function launch_emulator () {
   adb devices | grep emulator | cut -f1 | xargs -I {} adb -s "{}" emu kill
-  options="@${emulator_name} -no-window -no-snapshot -screen no-touch -noaudio -memory 2048 -no-boot-anim ${hw_accel_flag} -camera-back none"
+  options="@${emulator_name} -no-window -gpu swiftshader_indirect -no-snapshot -noaudio -no-boot-anim"
   if [[ "$OSTYPE" == *linux* ]]; then
-    echo "${OSTYPE}: emulator -force ${options} -gpu off"
+    echo "${OSTYPE}: emulator ${options} -gpu off"
     nohup emulator $options -gpu off &
   fi
   if [[ "$OSTYPE" == *darwin* ]] || [[ "$OSTYPE" == *macos* ]]; then
     echo "im here"
-    echo "${OSTYPE}: emulator -force ${options} -gpu swiftshader_indirect"
+    echo "${OSTYPE}: emulator ${options} -gpu swiftshader_indirect"
     nohup emulator $options -gpu swiftshader_indirect &
   fi
 
