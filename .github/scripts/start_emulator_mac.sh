@@ -12,10 +12,12 @@ echo "List packages..."
 $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --list
 
 # Install the required system image
-$ANDROID_SDK_ROOT/cmdline-tools/latest/bin/sdkmanager --install "system-images;android-30;google_apis;x86_64"
+#$ANDROID_SDK_ROOT/cmdline-tools/latest/bin/sdkmanager --install "system-images;android-30;google_apis;x86_64"
+$ANDROID_SDK_ROOT/cmdline-tools/latest/bin/sdkmanager --install "system-images;android-19;google_apis;armeabi-v7a"
 
 # Create the AVD
-echo "no" | $ANDROID_SDK_ROOT/cmdline-tools/latest/bin/avdmanager create avd --name "$AVD_NAME" --package "system-images;android-30;google_apis;x86_64" --abi google_apis/x86_64
+#echo "no" | $ANDROID_SDK_ROOT/cmdline-tools/latest/bin/avdmanager create avd --name "$AVD_NAME" --package "system-images;android-30;google_apis;x86_64" --abi google_apis/x86_64
+echo "no" | $ANDROID_SDK_ROOT/cmdline-tools/latest/bin/avdmanager create avd --name "$AVD_NAME" --package "system-images;android-19;google_apis;armeabi-v7a" --abi google_apis/armeabi-v7a
 
 # Start the emulator in the background
 $ANDROID_SDK_ROOT/emulator -avd $AVD_NAME $AVD_OPTIONS &
