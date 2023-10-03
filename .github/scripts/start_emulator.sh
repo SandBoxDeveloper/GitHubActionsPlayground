@@ -7,7 +7,8 @@ AVD_OPTIONS="-no-snapshot -no-audio -no-window"
 
 # Create and start the emulator
 echo "Creating and starting the Android emulator..."
-echo "no" | $ANDROID_HOME/cmdline-tools/latest/bin/avdmanager create avd -n "$AVD_NAME" -k "system-images;android-30;google_apis;x86_64"
+#echo "no" | $ANDROID_HOME/cmdline-tools/latest/bin/avdmanager create avd -n "$AVD_NAME" -k "system-images;android-30;google_apis;x86_64"
+echo "no" | "$ANDROID_HOME/cmdline-tools/latest/bin/avdmanager" create avd -n "$AVD_NAME" -k "system-images;android-30;google_apis;x86_64"
 $ANDROID_SDK_ROOT/tools/emulator @$AVD_NAME $AVD_OPTIONS &
 
 # Wait for the emulator to fully start
