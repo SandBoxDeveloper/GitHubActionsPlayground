@@ -33,6 +33,7 @@ function check_hardware_acceleration() {
 hw_accel_flag=$(check_hardware_acceleration)
 
 function launch_emulator () {
+  adb devices
   adb devices | grep emulator | cut -f1 | xargs -I {} adb -s "{}" emu kill
   options="@${emulator_name} -no-window -gpu swiftshader_indirect -no-snapshot -noaudio -no-boot-anim"
   if [[ "$OSTYPE" == *linux* ]]; then
