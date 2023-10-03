@@ -42,8 +42,6 @@ jobs:
 
       - name: Launch emulator
         run: |
-          echo "List packages..."
-          $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --list
           chmod +x  ${{ github.workspace }}/.github/scripts/start_emu_headless.sh
           EMULATOR_TIMEOUT=$EMULATOR_TIMEOUT EMULATOR_NAME=$EMULATOR_NAME ${{ github.workspace }}/.github/scripts/start_emu_headless.sh
 

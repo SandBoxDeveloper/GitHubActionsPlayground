@@ -65,7 +65,7 @@ function check_emulator_status () {
     if [ "$result" == "1" ]; then
       printf "\e[K${G}==> \u2713 Emulator is ready : '$result'           ${NC}\n"
       adb devices -l
-      adb shell input keyevent 82
+#      adb shell input keyevent 82
       break
     elif [ "$result" == "" ]; then
       printf "${YE}==> Emulator is partially Booted! 😕 ${spinner[$i]} ${NC}\r"
