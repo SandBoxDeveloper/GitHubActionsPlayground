@@ -11,6 +11,7 @@ $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --list
 # Create and start the emulator
 echo "Creating and starting the Android emulator..."
 #echo "no" | $ANDROID_HOME/cmdline-tools/latest/bin/avdmanager create avd -n "$AVD_NAME" -k "system-images;android-30;google_apis;x86_64"
+$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --install "system-images;android-30;google_apis;x86_64"
 echo "no" | "$ANDROID_HOME/cmdline-tools/latest/bin/avdmanager" create avd --name "$AVD_NAME" --package "system-images;android-30;google_apis;x86_64" --abi google_apis/x86_64
 $ANDROID_SDK_ROOT/tools/emulator @$AVD_NAME $AVD_OPTIONS &
 
