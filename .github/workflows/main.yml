@@ -47,7 +47,7 @@ jobs:
 
       - name: Run Tests
         run: |
-          ./gradlew connectedAndroidTest
+          ./gradlew connectedAndroidTest --stacktrace --info
         timeout-minutes: 30 # Adjust as needed
 
       - name: Stop Android Emulator
