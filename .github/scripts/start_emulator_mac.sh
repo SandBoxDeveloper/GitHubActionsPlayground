@@ -20,5 +20,7 @@ $ANDROID_SDK_ROOT/emulator -avd $AVD_NAME $AVD_OPTIONS &
 # Wait for the emulator to fully start
 echo "Waiting for the emulator to start..."
 
+brew install coreutils
+
 # You can adjust the timeout as needed (e.g., change 'timeout 10m' to 'timeout 5m' for a 5-minute timeout)
 gtimeout 10m $ANDROID_SDK_ROOT/platform-tools/adb wait-for-device shell 'while [[ -z $(getprop sys.boot_completed) ]]; do sleep 1; done; input keyevent 82'
