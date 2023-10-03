@@ -43,7 +43,7 @@ function launch_emulator () {
     nohup emulator $options -gpu off &
   fi
   if [[ "$OSTYPE" == *darwin* ]] || [[ "$OSTYPE" == *macos* ]]; then
-    echo "im here"
+    echo "im here in a - darwin or macOS system"
     echo "${OSTYPE}: emulator ${options} -gpu swiftshader_indirect"
     nohup emulator $options -gpu swiftshader_indirect &
   fi
@@ -103,5 +103,5 @@ check_emulator_status
 sleep 1
 disable_animation
 sleep 1
-hidden_policy
-sleep 1
+#hidden_policy
+#sleep 1
