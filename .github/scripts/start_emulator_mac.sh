@@ -8,6 +8,9 @@ AVD_OPTIONS="-no-snapshot -no-audio -no-window"
 # Create and start the emulator
 echo "Creating and starting the Android emulator..."
 
+echo "List packages..."
+$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --list
+
 # Install the required system image
 $ANDROID_SDK_ROOT/cmdline-tools/latest/bin/sdkmanager --install "system-images;android-30;google_apis;x86_64"
 
