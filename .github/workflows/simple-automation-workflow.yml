@@ -1,0 +1,52 @@
+name: Simple Android Espresso Tests
+
+on:
+#  pull_request:
+#    branches:
+#      - main
+  workflow_dispatch:
+
+jobs:
+
+  setup_and_build:
+    name: Setup and Build Android Emulator
+    runs-on: macOS-latest # Using Ubuntu runner
+
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v2
+
+      - name: Set up Android SDK
+        uses: actions/setup-java@v3
+        with:
+          java-version: '11'
+          distribution: 'adopt'
+
+      - name: List Files in .github/scripts folder
+        run: |
+          # List files in the .github/scripts folder
+          ls "${{ github.workspace }}/.github/scripts"
+
+      - name: Install Android SDK and Emulator
+        run: |
+          # Run the install_android.sh script
+          chmod +x ${{ github.workspace }}/.github/scripts/install_android_mac.sh
+          ${{ github.workspace }}/.github/scripts/install_android_mac.sh
+        timeout-minutes: 20 # Adjust as needed
+
+      - name: Start Android Emulator
+        run: |
+          # Run the start_emulator.sh script
+          chmod +x ${{ github.workspace }}/.github/scripts/start_emulator_mac.sh
+          source $HOME/.bashrc # Load environment variables
+          ${{ github.workspace }}/.github/scripts/start_emulator_mac.sh
+        timeout-minutes: 10 # Adjust as needed
+
+      - name: Run Tests
+        run: |
+          # Your test commands here
+        timeout-minutes: 30 # Adjust as needed
+
+      - name: Stop Android Emulator
+        run: |
+          $ANDROID_SDK_ROOT/emulator/emulator -
