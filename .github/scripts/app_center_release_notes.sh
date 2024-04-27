@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+chmod +x "$0"
+
 getGitSha() {
   git rev-parse --short HEAD
 }
