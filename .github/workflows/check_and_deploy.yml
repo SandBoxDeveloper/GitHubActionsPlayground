@@ -41,8 +41,6 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-        with:
-          path: github/scripts
 
       - name: Generate Dev APK
         run: ./gradlew assembleDebug
@@ -67,6 +65,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
       - name: Download All Artifacts
         uses: actions/download-artifact@v2
 
