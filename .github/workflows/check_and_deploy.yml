@@ -41,6 +41,8 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
+        with:
+          path: github/scripts
 
       - name: Generate Dev APK
         run: ./gradlew assembleDebug
