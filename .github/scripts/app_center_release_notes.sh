@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 
+# Grant executable permissions to the script
 chmod +x "$0"
 
 getGitSha() {

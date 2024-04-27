@@ -81,6 +81,9 @@ jobs:
       - name: List Files in Directory
         run: ls -R
 
+      - name: Check Script Permissions
+        run: ls -l /home/runner/work/GitHubActionsPlayground/GitHubActionsPlayground/.github/scripts/app_center_release_notes.sh
+
       - name: Generate Release Notes
         id: export-release-notes
         run : |
