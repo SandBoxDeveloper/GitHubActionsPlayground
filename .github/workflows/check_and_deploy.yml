@@ -75,6 +75,9 @@ jobs:
           ls -R
         shell: bash
 
+      - name: List Files in Directory
+        run: ls -R
+
       - name: Generate Release Notes
         id: export-release-notes
         run : |
