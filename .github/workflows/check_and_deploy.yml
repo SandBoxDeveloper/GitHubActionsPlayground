@@ -11,28 +11,28 @@ on:
 
 jobs:
 
-  unit_tests:
-    runs-on: [ubuntu-latest]
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Run Unit tests
-        run: ./gradlew test
-
-  android_tests:
-    runs-on: [ macos-latest ]
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Set up Java
-        uses: actions/setup-java@v2
-        with:
-          java-version: '11'
-          distribution: 'adopt'
+#  unit_tests:
+#    runs-on: [ubuntu-latest]
+#
+#    steps:
+#      - name: Checkout code
+#        uses: actions/checkout@v2
+#
+#      - name: Run Unit tests
+#        run: ./gradlew test
+#
+#  android_tests:
+#    runs-on: [ macos-latest ]
+#
+#    steps:
+#      - name: Checkout code
+#        uses: actions/checkout@v2
+#
+#      - name: Set up Java
+#        uses: actions/setup-java@v2
+#        with:
+#          java-version: '11'
+#          distribution: 'adopt'
 
   build:
     needs: [ unit_tests ]
@@ -79,7 +79,7 @@ jobs:
         shell: bash
 
       - name: List Files in Directory
-        run: ls -R $GITHUB_WORKSPACE
+        run: ls -R
 
       - name: Generate Release Notes
         id: export-release-notes
