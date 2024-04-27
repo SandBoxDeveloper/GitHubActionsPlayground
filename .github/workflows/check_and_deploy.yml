@@ -76,7 +76,7 @@ jobs:
         shell: bash
 
       - name: List Files in Directory
-        run: ls -R
+        run: ls -R $GITHUB_WORKSPACE
 
       - name: Generate Release Notes
         id: export-release-notes
