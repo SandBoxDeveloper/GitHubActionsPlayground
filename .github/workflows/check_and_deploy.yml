@@ -75,7 +75,15 @@ jobs:
           ls -R
         shell: bash
 
+      - name: Generate Release Notes
+        id: export-release-notes
+        run : |
+          ${{ github.workspace }}/.github/scripts/app_center_release_notes.sh
+        env:
+          RELEASE_NOTES_OUTPUT: ${{ steps.export-release-notes.outputs.stdout }}
+
       - name: Upload to Appcenter
         run: |
-          appcenter distribute groups publish -f ./dev-build/app-debug.apk --token ${{ secrets.APP_CENTER_TOKEN }} --app GithubTest/GithubActionsApp -g "Beta Testers" -r "TODO some release notes" --debug
+          echo $RELEASE_NOTES_OUTPUT >> release_notes_markdown.md
+          appcenter distribute groups publish -f ./dev-build/app-debug.apk --token ${{ secrets.APP_CENTER_TOKEN }} --app GithubTest/GithubActionsApp -g "Beta Testers" -R release_notes_markdown.md --debug
         shell: bash
