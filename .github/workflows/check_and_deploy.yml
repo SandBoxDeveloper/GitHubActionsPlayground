@@ -94,6 +94,10 @@ jobs:
         env:
           RELEASE_NOTES_OUTPUT: ${{ steps.export-release-notes.outputs.stdout }}
 
+      - name: Debug Script Output
+        run: |
+          echo "Script Output: '${{ env.RELEASE_NOTES_OUTPUT }}'"
+
       - name: Upload to Appcenter
         run: |
           echo "${{ env.RELEASE_NOTES_OUTPUT }}" >> release_notes_markdown.md
