@@ -96,7 +96,7 @@ jobs:
 
       - name: Debug Script Output
         run: |
-          echo "Script Output: '${{ env.RELEASE_NOTES_OUTPUT }}'"
+          echo "MY_VARIABLE=$RELEASE_NOTES_OUTPUT"
 
       - name: Upload to Appcenter
         run: |
