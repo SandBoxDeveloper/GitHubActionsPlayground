@@ -93,15 +93,15 @@ jobs:
       - name: Grant execute permissions
         run: chmod +x /home/runner/work/GitHubActionsPlayground/GitHubActionsPlayground/.github/scripts/app_center_release_notes.sh
 
-      - name: Generate Release Notes
-        id: export-release-notes
-        run : |
-          sh /home/runner/work/GitHubActionsPlayground/GitHubActionsPlayground/.github/scripts/app_center_release_notes.sh
-          cat release_notes_markdown.md
-        shell: bash
-        env:
-          RELEASE_NOTES_OUTPUT_NOT: $release_notes_markdown.md
-          RELEASE_NOTES_OUTPUT: ${{ steps.export-release-notes.outputs.stdout }}
+#      - name: Generate Release Notes
+#        id: export-release-notes
+#        run : |
+#          sh /home/runner/work/GitHubActionsPlayground/GitHubActionsPlayground/.github/scripts/app_center_release_notes.sh
+#          cat release_notes_markdown.md
+#        shell: bash
+#        env:
+#          RELEASE_NOTES_OUTPUT_NOT: $release_notes_markdown.md
+#          RELEASE_NOTES_OUTPUT: ${{ steps.export-release-notes.outputs.stdout }}
 
       - name: Debug Script Output
         run: |
