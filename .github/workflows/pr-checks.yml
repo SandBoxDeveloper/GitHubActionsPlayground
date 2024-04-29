@@ -9,16 +9,13 @@ on:
 
 jobs:
 
-#  linting_checks:
-#    runs-on: [ubuntu-latest]
-
-
-  unit_tests:
+  pr_checks:
+    name: Unit Tests
     runs-on: [ubuntu-latest]
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Run Unit tests
-        run: ./gradlew test
+      - name: Run Unit tests for Debug Build Variant
+        run: ./gradlew testDebug
