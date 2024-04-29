@@ -73,7 +73,7 @@ jobs:
             echo "| App Target SDK | $targetSdk |"
             echo "| App Center Download Link | [Download Url]($appCenterReleaseUrl)"
             echo ""
-          } >> STEP_BUILD_INFO_SUMMARY
+          } >> GITHUB_STEP_SUMMARY
 
       - name: Generate Build Information Notes
         run: |
