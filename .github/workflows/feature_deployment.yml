@@ -75,12 +75,6 @@ jobs:
             echo ""
           } >> GITHUB_STEP_SUMMARY
 
-      - name: Generate Build Information Notes
-        run: |
-          EOF=$(dd if=/dev/urandom bs=15 count=1 status=none | base64)
-          echo "releaseNotes<<$EOF" >> $STEP_BUILD_INFO_SUMMARY
-          
-
       - name: Install AppCenter CLI
         run: |
           npm install -g appcenter-cli
