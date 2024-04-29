@@ -96,12 +96,15 @@ jobs:
       - name: Generate Release Notes
         id: export-release-notes
         run : |
-          sh /home/runner/work/GitHubActionsPlayground/GitHubActionsPlayground/.github/scripts/app_center_release_notes.sh
+          sh /home/runner/work/GitHubActionsPlayground/GitHubActionsPlayground/.github/scripts/app_center_release_notes.sh releaseNotes
+          cat releaseNotes
         env:
+          RELEASE_NOTES_OUTPUT_NOT: $releaseNotes
           RELEASE_NOTES_OUTPUT: ${{ steps.export-release-notes.outputs.stdout }}
 
       - name: Debug Script Output
         run: |
+          echo "MY_VARIABLE=$RELEASE_NOTES_OUTPUT_NOT"
           echo "MY_VARIABLE=$RELEASE_NOTES_OUTPUT"
 
       - name: Upload to Appcenter
