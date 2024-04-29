@@ -65,7 +65,7 @@ jobs:
           retention-days: 3
 
   deploy:
-#    needs: [ build ]
+    needs: [ build ]
     runs-on: ubuntu-latest
 
     steps:
@@ -107,6 +107,7 @@ jobs:
         run: |
           echo "MY_VARIABLE=$RELEASE_NOTES_OUTPUT_NOT"
           echo "MY_VARIABLE=$RELEASE_NOTES_OUTPUT"
+          echo release_notes_markdown.md
 
       - name: Upload to Appcenter
         run: |
