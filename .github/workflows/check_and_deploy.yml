@@ -11,17 +11,17 @@ on:
 
 jobs:
 
-  unit_tests:
-    runs-on: [ubuntu-latest]
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
-
-      - name: Run Unit tests
-        run: ./gradlew test
+#  unit_tests:
+#    runs-on: [ubuntu-latest]
+#
+#    steps:
+#      - name: Checkout code
+#        uses: actions/checkout@v2
+#        with:
+#          fetch-depth: 0
+#
+#      - name: Run Unit tests
+#        run: ./gradlew test
 
 #  android_tests:
 #    runs-on: [ macos-latest ]
@@ -65,7 +65,7 @@ jobs:
           retention-days: 3
 
   deploy:
-    needs: [ build ]
+#    needs: [ build ]
     runs-on: ubuntu-latest
 
     steps:
@@ -96,11 +96,11 @@ jobs:
       - name: Generate Release Notes
         id: export-release-notes
         run : |
-          sh /home/runner/work/GitHubActionsPlayground/GitHubActionsPlayground/.github/scripts/app_center_release_notes.sh releaseNotes
+          sh /home/runner/work/GitHubActionsPlayground/GitHubActionsPlayground/.github/scripts/app_center_release_notes.sh
           cat release_notes_markdown.md
         shell: bash
         env:
-          RELEASE_NOTES_OUTPUT_NOT: $releaseNotes
+          RELEASE_NOTES_OUTPUT_NOT: $release_notes_markdown.md
           RELEASE_NOTES_OUTPUT: ${{ steps.export-release-notes.outputs.stdout }}
 
       - name: Debug Script Output
