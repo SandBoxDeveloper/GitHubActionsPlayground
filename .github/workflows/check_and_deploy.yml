@@ -41,6 +41,8 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
 
       - name: Generate Dev APK
         run: ./gradlew assembleDebug
@@ -77,7 +79,7 @@ jobs:
 
       - name: Upload Debug Build to Appcenter
         run: |
-          sh ${{ github.workspace }}/.github/scripts/app_center_release_notes.sh releaseNotes
+          sh /home/runner/work/GitHubActionsPlayground/GitHubActionsPlayground/.github/scripts/app_center_release_notes.sh releaseNotes
           cat release_notes_markdown.md
           appcenter distribute groups publish -f ./dev-build/app-debug.apk --token ${{ secrets.APP_CENTER_TOKEN }} --app GithubTest/GithubActionsApp -g "Beta Testers" -R release_notes_markdown.md --debug
         shell: bash
