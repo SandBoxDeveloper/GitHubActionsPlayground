@@ -56,14 +56,14 @@ jobs:
         id: get-build-information
         run: |
           echo "Get Build Information"
-          appCenterReleaseUrl="https://appcenter.ms/orgs/GithubTest/apps/GithubActionsApp/distribute/releases"
           versionName=$(./gradlew printProjectPropertyName -PconfigKey=versionName -q)
           versionCode=$(./gradlew printProjectPropertyName -PconfigKey=versionCode -q)
           minSdk=$(./gradlew printProjectPropertyName -PconfigKey=minSdk -q)
           targetSdk=$(./gradlew printProjectPropertyName -PconfigKey=targetSdk -q)
+          appCenterReleaseUrl="https://appcenter.ms/orgs/GithubTest/apps/GithubActionsApp/distribute/releases"
 
           {
-            echo "=== Build Information ==="
+            echo "### Build Information"
             echo "| Name | Value |"
             echo "| ---- | ----- |"
           
