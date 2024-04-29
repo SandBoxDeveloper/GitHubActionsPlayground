@@ -97,7 +97,8 @@ jobs:
         id: export-release-notes
         run : |
           sh /home/runner/work/GitHubActionsPlayground/GitHubActionsPlayground/.github/scripts/app_center_release_notes.sh releaseNotes
-          cat releaseNotes
+          cat release_notes_markdown.md
+        shell: bash
         env:
           RELEASE_NOTES_OUTPUT_NOT: $releaseNotes
           RELEASE_NOTES_OUTPUT: ${{ steps.export-release-notes.outputs.stdout }}
