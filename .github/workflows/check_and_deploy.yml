@@ -40,7 +40,9 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 10
 
       - name: Generate Dev APK
         run: ./gradlew assembleDebug
@@ -61,12 +63,18 @@ jobs:
           retention-days: 3
 
   deploy:
+    name: Deploy Debug Build
     needs: [ build ]
     runs-on: ubuntu-latest
 
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
       - name: Download All Artifacts
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v3
 
       - name: Install AppCenter CLI
         run: |
@@ -75,7 +83,9 @@ jobs:
           ls -R
         shell: bash
 
-      - name: Upload to Appcenter
+      - name: Upload Debug Build to Appcenter
         run: |
-          appcenter distribute groups publish -f ./dev-build/app-debug.apk --token ${{ secrets.APP_CENTER_TOKEN }} --app GithubTest/GithubActionsApp -g "Beta Testers" -r "TODO some release notes" --debug
+          sh /home/runner/work/GitHubActionsPlayground/GitHubActionsPlayground/.github/scripts/app_center_release_notes.sh releaseNotes
+          cat release_notes_markdown.md
+          appcenter distribute groups publish -f ./dev-build/app-debug.apk --token ${{ secrets.APP_CENTER_TOKEN }} --app GithubTest/GithubActionsApp -g "Beta Testers" -R release_notes_markdown.md --debug
         shell: bash
