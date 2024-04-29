@@ -91,4 +91,4 @@ jobs:
 
       - name: Build Summary Notes
         run: |
-          echo "### Build Notes >> STEP_BUILD_INFO_SUMMARY
+          echo "### Build Notes" >> STEP_BUILD_INFO_SUMMARY
