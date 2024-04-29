@@ -52,7 +52,7 @@ jobs:
       - name: Download All Artifacts
         uses: actions/download-artifact@v3
 
-      - name: Check Build Information
+      - name: Get Build Information
         id: get-build-information
         run: |
           echo "Get Build Information"
@@ -74,6 +74,12 @@ jobs:
             echo "| App Center Download Link | [Download Url]($appCenterReleaseUrl)"
             echo ""
           } >> STEP_BUILD_INFO_SUMMARY
+
+      - name: Generate Build Information Notes
+        run: |
+          EOF=$(dd if=/dev/urandom bs=15 count=1 status=none | base64)
+          echo "releaseNotes<<$EOF" >> $STEP_BUILD_INFO_SUMMARY
+          
 
       - name: Install AppCenter CLI
         run: |
