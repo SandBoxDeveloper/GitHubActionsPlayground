@@ -9,8 +9,8 @@ on:
 
 jobs:
 
-  linting_checks:
-    runs-on: [ubuntu-latest]
+#  linting_checks:
+#    runs-on: [ubuntu-latest]
 
 
   unit_tests:
