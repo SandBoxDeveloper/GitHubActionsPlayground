@@ -52,6 +52,13 @@ jobs:
       - name: Download All Artifacts
         uses: actions/download-artifact@v3
 
+      - name: Check Build Information
+        id: check-build-information
+        run: |
+          echo "Build Information"
+          versionName=$(./gradlew printProjectPropertyName -PconfigKey -q)
+          echo "Version Name: $versionName"
+
       - name: Install AppCenter CLI
         run: |
           npm install -g appcenter-cli
