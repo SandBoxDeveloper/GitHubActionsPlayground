@@ -56,7 +56,7 @@ jobs:
         id: check-build-information
         run: |
           echo "Build Information"
-          versionName=$(./gradlew printProjectPropertyName -PconfigKey -q)
+          versionName=$(./gradlew printProjectPropertyName -PconfigKey=versionName -q)
           echo "Version Name: $versionName"
 
       - name: Install AppCenter CLI
