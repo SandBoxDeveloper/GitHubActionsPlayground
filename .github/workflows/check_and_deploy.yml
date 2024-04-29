@@ -63,6 +63,7 @@ jobs:
           retention-days: 3
 
   deploy:
+    name: Deploy Debug Build
     needs: [ build ]
     runs-on: ubuntu-latest
 
