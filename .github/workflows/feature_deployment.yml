@@ -53,11 +53,27 @@ jobs:
         uses: actions/download-artifact@v3
 
       - name: Check Build Information
-        id: check-build-information
+        id: get-build-information
         run: |
-          echo "Build Information"
+          echo "Get Build Information"
+          appCenterReleaseUrl="https://appcenter.ms/orgs/GithubTest/apps/GithubActionsApp/distribute/releases"
           versionName=$(./gradlew printProjectPropertyName -PconfigKey=versionName -q)
-          echo "Version Name: $versionName"
+          versionCode=$(./gradlew printProjectPropertyName -PconfigKey=versionCode -q)
+          minSdk=$(./gradlew printProjectPropertyName -PconfigKey=minSdk -q)
+          targetSdk=$(./gradlew printProjectPropertyName -PconfigKey=targetSdk -q)
+
+          {
+            echo "=== Build Information ==="
+            echo "| Name | Value |"
+            echo "| ---- | ----- |"
+          
+            echo "| App Version Name | $versionName |"
+            echo "| App Version Code | $versionCode |"
+            echo "| App Min SDK | $minSdk |"
+            echo "| App Target SDK | $targetSdk |"
+            echo "| App Center Download Link | [Download Url]($appCenterReleaseUrl)"
+            echo ""
+          } >> STEP_BUILD_INFO_SUMMARY
 
       - name: Install AppCenter CLI
         run: |
@@ -72,3 +88,7 @@ jobs:
           cat release_notes_markdown.md
           appcenter distribute groups publish -f ./dev-build/app-debug.apk --token ${{ secrets.APP_CENTER_TOKEN }} --app GithubTest/GithubActionsApp -g "Beta Testers" -R release_notes_markdown.md --debug
         shell: bash
+
+      - name: Build Summary Notes
+        run: |
+          echo "### Build Notes >> STEP_BUILD_INFO_SUMMARY
