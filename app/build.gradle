@@ -55,3 +55,23 @@ dependencies {
 //    androidTestUtil 'androidx.test:orchestrator:1.4.2'
 
 }
+
+task printProjectPropertyName {
+    // Define a project property named 'configKey' to specify the configuration key
+    def configKey = project.hasProperty('configKey') ? project.configKey : null
+
+    doLast {
+        // Check if configKey is provided
+        if (configKey != null) {
+            // Access the configuration dynamically using the provided key
+            def value = android.defaultConfig.getProperty(configKey)
+            if (value != null) {
+                println "$configKey: $value"
+            } else {
+                println "Configuration '$configKey' not found in defaultConfig"
+            }
+        } else {
+            println "Please specify a configuration key using '-PconfigKey=<key>'"
+        }
+    }
+}

@@ -1,41 +1,17 @@
-name: Test and deploy
+name: Deploy Feature
 
-## Actions that will be executed when you push code currently none
 on:
-  pull_request:
+  push:
     branches:
       - main
+      - feature/*
 
   workflow_dispatch:
 
-
 jobs:
 
-  unit_tests:
-    runs-on: [ubuntu-latest]
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Run Unit tests
-        run: ./gradlew test
-
-  android_tests:
-    runs-on: [ macos-latest ]
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Set up Java
-        uses: actions/setup-java@v2
-        with:
-          java-version: '11'
-          distribution: 'adopt'
-
   build:
-    needs: [ unit_tests ]
+    name: Build Debug Build
     runs-on: ubuntu-latest
 
     steps:
@@ -75,6 +51,29 @@ jobs:
 
       - name: Download All Artifacts
         uses: actions/download-artifact@v3
+
+      - name: Get Build Information
+        id: get-build-information
+        run: |
+          echo "Get Build Information"
+          versionName=$(./gradlew printProjectPropertyName -PconfigKey=versionName -q)
+          versionCode=$(./gradlew printProjectPropertyName -PconfigKey=versionCode -q)
+          minSdk=$(./gradlew printProjectPropertyName -PconfigKey=minSdk -q)
+          targetSdk=$(./gradlew printProjectPropertyName -PconfigKey=targetSdk -q)
+          appCenterReleaseUrl="https://appcenter.ms/orgs/GithubTest/apps/GithubActionsApp/distribute/releases"
+
+          {
+            echo "### Build Information"
+            echo "| Name | Value |"
+            echo "| ---- | ----- |"
+          
+            echo "| App Version Name | $versionName |"
+            echo "| App Version Code | $versionCode |"
+            echo "| App Min SDK | $minSdk |"
+            echo "| App Target SDK | $targetSdk |"
+            echo "| App Center Download Link | [Download Url]($appCenterReleaseUrl)"
+            echo ""
+          } >> $GITHUB_STEP_SUMMARY
 
       - name: Install AppCenter CLI
         run: |

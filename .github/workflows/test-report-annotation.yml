@@ -1,4 +1,4 @@
-name: Add Test Reports Annotation
+name: UI Tests Report(s)
 
 on:
   workflow_run:
